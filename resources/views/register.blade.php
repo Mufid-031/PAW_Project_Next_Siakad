@@ -55,7 +55,9 @@
         </x-form.item>
     
         <x-button type="submit" @click="console.log('clicked')">Register</x-button>
-    </x-form>   
+    </x-form>
+
+    <div id="alert-info"></div>
     
     
     
@@ -80,12 +82,31 @@
                     email,
                     password,
                     nim
-                })
-                .then((response) => {
-                    console.log(response.data);
                 });
+
+                if (response.status === 200) {
+                    const alertInfo = document.getElementById("alert-info");
+                    alertInfo.innerHTML = `<x-alert variant="success">
+                                                <x-lucide-rocket class="size-4" />
+                                                <x-alert.title>Register Success</x-alert.title>
+                                                <x-alert.description>
+                                                    Now you can login with your credentials
+                                                </x-alert.description>
+                                            </x-alert>
+                                        `;
+                }
+
             } catch (error) {
                 console.error(error.response?.data || error.message);
+                const alertInfo = document.getElementById("alert-info");
+                    alertInfo.innerHTML = `<x-alert variant="destructive">
+                                                <x-lucide-triangle-alert class="size-4" />
+                                                <x-alert.title>Register Failed</x-alert.title>
+                                                <x-alert.description>
+                                                    Please check your credentials
+                                                </x-alert.description>
+                                            </x-alert>
+                                        `;
             }
         });
 

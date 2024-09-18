@@ -1,7 +1,13 @@
+{{-- {{ dd($getToken) }} --}}
+{{-- {{ dd($token) }} --}}
+
 <x-layout class="flex justify-center items-center">
     <x-form
         id="login-form"
     >
+
+        <div id="alert-info"></div>
+
     
         <x-form.item>
             <x-form.label>NIM</x-form.label>
@@ -33,7 +39,6 @@
     </x-form>   
     
     
-    
     <script>
 
         const formLogin = document.getElementById("login-form");
@@ -42,7 +47,6 @@
             
             e.preventDefault();
 
-
             const nim = formLogin.nim.value;
             const password = formLogin.password.value;
 
@@ -50,13 +54,46 @@
                 const response = await axios.post('http://localhost:3000/api/students/login', {
                     nim,
                     password
-                })
-                .then((response) => {
-                    console.log(response.data);
                 });
 
+                
+
+                if (response.status === 200) {
+                    const alertInfo = document.getElementById("alert-info");
+                    alertInfo.innerHTML = `<x-alert variant="success">
+                                                <x-lucide-rocket class="size-4" />
+                                                <x-alert.title>Login Success</x-alert.title>
+                                                <x-alert.description>
+                                                    Welcome ${response.data.name}
+                                                </x-alert.description>
+                                            </x-alert>
+                                        `;
+
+                    
+
+                    const token = await response.data.data.token;
+                    console.log(token);
+
+                    await axios.post('/save-token', {
+                        token: token
+                    }).then((response) => {
+                        console.log(response.data.message);
+                    }).catch((error) => {
+                        console.error(error.response.data.message || error.message);
+                    });
+                }
+
             } catch (error) {
-                console.error(error.response?.data.message || error.message);
+                console.error(error.response?.message || error.message);
+                const alertInfo = document.getElementById("alert-info");
+                    alertInfo.innerHTML = `<x-alert variant="destructive">
+                                                <x-lucide-triangle-alert class="size-4" />
+                                                <x-alert.title>Login Failed</x-alert.title>
+                                                <x-alert.description>
+                                                    Please check your credentials
+                                                </x-alert.description>
+                                            </x-alert>
+                                        `;
             }
         });
 
