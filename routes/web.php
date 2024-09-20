@@ -1,15 +1,40 @@
 <?php
 
 use App\Http\Controllers\TokenController;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('auth/register', function () {
-    return view('register');
+
+// Student routes
+Route::get('auth/register/student', function () {
+    return view('student-register');
+});
+
+Route::get('auth/login/student', function () {
+    return view('student-login');
+});
+
+
+// Teacher routes
+Route::get('auth/register/teacher', function () {
+   return view('teacher-register'); 
+});
+
+Route::get('auth/login/teacher', function () {
+    return view('teacher-login');
+});
+
+
+// Admin routes
+Route::get('auth/login/admin', function () {
+   return view('admin-login'); 
+});
+
+Route::get('auth/register/admin', function () {
+   return view('admin-register');
 });
 
 Route::get('/dashboard', function () {
@@ -18,25 +43,22 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/students', function () {
 
-
-    $token = session('token');
+    $token = TokenController::get();
 
     if ($token) {
 
-        $response = Http::withHeaders([
-            'X-API-TOKEN' => $token,
-        ])->get('http://localhost:3000/api/students');
-    
-        $students = $response->json();
-    
+        $students = TokenController::getStudents($token);
+        
         if ($students) {
             
             return view('student-data', [
                 'students' => $students,
-                'title' => 'Student Data',
+                'token' => $token
             ]); 
         };
 
+    } else {
+        redirect()->route("auth/login/admin");
     }
 
     return view('student-data', [
@@ -46,10 +68,8 @@ Route::get('/dashboard/students', function () {
 
 });
 
-Route::get('auth/login', function () {
 
-
-    return view('login');
-});
-
+// Token routes
 Route::post('/save-token', [TokenController::class, 'store']);
+Route::post('/get-token', [TokenController::class, 'get']);
+Route::post('/destroy-token', [TokenController::class, 'destroyToken']);

@@ -6,17 +6,21 @@
         id="login-form"
     >
 
+        <x-form.description>
+            Login Teacher
+        </x-form.description>
+
         <div id="alert-info"></div>
 
     
         <x-form.item>
-            <x-form.label>NIM</x-form.label>
+            <x-form.label>NIP</x-form.label>
             <x-input 
                 x-form:control
-                placeholder="Your NIM"
+                placeholder="Your NIP"
                 class="w-96"
-                name="nim"
-                id="nim"
+                name="nip"
+                id="nip"
             />
             <x-form.message />
         </x-form.item>
@@ -47,12 +51,12 @@
             
             e.preventDefault();
 
-            const nim = formLogin.nim.value;
+            const nip = formLogin.nip.value;
             const password = formLogin.password.value;
 
             try {
-                const response = await axios.post('http://localhost:3000/api/students/login', {
-                    nim,
+                const response = await axios.post('http://localhost:3000/api/teachers/login', {
+                    nip,
                     password
                 });
 
@@ -96,7 +100,6 @@
                                         `;
             }
         });
-
 
 
     </script>

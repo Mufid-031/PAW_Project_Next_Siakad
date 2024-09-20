@@ -2,6 +2,11 @@
     <x-form
         id="register-form"
     >
+
+        <x-form.description>
+            Register Teacher
+        </x-form.description>
+
         <x-form.item>
             <x-form.label>Name</x-form.label>
             <x-input
@@ -16,13 +21,13 @@
     
     
         <x-form.item>
-            <x-form.label>NIM</x-form.label>
+            <x-form.label>NIP</x-form.label>
             <x-input 
                 x-form:control
-                placeholder="Your NIM"
+                placeholder="Your NIP"
                 class="w-96"
-                name="nim"
-                id="nim"
+                name="nip"
+                id="nip"
             />
             <x-form.message />
         </x-form.item>
@@ -59,8 +64,6 @@
 
     <div id="alert-info"></div>
     
-    
-    
     <script>
 
         const formRegister = document.getElementById("register-form");
@@ -72,16 +75,16 @@
             const name = formRegister.name.value;
             const email = formRegister.email.value;
             const password = formRegister.password.value;
-            const nim = formRegister.nim.value;
+            const nip = formRegister.nip.value;
 
-            console.log(name, email, password, nim);
+            console.log(name, email, password, nip);
 
             try {
-                const response = await axios.post('http://localhost:3000/api/students/register', {
+                const response = await axios.post('http://localhost:3000/api/teachers/register', {
                     name,
                     email,
                     password,
-                    nim
+                    nip
                 });
 
                 if (response.status === 200) {
@@ -109,8 +112,6 @@
                                         `;
             }
         });
-
-
 
     </script>
 

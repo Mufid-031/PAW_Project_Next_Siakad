@@ -1,3 +1,3 @@
-<p x-form:description {{ $attributes->merge(['class' => 'text-[0.8rem] text-muted-foreground' ])}}>
+<p x-form:description {{ $attributes->merge(['class' => 'text-xl text-muted-foreground font-bold' ])}}>
     {{ $slot }}
 </p>
