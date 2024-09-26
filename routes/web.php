@@ -30,6 +30,13 @@ Route::get('auth/login/teacher', function () {
 
 // Admin routes
 Route::get('auth/login/admin', function () {
+
+    $token = TokenController::get();
+
+    if ($token) {
+        return redirect('/dashboard/students');
+    }
+
    return view('admin-login'); 
 });
 
@@ -58,13 +65,8 @@ Route::get('/dashboard/students', function () {
         };
 
     } else {
-        redirect()->route("auth/login/admin");
+        return redirect('/auth/login/admin');
     }
-
-    return view('student-data', [
-        'students' => [],
-        'title' => 'Student Data',
-    ]);
 
 });
 

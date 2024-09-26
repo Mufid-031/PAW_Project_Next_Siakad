@@ -11,6 +11,7 @@
     @vite('resources/css/app.css')
     @vite(['resources/css/luvi-ui.css', 'resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Next Siakad</title>
 </head>
 <body class="{{ $class }}">

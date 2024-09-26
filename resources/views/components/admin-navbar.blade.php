@@ -1,3 +1,7 @@
+@props([
+  'token' => null
+])
+
 <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
     <div class="flex flex-wrap justify-between items-center">
       <div class="flex justify-start items-center">
@@ -716,7 +720,7 @@
             <li>
               <p
                 id="sign-out"
-                class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                class="cursor-pointerblock py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 >Sign out</
               >
             </li>
@@ -732,17 +736,36 @@
       signOut.addEventListener("click", async () => {
 
         try {
-          const response = await axios.post("http://localhost:3000/api/admin/logout")
 
+          const token = await axios.post("/get-token");
+
+          if (!token) {
+            console.log("Token not found");
+            return;
+          };
+
+          console.log(token);
+
+          const response = await axios.post("http://localhost:3000/api/admin/logout", {}, {
+            headers: {
+              "X-API-TOKEN": `${token.data}`
+            }
+          });
           
           if (response.status === 200) {
             console.log("success");
 
-            const destroyToken = await axios.post("/destroy", {
-              token: response.data.data.token
+            const destroyToken = await axios.post("/destroy-token", {
+              token: token.data
             });
 
             console.log(destroyToken);
+
+            if (destroyToken.status === 200) {
+              console.log("Token destroyed");
+
+              window.location.replace("http://next-siakad-new.test:30/auth/login/admin");
+            }
           }
           
         } catch (error) {

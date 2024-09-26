@@ -1,68 +1,33 @@
+@props([
+    'description' => 'Register',
+    'role' => 'Teacher',
+    'formItems' => [
+        [
+            'label' => 'Name',
+            'name' => 'name',
+            'id' => 'name'
+        ],
+        [
+            'label' => 'NIP',
+            'name' => 'nip',
+            'id' => 'nip'
+        ],
+        [
+            'label' => 'Email',
+            'name' => 'email',
+            'id' => 'email'
+        ],
+        [
+            'label' => 'Password',
+            'name' => 'password',
+            'id' => 'password'
+        ]
+    ],
+])
+
 <x-layout class="flex justify-center items-center">
-    <x-form
-        id="register-form"
-    >
-
-        <x-form.description>
-            Register Teacher
-        </x-form.description>
-
-        <x-form.item>
-            <x-form.label>Name</x-form.label>
-            <x-input
-                x-form:control
-                placeholder="Your name"
-                class="w-96"
-                name="name"
-                id="name"
-            />
-            <x-form.message />
-        </x-form.item>
     
-    
-        <x-form.item>
-            <x-form.label>NIP</x-form.label>
-            <x-input 
-                x-form:control
-                placeholder="Your NIP"
-                class="w-96"
-                name="nip"
-                id="nip"
-            />
-            <x-form.message />
-        </x-form.item>
-
-
-        <x-form.item>
-            <x-form.label>Email</x-form.label>
-            <x-input 
-                x-form:control
-                type="email"
-                placeholder="Your email address"
-                class="w-96"
-                name="email"
-                id="email"
-            />
-            <x-form.message />
-        </x-form.item>
-    
-        <x-form.item>
-            <x-form.label>Password</x-form.label>
-            <x-input
-                x-form:control
-                placeholder="Your password"
-                class="w-96"
-                type="password"
-                name="password"
-                id="password"
-            />
-            <x-form.message />
-        </x-form.item>
-    
-        <x-button type="submit" @click="console.log('clicked')">Register</x-button>
-    </x-form>
-
-    <div id="alert-info"></div>
+    <x-auth-layout description="Register" role="Teacher" :formItems="$formItems" />
     
     <script>
 

@@ -1,47 +1,23 @@
-{{-- {{ dd($getToken) }} --}}
-{{-- {{ dd($token) }} --}}
+@props([
+    'description' => 'Login',
+    'role' => 'Teacher',
+    'formItems' => [
+        [
+            'label' => 'NIP',
+            'name' => 'nip',
+            'id' => 'nip'
+        ],
+        [
+            'label' => 'Password',
+            'name' => 'password',
+            'id' => 'password'
+        ]
+    ],
+])
 
 <x-layout class="flex justify-center items-center">
-    <x-form
-        id="login-form"
-    >
-
-        <x-form.description>
-            Login Teacher
-        </x-form.description>
-
-        <div id="alert-info"></div>
-
     
-        <x-form.item>
-            <x-form.label>NIP</x-form.label>
-            <x-input 
-                x-form:control
-                placeholder="Your NIP"
-                class="w-96"
-                name="nip"
-                id="nip"
-            />
-            <x-form.message />
-        </x-form.item>
-
-    
-        <x-form.item>
-            <x-form.label>Password</x-form.label>
-            <x-input
-                x-form:control
-                placeholder="Your password"
-                class="w-96"
-                type="password"
-                name="password"
-                id="password"
-            />
-            <x-form.message />
-        </x-form.item>
-    
-        <x-button type="submit" @click="console.log('clicked')">Login</x-button>
-    </x-form>   
-    
+    <x-auth-layout description="Login" role="Teacher" :formItems="$formItems" />
     
     <script>
 

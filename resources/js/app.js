@@ -12,5 +12,5 @@ const modules = import.meta.glob("./plugins/**/*.js", { eager: true });
 for (const path in modules) {
     Alpine.plugin(modules[path].default);
 }
- 
+
 Alpine.start();
