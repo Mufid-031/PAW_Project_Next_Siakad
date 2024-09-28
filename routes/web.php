@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,71 +10,82 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-// Student routes
-Route::get('auth/register/student', function () {
-    return view('student-register');
+Route::prefix('auth')->group(function() {
+    Route::get('/register/student', function () {
+        return view('auth/student/student-register');
+    });
+    Route::get('/login/student', function () {
+        return view('auth/student/student-login');
+    });
+    Route::get('/register/teacher', function () {
+       return view('auth/teacher/teacher-register'); 
+    });
+    
+    Route::get('/login/teacher', function () {
+        return view('auth/teacher/teacher-login');
+    });
+    Route::get('/register/admin', function () {
+       return view('auth/admin/admin-register');
+    });
+    Route::get('/login/admin', function () {
+        $token = TokenController::get();
+        if ($token) {
+            return redirect('/dashboard/students');
+        }
+       return view('auth/admin/admin-login'); 
+    });
 });
 
-Route::get('auth/login/student', function () {
-    return view('student-login');
-});
-
-
-// Teacher routes
-Route::get('auth/register/teacher', function () {
-   return view('teacher-register'); 
-});
-
-Route::get('auth/login/teacher', function () {
-    return view('teacher-login');
-});
-
-
-// Admin routes
-Route::get('auth/login/admin', function () {
-
-    $token = TokenController::get();
-
-    if ($token) {
-        return redirect('/dashboard/students');
-    }
-
-   return view('admin-login'); 
-});
-
-Route::get('auth/register/admin', function () {
-   return view('admin-register');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/dashboard/students', function () {
-
-    $token = TokenController::get();
-
-    if ($token) {
-
-        $students = TokenController::getStudents($token);
-        
+Route::prefix('dashboard')->group(function() {
+    Route::get('/', function () {
+        return view('dashboard/index');
+    });
+    Route::get('/students', function () {
+        $students = StudentController::getStudents();
         if ($students) {
             
-            return view('student-data', [
+            return view('dashboard/students-data', [
                 'students' => $students,
-                'token' => $token
             ]); 
         };
-
-    } else {
-        return redirect('/auth/login/admin');
-    }
-
+    });
+    Route::get(('/students/{id}'), function ($id) {
+        $students = StudentController::getStudent($id);
+        if ($students) {
+            return view('dashboard/student-data', [
+                'student' => $students,
+            ]);
+        };
+    });
+    Route::get('/teachers', function () {
+        $teachers = TeacherController::getTeachers();
+        if ($teachers) {
+            return view('dashboard/teachers-data', [
+                'teachers' => $teachers,
+            ]);
+        }
+    });
+    Route::get('/teachers/{id}', function ($id) {
+        $teachers = TeacherController::getTeacher($id);
+        if ($teachers) {
+            return view('dashboard/teacher-data', [
+                'teacher' => $teachers,
+            ]);
+        }
+    });
+    Route::get('/courses', function () {        
+        $courses = CourseController::getCourses();
+        
+        if ($courses) {
+            return view('dashboard/courses-data', [
+                'courses' => $courses,
+            ]);
+        }
+    });
 });
 
-
-// Token routes
-Route::post('/save-token', [TokenController::class, 'store']);
-Route::post('/get-token', [TokenController::class, 'get']);
-Route::post('/destroy-token', [TokenController::class, 'destroyToken']);
+Route::prefix('token')->group(function() {
+    Route::post('/save-token', [TokenController::class, 'store']);
+    Route::post('/get-token', [TokenController::class, 'get']);
+    Route::post('/destroy-token', [TokenController::class, 'destroyToken']);
+});

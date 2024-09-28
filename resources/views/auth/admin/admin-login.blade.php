@@ -52,7 +52,7 @@
                     const token = await response.data.data.token;
                     console.log(token);
     
-                    await axios.post('/save-token', {
+                    await axios.post('/token/save-token', {
                         token: token
                     }).then((response) => {
                         console.log(response.data.message);

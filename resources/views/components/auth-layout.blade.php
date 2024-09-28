@@ -10,7 +10,7 @@
     </x-form.description>
 
     <div id="alert-info"></div>
-    
+
     @foreach ( $formItems as $item )
         <x-form.item>
             <x-form.label>{{ $item['label'] }}</x-form.label>
@@ -20,6 +20,7 @@
                 class="w-96"
                 name="{{ $item['name'] }}"
                 id="{{ $item['id'] }}"
+                type="{{ $item['name'] == 'password' ? 'password' : 'text' }}"
             />
             <x-form.message />
         </x-form.item>

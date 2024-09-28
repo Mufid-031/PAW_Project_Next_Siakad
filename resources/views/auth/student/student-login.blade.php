@@ -1,11 +1,11 @@
 @props([
     'description' => 'Login',
-    'role' => 'Teacher',
+    'role' => 'Student',
     'formItems' => [
         [
-            'label' => 'NIP',
-            'name' => 'nip',
-            'id' => 'nip'
+            'label' => 'NIM',
+            'name' => 'nim',
+            'id' => 'nim'
         ],
         [
             'label' => 'Password',
@@ -16,8 +16,8 @@
 ])
 
 <x-layout class="flex justify-center items-center">
-    
-    <x-auth-layout description="Login" role="Teacher" :formItems="$formItems" />
+
+    <x-auth-layout description="Login" role="Student" :formItems="$formItems" /> 
     
     <script>
 
@@ -27,12 +27,12 @@
             
             e.preventDefault();
 
-            const nip = formLogin.nip.value;
+            const nim = formLogin.nim.value;
             const password = formLogin.password.value;
 
             try {
-                const response = await axios.post('http://localhost:3000/api/teachers/login', {
-                    nip,
+                const response = await axios.post('http://localhost:3000/api/students/login', {
+                    nim,
                     password
                 });
 
@@ -54,7 +54,7 @@
                     const token = await response.data.data.token;
                     console.log(token);
 
-                    await axios.post('/save-token', {
+                    await axios.post('/token/save-token', {
                         token: token
                     }).then((response) => {
                         console.log(response.data.message);
@@ -76,6 +76,7 @@
                                         `;
             }
         });
+
 
 
     </script>

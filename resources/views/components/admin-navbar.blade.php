@@ -737,7 +737,7 @@
 
         try {
 
-          const token = await axios.post("/get-token");
+          const token = await axios.post("/token/get-token");
 
           if (!token) {
             console.log("Token not found");
@@ -755,7 +755,7 @@
           if (response.status === 200) {
             console.log("success");
 
-            const destroyToken = await axios.post("/destroy-token", {
+            const destroyToken = await axios.post("/token/destroy-token", {
               token: token.data
             });
 

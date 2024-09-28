@@ -47,15 +47,6 @@ class TokenController extends Controller
         return $token;
     }
 
-    public static function getStudents($token) 
-    {
-        if ($token) {
-            $response = Http::withHeaders([
-                'X-API-TOKEN' => $token
-            ])->get('http://localhost:3000/api/students');
-    
-            return $response->json();
-        }
-        
-    }
+
+
 }
