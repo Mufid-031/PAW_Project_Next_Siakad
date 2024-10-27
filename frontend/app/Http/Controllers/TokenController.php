@@ -46,7 +46,4 @@ class TokenController extends Controller
         $token = $request->session()->forget('token');
         return $token;
     }
-
-
-
 }

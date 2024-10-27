@@ -746,7 +746,7 @@
 
           console.log(token);
 
-          const response = await axios.post("http://localhost:3000/api/admin/logout", {}, {
+          const response = await axios.patch("http://localhost:3000/api/admin/logout", {}, {
             headers: {
               "X-API-TOKEN": `${token.data}`
             }

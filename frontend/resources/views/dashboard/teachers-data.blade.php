@@ -30,17 +30,17 @@
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th id="teacher-detail" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer">
                                     <a href="/dashboard/teachers/{{ $teacher['id'] }}">
-                                        {{ $teacher['user']['name'] }}
+                                        {{ $teacher['name'] }}
                                     </a>
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $teacher['nip'] }}
+                                    {{ $teacher['teacher']['nip'] }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $teacher['user']['role'] }}
+                                    {{ $teacher['role'] }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $teacher['user']['email'] }}
+                                    {{ $teacher['email'] }}
                                 </td>
                                 <td class="px-6 py-4 flex gap-2">
                                     <p data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" id="edit-teacher" class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer {{ $teacher['id'] }}">Edit</p>

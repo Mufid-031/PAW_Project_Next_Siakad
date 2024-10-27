@@ -16,6 +16,8 @@ class CourseController extends Controller
             ])->get('http://localhost:3000/api/courses');
     
             return $response->json();
+        } else {
+            redirect('/auth/login/admin');
         }
     }
 
@@ -28,6 +30,8 @@ class CourseController extends Controller
             ])->get('http://localhost:3000/api/courses/' . $id);
     
             return $response->json();
+        } else {
+            redirect('/auth/login/admin');
         }
     }
 }
