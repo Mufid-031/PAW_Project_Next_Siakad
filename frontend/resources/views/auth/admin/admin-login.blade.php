@@ -60,7 +60,7 @@
                         console.error(error.response.data.message || error.message);
                     });
     
-                    window.location.replace('http://next-siakad-new.test:30/dashboard/students');
+                    window.location.replace('/dashboard/students');
                 }
     
             } catch (error) {
