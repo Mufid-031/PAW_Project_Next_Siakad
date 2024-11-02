@@ -31,7 +31,7 @@
             const password = formLogin.password.value;
 
             try {
-                const response = await axios.post('http://localhost:3000/api/teachers/login', {
+                const response = await axios.post('http://localhost:3000/api/teacher/login', {
                     nip,
                     password
                 });

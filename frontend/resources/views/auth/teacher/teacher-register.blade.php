@@ -45,14 +45,14 @@
             console.log(name, email, password, nip);
 
             try {
-                const response = await axios.post('http://localhost:3000/api/teachers/register', {
+                const response = await axios.post('http://localhost:3000/api/teacher/register', {
                     name,
                     email,
                     password,
                     nip
                 });
 
-                if (response.status === 200) {
+                if (response.status === 201) {
                     const alertInfo = document.getElementById("alert-info");
                     alertInfo.innerHTML = `<x-alert variant="success">
                                                 <x-lucide-rocket class="size-4" />

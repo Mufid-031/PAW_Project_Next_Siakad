@@ -2,7 +2,7 @@
 
 <x-layout>
     <x-admin-layout>
-        
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 md:ml-64 h-auto pt-20">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -22,10 +22,11 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    @if ( $courses )
-                        @foreach ($courses['data'] as $course )
+                    @if ($courses)
+                        @foreach ($courses['data'] as $course)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th id="course-detail" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer">
+                                <th id="course-detail" scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer">
                                     <a href="/dashboard/courses/{{ $course['id'] }}">
                                         {{ $course['name'] }}
                                     </a>
@@ -37,36 +38,41 @@
                                     {{ $course['teacher']['user']['name'] }}
                                 </td>
                                 <td class="px-6 py-4 flex gap-2">
-                                    <p data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" id="edit-course" class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer {{ $course['id'] }}">Edit</p>
+                                    <p data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                                        id="edit-course"
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer {{ $course['id'] }}">
+                                        Edit</p>
                                     <div class="w-0.5 h-4 bg-gray-200"></div>
-                                    <p id="delete-course" class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer {{ $course['id'] }}">Delete</p>
+                                    <p id="delete-course"
+                                        class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer {{ $course['id'] }}">
+                                        Delete</p>
                                 </td>
                             </tr>
                         @endforeach
-
                     @else
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 No Data
                             </th>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                         </tr>
                     @endif
-                    
+
                 </tbody>
             </table>
         </div>
 
         <x-modal id="authentication-modal" role="edit-student" />
-    
+
     </x-admin-layout>
 
 

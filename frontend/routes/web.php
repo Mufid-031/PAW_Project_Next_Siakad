@@ -44,7 +44,7 @@ Route::prefix('dashboard')->group(function() {
         $students = StudentController::getStudents();
         if ($students) {
             
-            return view('dashboard/students-data', [
+            return view('dashboard/students/index', [
                 'students' => $students,
             ]); 
         };
@@ -52,7 +52,7 @@ Route::prefix('dashboard')->group(function() {
     Route::get(('/students/{id}'), function ($id) {
         $students = StudentController::getStudent($id);
         if ($students) {
-            return view('dashboard/student-data', [
+            return view('dashboard/students/student', [
                 'student' => $students,
             ]);
         };
@@ -60,7 +60,7 @@ Route::prefix('dashboard')->group(function() {
     Route::get('/teachers', function () {
         $teachers = TeacherController::getTeachers();
         if ($teachers) {
-            return view('dashboard/teachers-data', [
+            return view('dashboard/teachers/index', [
                 'teachers' => $teachers,
             ]);
         }
@@ -68,17 +68,24 @@ Route::prefix('dashboard')->group(function() {
     Route::get('/teachers/{id}', function ($id) {
         $teachers = TeacherController::getTeacher($id);
         if ($teachers) {
-            return view('dashboard/teacher-data', [
+            return view('dashboard/teachers/teacher', [
                 'teacher' => $teachers,
             ]);
         }
     });
     Route::get('/courses', function () {        
         $courses = CourseController::getCourses();
-        
         if ($courses) {
-            return view('dashboard/courses-data', [
+            return view('dashboard/courses/index', [
                 'courses' => $courses,
+            ]);
+        }
+    });
+    Route::get('/courses/{id}', function ($id) {
+        $courses = CourseController::getCourse($id);
+        if ($courses) {
+            return view('dashboard/courses/course', [
+                'course' => $courses,
             ]);
         }
     });
