@@ -6,10 +6,8 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@tailwindcss/forms": "^0.5.9",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.7",
-        "daisyui": "^4.12.13",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.11",
@@ -19,6 +17,7 @@
     "dependencies": {
         "@alpinejs/anchor": "^3.14.1",
         "@alpinejs/collapse": "^3.14.1",
-        "alpinejs": "^3.14.1"
+        "@alpinejs/intersect": "^3.14.4",
+        "alpinejs": "^3.14.4"
     }
 }

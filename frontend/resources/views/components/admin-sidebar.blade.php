@@ -1,16 +1,20 @@
 @php
     $sidebarItems = [
-        ['icon' => 'ionicon-home-outline', 'label' => 'Dashboard', 'href' => 'dashboard'],
-        ['icon' => 'ionicon-people-outline', 'label' => 'Users', 'href' => 'users'],
-        ['icon' => 'ionicon-book-outline', 'label' => 'Course', 'href' => 'course'],
-        ['icon' => 'ionicon-calendar-outline', 'label' => 'Schedule ', 'href' => 'schedule'],
-        ['icon' => 'ionicon-school-outline', 'label' => 'Lecture', 'href' => 'teacher'],
-        ['icon' => 'ionicon-document-text-outline', 'label' => 'Grade', 'href' => 'grade'],
-        ['icon' => 'ionicon-settings-outline', 'label' => 'Setting', 'href' => ''],
+        ['icon' => 'ionicon-home-outline', 'label' => 'Dashboard', 'href' => '/admin/dashboard'],
+        ['icon' => 'ionicon-people-outline', 'label' => 'Users', 'href' => '/admin/users'],
+        ['icon' => 'ionicon-book-outline', 'label' => 'Course', 'href' => '/admin/course'],
+        ['icon' => 'ionicon-calendar-outline', 'label' => 'Schedule ', 'href' => '/admin/schedule'],
+        ['icon' => 'ionicon-school-outline', 'label' => 'Lecture', 'href' => '/admin/teacher'],
+        ['icon' => 'ionicon-document-text-outline', 'label' => 'Grade', 'href' => '/admin/grade'],
+        ['icon' => 'ionicon-settings-outline', 'label' => 'Setting', 'href' => '#'],
     ];
+
+    $isActive = function ($href) {
+        return request()->is(trim($href, '/')) ? true : false;
+    };
 @endphp
 
-<div x-data="{ sidebarOpen: false }" class="relative w-full">
+<div x-data="{ sidebarOpen: false, hoveredItem: null }" class="relative w-full">
     <div x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 transform -translate-x-full"
         x-transition:enter-end="opacity-100 transform translate-x-0" x-transition:leave="transition ease-in duration-300"
@@ -29,13 +33,20 @@
                         <x-fas-university
                             class="w-[2rem] transition-transform duration-300 transform group-hover:scale-110" />
                     </span>
-                    <p class="text-xl font-medium" x-show="sidebarOpen" x-cloak>Sivitas</p>
+                    <p class="text-xl font-medium tracking-widest" x-show="sidebarOpen" x-cloak>NextSiakad</p>
                 </span>
             </div>
             @foreach ($sidebarItems as $item)
                 <li class="relative group">
-                    <a href="/{{ $item['href'] }}"
-                        class="flex items-center gap-3 px-4 py-3 rounded-tl-[30px] rounded-bl-[30px] transition-all duration-300 group-hover:bg-white group-hover:text-ultramarine-900 {{ request()->is($item['href'] != '' ? $item['href'] : '/') ? 'bg-white text-ultramarine-900' : '' }}">
+                    <a href="{{ $item['href'] }}" @mouseover="hoveredItem = '{{ $item['href'] }}'"
+                        @mouseout="hoveredItem = null"
+                        class="flex items-center gap-3 px-4 py-3 rounded-tl-[30px] rounded-bl-[30px] transition-all duration-300"
+                        :class="{
+                            'bg-ultramarine-100 text-ultramarine-900': hoveredItem === '{{ $item['href'] }}' || (
+                                hoveredItem ===
+                                null && '{{ $isActive($item['href']) ? 'true' : 'false' }}'
+                                === 'true')
+                        }">
                         <span>
                             <x-dynamic-component :component="$item['icon']"
                                 class="w-[1.75rem] transition-transform duration-300 transform group-hover:scale-110" />
@@ -63,6 +74,5 @@
         <x-admin-navbar />
 
         {{ $slot }}
-
     </div>
 </div>

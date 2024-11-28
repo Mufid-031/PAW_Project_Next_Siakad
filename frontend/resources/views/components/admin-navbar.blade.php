@@ -1,4 +1,4 @@
-<div x-data="{ searchOpen: false }" class="w-full h-[60px] flex justify-between items-center px-2.5 py-0 bg-white relative">
+<div x-data="{ searchOpen: false }" class="w-full h-[60px] flex justify-between items-center px-2.5 py-0 relative">
     <!-- Toggle menu Button -->
     <button @click="sidebarOpen = !sidebarOpen"
         class="relative w-[60px] h-[60px] flex justify-center items-center text-[2.5rem] cursor-pointer z-50">
@@ -47,17 +47,17 @@
         <div x-show="open" @click.away="open = false" x-transition
             class="absolute right-0 mt-2 w-48 bg-ultramarine-900 rounded-md p-3 shadow-lg z-50">
             <div>
-                <div class="text-white border-b border-gray-600 pb-3 mb-3">
+                <div class="text-white border-b border-slate-900 pb-3 mb-3">
                     <p class="font-semibold text-lg">Imamgg</p>
                     <p class="text-sm text-gray-300">Admin</p>
                 </div>
                 <a href="#"
-                    class="p-2 text-sm gap-2 items-center flex text-white hover:bg-slate-300 hover:text-black rounded-lg transition duration-150">
+                    class="p-2 text-sm gap-2 items-center flex text-white hover:bg-ultramarine-300 hover:text-black rounded-lg transition duration-150">
                     <x-carbon-user-profile class="w-5" /> Profile
                 </a>
-                <form method="POST" action="#">
+                <form method="" action="../auth/login/admin">
                     <button href="#"
-                        class="w-full text-left p-2 text-sm gap-2 items-center flex text-white hover:bg-slate-300 hover:text-black rounded-lg transition duration-150">
+                        class="w-full text-left p-2 text-sm gap-2 items-center flex text-white hover:bg-ultramarine-300 hover:text-black rounded-lg transition duration-150">
                         <x-ionicon-log-out-outline class="w-5" /> Logout
                     </button>
                 </form>

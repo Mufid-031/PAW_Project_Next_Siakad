@@ -26,15 +26,15 @@
 ])
 
 <x-layout class="flex justify-center items-center">
-    
+
     <x-auth-layout description="Register" role="Teacher" :formItems="$formItems" />
-    
+
     <script>
 
         const formRegister = document.getElementById("register-form");
 
         formRegister.addEventListener("submit", async (e) => {
-            
+
             e.preventDefault();
 
             const name = formRegister.name.value;

@@ -17,14 +17,14 @@
 
 <x-layout class="flex justify-center items-center">
 
-    <x-auth-layout description="Login" role="Student" :formItems="$formItems" /> 
-    
+    <x-auth-layout description="Login" role="Student" :formItems="$formItems" />
+
     <script>
 
         const formLogin = document.getElementById("login-form");
 
         formLogin.addEventListener("submit", async (e) => {
-            
+
             e.preventDefault();
 
             const nim = formLogin.nim.value;
@@ -36,7 +36,7 @@
                     password
                 });
 
-                
+
 
                 if (response.status === 200) {
                     const alertInfo = document.getElementById("alert-info");
@@ -49,7 +49,7 @@
                                             </x-alert>
                                         `;
 
-                    
+
 
                     const token = await response.data.data.token;
                     console.log(token);
