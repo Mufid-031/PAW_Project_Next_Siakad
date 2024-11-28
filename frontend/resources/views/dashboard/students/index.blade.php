@@ -1,6 +1,8 @@
+{{ dd($students) }}
+
 <x-layout>
     <x-admin-layout>
-        
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 md:ml-64 h-auto pt-20">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -54,31 +56,31 @@
                                 No Data
                             </th>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                             <td class="px-6 py-4">
-                                
+
                             </td>
                         </tr>
                     @endif
-                    
+
                 </tbody>
             </table>
         </div>
 
         <x-modal id="authentication-modal" role="edit-student" />
-    
+
     </x-admin-layout>
 
 
     <script>
-        
+
         const editStudent = document.querySelectorAll('.edit-student');
         let idStudent;
         let nameStudent;
@@ -97,7 +99,7 @@
                 emailModal = document.querySelector('#email');
 
                 console.log(idStudent);
-                
+
                 nameModal.value = nameStudent.innerText;
                 emailModal.value = emailStudent.innerText;
             });

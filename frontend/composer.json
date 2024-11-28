@@ -6,10 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-zondicons": "^1.5",
+        "codeat3/blade-carbon-icons": "^2.31",
+        "faisal50x/blade-ionicons": "^1.0",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "luvi-ui/laravel-luvi": "^0.3.3",
-        "mallardduck/blade-lucide-icons": "^1.23"
+        "mallardduck/blade-lucide-icons": "^1.23",
+        "owenvoke/blade-fontawesome": "^2.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

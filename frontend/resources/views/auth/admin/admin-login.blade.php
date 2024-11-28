@@ -5,37 +5,36 @@
         [
             'label' => 'Email',
             'name' => 'email',
-            'id' => 'email'
+            'id' => 'email',
         ],
         [
             'label' => 'Password',
             'name' => 'password',
-            'id' => 'password'
-        ]
+            'id' => 'password',
+        ],
     ],
 ])
 <x-layout class="flex justify-center items-center">
-    
+
     <x-auth-layout description="Login" role="Admin" :formItems="$formItems" />
-    
+
     <script>
-    
         const formLogin = document.getElementById("login-form");
-    
+
         formLogin.addEventListener("submit", async (e) => {
-            
+
             e.preventDefault();
-    
+
             const email = formLogin.email.value;
             const password = formLogin.password.value;
-    
+
             try {
                 const response = await axios.post('http://localhost:3000/api/admin/login', {
                     email,
                     password
                 });
-                
-    
+
+
                 if (response.status === 200) {
                     const alertInfo = document.getElementById("alert-info");
                     alertInfo.innerHTML = `<x-alert variant="success">
@@ -46,12 +45,12 @@
                                                 </x-alert.description>
                                             </x-alert>
                                         `;
-    
-                    
-    
+
+
+
                     const token = await response.data.data.token;
                     console.log(token);
-    
+
                     await axios.post('/token/save-token', {
                         token: token
                     }).then((response) => {
@@ -59,14 +58,14 @@
                     }).catch((error) => {
                         console.error(error.response.data.message || error.message);
                     });
-    
-                    window.location.replace('/dashboard/students');
+
+                    window.location.replace('/dashboard');
                 }
-    
+
             } catch (error) {
                 console.error(error.response?.message || error.message);
                 const alertInfo = document.getElementById("alert-info");
-                    alertInfo.innerHTML = `<x-alert variant="destructive">
+                alertInfo.innerHTML = `<x-alert variant="destructive">
                                                 <x-lucide-triangle-alert class="size-4" />
                                                 <x-alert.title>Login Failed</x-alert.title>
                                                 <x-alert.description>
@@ -76,10 +75,6 @@
                                         `;
             }
         });
-        
-    
     </script>
 
 </x-layout>
-
-

@@ -18,9 +18,9 @@ Route::prefix('auth')->group(function() {
         return view('auth/student/student-login');
     });
     Route::get('/register/teacher', function () {
-       return view('auth/teacher/teacher-register'); 
+       return view('auth/teacher/teacher-register');
     });
-    
+
     Route::get('/login/teacher', function () {
         return view('auth/teacher/teacher-login');
     });
@@ -32,7 +32,7 @@ Route::prefix('auth')->group(function() {
         if ($token) {
             return redirect('/dashboard/students');
         }
-       return view('auth/admin/admin-login'); 
+       return view('auth/admin/admin-login');
     });
 });
 
@@ -43,10 +43,10 @@ Route::prefix('dashboard')->group(function() {
     Route::get('/students', function () {
         $students = StudentController::getStudents();
         if ($students) {
-            
+
             return view('dashboard/students/index', [
                 'students' => $students,
-            ]); 
+            ]);
         };
     });
     Route::get(('/students/{id}'), function ($id) {
@@ -73,7 +73,7 @@ Route::prefix('dashboard')->group(function() {
             ]);
         }
     });
-    Route::get('/courses', function () {        
+    Route::get('/courses', function () {
         $courses = CourseController::getCourses();
         if ($courses) {
             return view('dashboard/courses/index', [

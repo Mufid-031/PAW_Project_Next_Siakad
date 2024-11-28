@@ -7,19 +7,23 @@ use Illuminate\Support\Facades\Http;
 
 class StudentController extends Controller
 {
-    public static function getStudents() 
+    public static function getStudents()
     {
         $token = TokenController::get();
         if ($token) {
             $response = Http::withHeaders([
                 'X-API-TOKEN' => $token
             ])->get('http://localhost:3000/api/student');
-    
-            return $response->json();
+
+            if ($response->status() === 200) {
+                return view('students.index', [
+                    'students' => $response->json()
+                ]);
+            }
         } else {
             redirect('/auth/login/admin');
         }
-        
+
     }
 
     public static function getStudent($id)
@@ -29,7 +33,7 @@ class StudentController extends Controller
             $response = Http::withHeaders([
                 'X-API-TOKEN' => $token
             ])->get('http://localhost:3000/api/students/' . $id);
-    
+
             return $response->json();
         } else {
             redirect('/auth/login/admin');
