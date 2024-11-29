@@ -26,8 +26,11 @@ class TokenController extends Controller
         };
 
         $token = $request->input('token');
-        $this->tokenService->setToken($token);
-
+        if ($this->tokenService->setToken($token)) {
+            return response()->json(['status' => 'success', 'message' => 'Token saved successfully']);
+        } else {
+            return response()->json(['status' => 'success', 'message' => 'Token already exists']);
+        }
     }
 
     public static function get()

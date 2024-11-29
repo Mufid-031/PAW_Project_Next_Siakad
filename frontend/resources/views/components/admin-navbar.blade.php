@@ -55,13 +55,31 @@
                     class="p-2 text-sm gap-2 items-center flex text-white hover:bg-ultramarine-300 hover:text-black rounded-lg transition duration-150">
                     <x-carbon-user-profile class="w-5" /> Profile
                 </a>
-                <form method="" action="../auth/login/admin">
-                    <button href="#"
-                        class="w-full text-left p-2 text-sm gap-2 items-center flex text-white hover:bg-ultramarine-300 hover:text-black rounded-lg transition duration-150">
-                        <x-ionicon-log-out-outline class="w-5" /> Logout
-                    </button>
-                </form>
+                <button id="admin-logout"
+                    class="w-full text-left p-2 text-sm gap-2 items-center flex text-white hover:bg-ultramarine-300 hover:text-black rounded-lg transition duration-150">
+                    <x-ionicon-log-out-outline class="w-5" /> Logout
+                </button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const adminLogout = document.querySelector('#admin-logout');
+    adminLogout.addEventListener('click', async () => {
+        try {
+            const token = await axios.post('/token/get-token').then(res => res.data);
+            const response = await axios.patch('http://localhost:3000/api/admin/logout',{}, {
+                headers: {
+                    'X-API-TOKEN': token
+                }
+            }).then(data => data.data);
+            if (response.status === 200) {
+                await axios.post('/token/destroy-token');
+                const token = await axios.post('/token/get-token')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    });
+</script>

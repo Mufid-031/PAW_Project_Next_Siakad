@@ -1,68 +1,30 @@
 <x-admin-layout>
-  <x-admin-sidebar>
-    <div class="p-6">
+    <x-admin-sidebar>
+        <div class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Profile Card -->
-                <div class="bg-white p-6 rounded-lg shadow-md relative">
-                    <h2 class="text-xl font-semibold mb-4">Profil Dosen 1</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-person-circle-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>Dr. Noor Ifada, ST., MISD.</span>
+                @foreach ($teachers['data'] as $key => $teacher)
+                    <div class="bg-white p-6 rounded-lg shadow-md relative">
+                        <h2 class="text-xl font-semibold mb-4">Profil Dosen {{ $key+1 }}</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <x-ionicon-person-circle-outline class="w-6 h-6 text-ultramarine-900" />
+                                <span>{{ $teacher['name'] }}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <x-ionicon-card-outline class="w-6 h-6 text-ultramarine-900" />
+                                <span>NIP: {{ $teacher['teacher']['nip'] }}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
+                                <span>Fakultas Teknik</span>
+                            </div>
+                            <button type="button"
+                                class="text-white bg-ultramarine-900 hover:bg-ultramarine-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center me-2 mb-2 absolute right-4 bottom-4">Detail
+                            </button>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-card-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>NIP: 198505152010121002</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>Fakultas Teknik</span>
-                        </div>
-                        <button type="button"
-                            class="text-white bg-ultramarine-900 hover:bg-ultramarine-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center me-2 mb-2 absolute right-4 bottom-4">Detail
-                        </button>
                     </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md relative">
-                    <h2 class="text-xl font-semibold mb-4">Profil Dosen 2</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-person-circle-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>Ika Oktavia Suzanti, S.Kom.,M.Cs</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-card-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>NIP: 198810182015042004</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>Fakultas Teknik</span>
-                        </div>
-                        <button type="button"
-                            class="text-white bg-ultramarine-900 hover:bg-ultramarine-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center me-2 mb-2 absolute right-4 bottom-4">Detail
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md relative">
-                    <h2 class="text-xl font-semibold mb-4">Profil Dosen 3</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-person-circle-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>Devie Rosa Anamisa. S.kom., M.kom.</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-card-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>NIP: 198411042008122003</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
-                            <span>Fakultas Teknik</span>
-                        </div>
-                        <button type="button"
-                            class="text-white bg-ultramarine-900 hover:bg-ultramarine-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2 text-center me-2 mb-2 absolute right-4 bottom-4">Detail
-                        </button>
-                    </div>
-                </div>
+                @endforeach
 
                 {{-- <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-semibold mb-4">Menu Cepat</h2>
@@ -104,5 +66,5 @@
                 </div> --}}
             </div>
         </div>
-  </x-admin-sidebar>
+    </x-admin-sidebar>
 </x-admin-layout>
