@@ -1,3 +1,6 @@
+{{-- {{ dd($admin) }} --}}
+
+@props(['admin' => $admin])
 <div x-data="{ searchOpen: false }" class="w-full h-[60px] flex justify-between items-center px-2.5 py-0 relative">
     <!-- Toggle menu Button -->
     <button @click="sidebarOpen = !sidebarOpen"

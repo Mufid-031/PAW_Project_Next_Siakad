@@ -1,13 +1,13 @@
 <x-admin-layout>
-  <x-admin-sidebar :admin="$admin">
-    <div class="p-6">
+    <x-admin-sidebar :admin="$admin">
+        <div class="p-6">
             <div class="p-4">
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-6">
                     <h1 class="text-2xl font-bold mb-4 md:mb-0">Manajemen Jadwal</h1>
                     <div class="space-x-2">
                         <button class="px-4 py-2 bg-ultramarine-400 hover:bg-ultramarine-900 text-white rounded-lg">
-                            Tambahkan Jadwal Kelas
+                            Tambahkan Jadwal
                         </button>
                     </div>
                 </div>
@@ -83,5 +83,5 @@
                 </div>
             </div>
         </div>
-  </x-admin-sidebar>
+    </x-admin-sidebar>
 </x-admin-layout>

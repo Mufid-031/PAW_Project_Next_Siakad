@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Http\Controllers\AdminController;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

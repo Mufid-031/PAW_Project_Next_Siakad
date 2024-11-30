@@ -1,6 +1,6 @@
 <x-admin-layout>
-  <x-admin-sidebar>
-    <div class="container mx-auto px-4 py-8">
+    <x-admin-sidebar :admin="$admin">
+        <div class="container mx-auto px-4 py-8">
             <!-- Header Section -->
             <div class="py-6">
                 <div class="mb-6">
@@ -21,9 +21,6 @@
                             <tr>
                                 <th class="p-4">NIM</th>
                                 <th class="p-4">Nama Mahasiswa</th>
-                                <th class="p-4">Tugas</th>
-                                <th class="p-4">UTS</th>
-                                <th class="p-4">UAS</th>
                                 <th class="p-4">Nilai Akhir</th>
                                 <th class="p-4">Aksi</th>
                             </tr>
@@ -32,26 +29,22 @@
                             <tr class="border-b hover:bg-gray-50">
                                 <td class="p-4">230411100198</td>
                                 <td class="p-4">Imam Syafii</td>
-                                <td class="p-4">85</td>
-                                <td class="p-4">78</td>
-                                <td class="p-4">88</td>
                                 <td class="p-4">84</td>
                                 <td class="p-4">
-                                    <button class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
-                                        <x-far-edit class="w-4 h-4" /> Ubah
+                                    <button class="flex items-center gap-1">
+                                        <x-far-edit class="w-4 h-4" />
+                                        <span class="hidden sm:inline">Ubah</span>
                                     </button>
                                 </td>
                             </tr>
                             <tr class="border-b hover:bg-gray-50">
                                 <td class="p-4">230411100031</td>
                                 <td class="p-4">Mufid Risqi</td>
-                                <td class="p-4">90</td>
-                                <td class="p-4">85</td>
-                                <td class="p-4">92</td>
                                 <td class="p-4">89</td>
                                 <td class="p-4">
-                                    <button class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
-                                        <x-far-edit class="w-4 h-4" /> Ubah
+                                    <button class="flex items-center gap-1">
+                                        <x-far-edit class="w-4 h-4" />
+                                        <span class="hidden sm:inline">Ubah</span>
                                     </button>
                                 </td>
                             </tr>
@@ -60,7 +53,7 @@
                 </div>
 
                 <!-- Pagination -->
-                {{-- <div class="mt-4 flex justify-end">
+                <div class="mt-4 flex justify-end">
                     <div class="flex gap-2">
                         <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">Previous</button>
                         <button class="px-4 py-2 border rounded-lg bg-ultramarine-900 text-white">1</button>
@@ -68,8 +61,8 @@
                         <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">3</button>
                         <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">Next</button>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
-  </x-admin-sidebar>
+    </x-admin-sidebar>
 </x-admin-layout>

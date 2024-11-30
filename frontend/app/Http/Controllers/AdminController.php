@@ -137,7 +137,22 @@ class AdminController extends Controller
 
     public function users()
     {
-        return view('admin.users', ['users' => $this->users, 'admin' => $this->admin]);
+        return view('admin.users.index', ['users' => $this->users, 'admin' => $this->admin]);
+    }
+
+    public function createAdmin()
+    {
+        return view('admin.users.create.admin', ['admin' => $this->admin]);
+    }
+
+    public function createTeacher()
+    {
+        return view('admin.users.create.teacher', ['admin' => $this->admin]);
+    }
+
+    public function createStudent()
+    {
+        return view('admin.users.create.student', ['admin' => $this->admin]);
     }
 
     public function course()

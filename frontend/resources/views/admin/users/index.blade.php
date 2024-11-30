@@ -1,21 +1,47 @@
-{{-- {{ dd($create) }} --}}
-
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
-        <div class="container mx-auto px-4 py-8">
+        <div x-data="{ isUpdateModalOpen: false }" class="container mx-auto px-4 py-8">
             <div class="bg-white shadow-md rounded-lg">
                 <div class="flex flex-col md:flex-row justify-between items-center p-4 border-b border-gray-200">
-                    <h2 class="text-2xl font-bold mb-4 md:mb-0">Manajemen Mata Kuliah</h2>
+                    <h2 class="text-2xl font-bold mb-4 md:mb-0">Manajemen Pengguna</h2>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="/users/create/course"
-                            class="bg-ultramarine-400 hover:bg-ultramarine-900 text-white px-4 py-2 rounded-md transition duration-300 text-center">
-                            Tambah Mata Kuliah
-                        </a>
+                        <div x-data="{ open: false }" class="relative ml-auto sm:ml-0">
+                            <div @click="open = !open" class="relative overflow-hidden cursor-pointer">
+                                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                                    class="text-white bg-ultramarine-400 hover:bg-ultramarine-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center
+                                    type="button">Tambah
+                                    User <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 4 4 4-4" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- Dropdown Menu -->
+                            <div x-show="open" @click.away="open = false" x-transition
+                                class="absolute right-0 mt-2 w-48 bg-ultramarine-400 rounded-md p-3 shadow-lg z-50">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="/admin/users/create/admin"
+                                            class="block px-4 py-2 text-white hover:bg-slate-200 hover:text-black rounded-lg">Admin</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/users/create/teacher"
+                                            class="block px-4 py-2 text-white hover:bg-slate-200 hover:text-black rounded-lg">Teacher</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/users/create/student"
+                                            class="block px-4 py-2 text-white hover:bg-slate-200 hover:text-black rounded-lg">Student</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <select class="p-2 border rounded-lg">
-                            <option>-- Filter --</option>
-                            <option>Pemrograman Web</option>
-                            <option>Basis Data</option>
-                            <option>Algoritma</option>
+                            <option value="">-- Filter --</option>
+                            <option value="student">Mahasiswa</option>
+                            <option value="teacher">Dosen</option>
                         </select>
                     </div>
                 </div>
@@ -31,16 +57,13 @@
                                             No</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
-                                            Nama Mata Kuliah</th>
+                                            Nama</th>
                                         <th scope="col"
                                             class="hidden sm:table-cell px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
-                                            Kode</th>
-                                        <th scope="col"
-                                            class="hidden sm:table-cell px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
-                                            Program Studi</th>
+                                            Email</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
-                                            Pengajar</th>
+                                            Peran</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
                                             Aksi</th>
@@ -53,23 +76,20 @@
                                             1</td>
                                         <td
                                             class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Basis Data</td>
+                                            Imam Syafii</td>
                                         <td
                                             class="hidden sm:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            E2398</td>
-                                        <td
-                                            class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Teknik Informatika</td>
+                                            404imam@gmail.com</td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
                                             <span
                                                 class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                Andharini Dwi Cahyani
+                                                Admin
                                             </span>
                                         </td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
                                             <div
                                                 class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                                                <button @click="$dispatch('update-course-modal')"
+                                                <button @click="$dispatch('update-modal')"
                                                     class="font-medium flex items-center gap-1">
                                                     <x-far-edit class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Ubah</span>
@@ -78,12 +98,6 @@
                                                     class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
                                                     <x-ionicon-trash-outline class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Hapus</span>
-                                                </button>
-                                                <button
-                                                    class="text-ultramarine-500 hover:text-ultramarine-500 font-medium flex items-center gap-1"
-                                                    onclick="openModal('1')">
-                                                    <x-ionicon-document-text-outline class="w-4 h-4" />
-                                                    <span class="hidden sm:inline">Detail</span>
                                                 </button>
                                             </div>
                                         </td>
@@ -94,23 +108,20 @@
                                             2</td>
                                         <td
                                             class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Dasar Pemrograman Web</td>
+                                            Mufid</td>
                                         <td
                                             class="hidden sm:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            E3932</td>
-                                        <td
-                                            class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Teknik Informatika</td>
+                                            mufid@gmail.com</td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
                                             <span
                                                 class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                Noor Ifada
+                                                Mahasiswa
                                             </span>
                                         </td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
                                             <div
                                                 class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                                                <button @click="$dispatch('update-course-modal')"
+                                                <button @click="$dispatch('update-modal')"
                                                     class="font-medium flex items-center gap-1">
                                                     <x-far-edit class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Ubah</span>
@@ -119,12 +130,6 @@
                                                     class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
                                                     <x-ionicon-trash-outline class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Hapus</span>
-                                                </button>
-                                                <button
-                                                    class="text-ultramarine-500 hover:text-ultramarine-500 font-medium flex items-center gap-1"
-                                                    onclick="openModal('2')">
-                                                    <x-ionicon-document-text-outline class="w-4 h-4" />
-                                                    <span class="hidden sm:inline">Detail</span>
                                                 </button>
                                             </div>
                                         </td>
@@ -137,34 +142,5 @@
             </div>
         </div>
     </x-admin-sidebar>
+    <x-users-update />
 </x-admin-layout>
-
-
-{{-- Pop up Modal --}}
-<x-course-modal :courses="[
-    [
-        'id' => '1',
-        'code' => 'E2398',
-        'name' => 'Basis Data',
-        'sks' => '3',
-        'description' =>
-            'Mata kuliah ini membahas tentang konsep dasar basis data, model data, normalisasi, dan implementasi dalam sistem manajemen basis data.',
-        'program' => 'Teknik Informatika',
-        'lecturer' => 'Andharini Dwi Cahyani',
-        'schedule' => 'Senin, 08:00 - 10:30',
-        'room' => 'RKBF 301',
-    ],
-    [
-        'id' => '2',
-        'code' => 'E3932',
-        'name' => 'Dasar Pemrograman Web',
-        'sks' => '3',
-        'description' =>
-            'Mata kuliah ini membahas tentang konsep dasar pemrograman web, HTML, CSS, JavaScript, dan pengembangan aplikasi web sederhana.',
-        'program' => 'Teknik Informatika',
-        'lecturer' => 'Noor Ifada',
-        'schedule' => 'Rabu, 13:00 - 15:30',
-        'room' => 'Lab CC',
-    ],
-]" />
-<x-course-update />

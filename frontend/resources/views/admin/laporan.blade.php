@@ -1,5 +1,5 @@
 <x-layout>
-    <x-admin-layout>
+    <x-admin-layout :admin="$admin">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <main class="p-4 md:ml-64 h-auto pt-20">
             <div class="container mx-auto">
