@@ -2,7 +2,7 @@
 
 @foreach ($teachers as $teacher)
     <div id="modal-{{ $teacher['id'] }}"
-        class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto hidden h-full w-full z-50">
         <div class="relative top-20 mx-auto p-8 border w-[640px] shadow-lg rounded-md bg-white">
             <div class="flex justify-between items-center border-b pb-4 mb-6">
                 <h3 class="text-xl font-semibold text-gray-900">Detail Profil Dosen</h3>
@@ -51,12 +51,10 @@
     <script>
         function openModal(id) {
             document.getElementById('modal-' + id).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(id) {
             document.getElementById('modal-' + id).classList.add('hidden');
-            document.body.style.overflow = 'auto';
         }
     </script>
 @endonce

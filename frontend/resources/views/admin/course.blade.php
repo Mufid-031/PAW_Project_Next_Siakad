@@ -1,4 +1,4 @@
-{{-- {{ dd($create) }} --}}
+{{-- {{ dd($courses) }} --}}
 
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
@@ -47,23 +47,24 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="hover:bg-gray-50">
+                                    @foreach ($courses['data'] as $key => $course)
+                                        <tr class="hover:bg-gray-50">
                                         <td
                                             class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            1</td>
+                                            {{ $key + 1 }}</td>
                                         <td
                                             class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Basis Data</td>
+                                            {{ $course['name'] }}</td>
                                         <td
                                             class="hidden sm:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            E2398</td>
+                                            {{ $course['code'] }}</td>
                                         <td
                                             class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Teknik Informatika</td>
+                                            {{ $course['programStudi'] }}</td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
                                             <span
                                                 class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                Andharini Dwi Cahyani
+                                                {{ $course['teacher']['user']['name'] }}
                                             </span>
                                         </td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
@@ -88,47 +89,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td
-                                            class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            2</td>
-                                        <td
-                                            class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Dasar Pemrograman Web</td>
-                                        <td
-                                            class="hidden sm:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            E3932</td>
-                                        <td
-                                            class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                            Teknik Informatika</td>
-                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                Noor Ifada
-                                            </span>
-                                        </td>
-                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
-                                            <div
-                                                class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                                                <button @click="$dispatch('update-course-modal')"
-                                                    class="font-medium flex items-center gap-1">
-                                                    <x-far-edit class="w-4 h-4" />
-                                                    <span class="hidden sm:inline">Ubah</span>
-                                                </button>
-                                                <button
-                                                    class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
-                                                    <x-ionicon-trash-outline class="w-4 h-4" />
-                                                    <span class="hidden sm:inline">Hapus</span>
-                                                </button>
-                                                <button
-                                                    class="text-ultramarine-500 hover:text-ultramarine-500 font-medium flex items-center gap-1"
-                                                    onclick="openModal('2')">
-                                                    <x-ionicon-document-text-outline class="w-4 h-4" />
-                                                    <span class="hidden sm:inline">Detail</span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
