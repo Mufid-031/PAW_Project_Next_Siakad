@@ -12,6 +12,7 @@ class AdminController extends Controller
     public $users;
     public $courses;
     public $teachers;
+    public $students;
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -19,6 +20,7 @@ class AdminController extends Controller
         $this->users = AdminController::getUsers();
         $this->courses = CourseController::getCourses();
         $this->teachers = AdminController::getTeachers();
+        $this->students = AdminController::getStudents();
     }
 
     public function getUsers()
@@ -67,11 +69,7 @@ class AdminController extends Controller
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/student');
 
-            if ($response->status() === 200) {
-                return view('students.index', [
-                    'students' => $response->json()
-                ]);
-            }
+            return $response->json();
         } else {
             redirect('/auth/login/admin');
         }
@@ -132,7 +130,7 @@ class AdminController extends Controller
     // views
     public function dashboard()
     {
-        return view('admin.dashboard', ['admin' => $this->admin]);
+        return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers]);
     }
 
     public function users()

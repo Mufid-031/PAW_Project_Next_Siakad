@@ -1,3 +1,5 @@
+@props(['students' => null, 'teachers' => null])
+
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <!-- Statistik Mahasiswa -->
     <div class="bg-white rounded-lg shadow p-4">
@@ -5,7 +7,7 @@
             <x-ionicon-people-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Total Mahasiswa</h3>
-                <p class="text-2xl font-bold">3,987</p>
+                <p class="text-2xl font-bold">{{ count($students['data']) }}</p>
             </div>
         </div>
     </div>
@@ -16,7 +18,7 @@
             <x-ionicon-school-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Total Dosen</h3>
-                <p class="text-2xl font-bold">23</p>
+                <p class="text-2xl font-bold">{{ count($teachers['data']) }}</p>
             </div>
         </div>
     </div>

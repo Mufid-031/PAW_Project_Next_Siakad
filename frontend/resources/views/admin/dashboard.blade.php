@@ -1,10 +1,10 @@
-{{-- {{ dd($admin) }} --}}
+{{-- {{ dd($students) }} --}}
 
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
         <div class="container mx-auto px-4 py-8">
             <div class="p-6">
-                <x-admin-card />
+                <x-admin-card :students="$students" :teachers="$teachers" />
                 <div class="bg-white rounded-lg shadow p-4">
                     <h2 class="text-xl font-bold mb-4">Aktivitas Terbaru</h2>
                     <div class="overflow-x-auto">
