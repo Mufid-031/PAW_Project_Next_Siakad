@@ -9,7 +9,9 @@ class VerifyToken
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->session()->has('token')) {
+        $token = $request->session()->get('token');
+
+        if (empty($token)) {
             return response()->json(['status' => 'error', 'message' => 'Unauthorized, token missing'], 401);
         }
 

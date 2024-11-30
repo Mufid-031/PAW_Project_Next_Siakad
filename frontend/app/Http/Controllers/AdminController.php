@@ -7,12 +7,25 @@ use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
-    public static function getUsers()
+    public $token;
+    public $admin;
+    public $users;
+    public $courses;
+    public $teachers;
+    public function __construct()
     {
-        $token = TokenController::get();
-        if ($token) {
+        $this->token = TokenController::get();
+        $this->admin = AdminController::getAdminDetail();
+        $this->users = AdminController::getUsers();
+        $this->courses = CourseController::getCourses();
+        $this->teachers = AdminController::getTeachers();
+    }
+
+    public function getUsers()
+    {
+        if ($this->token) {
             $response = Http::withHeaders([
-                'X-API-TOKEN' => $token
+                'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/admin/users');
 
             return $response->json();
@@ -21,81 +34,159 @@ class AdminController extends Controller
         }
     }
 
-    public static function getStudentBySearch($name)
+    public function getStudentBySearch($name)
     {
-        $token = TokenController::get();
-        if ($token) {
+        if ($this->token) {
             $response = Http::withHeaders([
-                'X-API-TOKEN' => $token
+                'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/admin/students?name=' . $name);
 
             return $response->json();
+        } else {
+            redirect('/auth/login/admin');
         }
     }
 
-    public static function getTeacherBySearch($name)
+    public function getTeacherBySearch($name)
     {
-        $token = TokenController::get();
-        if ($token) {
+        if ($this->token) {
             $response = Http::withHeaders([
-                'X-API-TOKEN' => $token
+                'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/admin/teachers?name=' . $name);
 
             return $response->json();
+        } else {
+            redirect('/auth/login/admin');
         }
     }
 
-    public static function getStudent($id)
+    public function getStudents()
     {
-        $token = TokenController::get();
-        if ($token) {
+        if ($this->token) {
             $response = Http::withHeaders([
-                'X-API-TOKEN' => $token
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/student');
+
+            if ($response->status() === 200) {
+                return view('students.index', [
+                    'students' => $response->json()
+                ]);
+            }
+        } else {
+            redirect('/auth/login/admin');
+        }
+    }
+
+    public function getStudent($id)
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/admin/students/' . $id);
 
             return $response->json();
+        } else {
+            redirect('/auth/login/admin');
         }
     }
 
-    public static function getTeacher($id)
+    public function getTeachers()
     {
-        $token = TokenController::get();
-        if ($token) {
+        if ($this->token) {
             $response = Http::withHeaders([
-                'X-API-TOKEN' => $token
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/teacher');
+
+            return $response->json();
+        } else {
+            redirect('/auth/login/admin');
+        }
+    }
+
+    public function getTeacher($id)
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/admin/teachers/' . $id);
 
             return $response->json();
+        } else {
+            redirect('/auth/login/admin');
         }
     }
 
-    public static function register($name, $email, $password)
+    public function getAdminDetail()
     {
-        $response = Http::withBody([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password
-        ])->post('http://localhost:3000/api/admin/register');
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/admin');
 
-        return $response->json();
+            return $response->json();
+        } else {
+            redirect('/auth/login/admin');
+        }
     }
 
-    public static function login(Request $request)
+    // views
+    public function dashboard()
     {
-        $validated = $request->validate([
-            'email' => 'required|email'
-        ]);
+        return view('admin.dashboard', ['admin' => $this->admin]);
+    }
 
-        dd($validated['email']);
-        // $response = Http::withBody([
-        //     'email' => $email,
-        //     'password' => $password
-        // ])->post('http://localhost:3000/api/admin/login');
+    public function users()
+    {
+        return view('admin.users', ['users' => $this->users, 'admin' => $this->admin]);
+    }
 
-        // echo "<script>
-        //     console.log($response);
-        // </script>";
+    public function course()
+    {
+        return view('admin.course', ['courses' => $this->courses, 'admin' => $this->admin]);
+    }
 
-        // return $response->json();
+    public function schedule()
+    {
+        return view('admin.schedule', ['admin' => $this->admin]);
+    }
+
+    public function teacher()
+    {
+        return view('admin.teacher', ['teachers' => $this->teachers, 'admin' => $this->admin]);
+    }
+
+    public function grade()
+    {
+        return view('admin.grade', ['admin' => $this->admin]);
+    }
+
+    public function ukt()
+    {
+        return view('admin.pembayaran.ukt', ['admin' => $this->admin]);
+    }
+
+    public function uktUpdate()
+    {
+        return view('admin.pembayaran.ukt-edit', ['admin' => $this->admin]);
+    }
+
+    public function laporan()
+    {
+        return view('admin.laporan', ['admin' => $this->admin]);
+    }
+
+    public function beasiswa()
+    {
+        return view('admin.beasiswa.read', ['admin' => $this->admin]);
+    }
+
+    public function beasiswaAdd()
+    {
+        return view('admin.beasiswa.add', ['admin' => $this->admin]);
+    }
+
+    public function beasiswaEdit()
+    {
+        return view('admin.beasiswa.edit', ['admin' => $this->admin]);
     }
 }

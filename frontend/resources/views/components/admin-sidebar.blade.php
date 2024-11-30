@@ -71,7 +71,7 @@
         class="absolute min-h-screen transition-all duration-500 ease-in-out">
 
         <!-- Header -->
-        <x-admin-navbar />
+        <x-admin-navbar :admin="$admin" />
 
         {{ $slot }}
     </div>

@@ -6,14 +6,17 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class auth_layout extends Component
+class student_layout extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+    public $student;
+    public function __construct($student)
     {
         //
+        $this->student = $student;
     }
 
     /**
@@ -21,6 +24,8 @@ class auth_layout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.auth-layout');
+        return view('components.student-layout', [
+            'student' => $this->student
+        ]);
     }
 }

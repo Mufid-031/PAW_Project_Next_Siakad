@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <x-admin-sidebar>
+    <x-admin-sidebar :admin="$admin">
         <div class="p-6">
             <x-admin-card />
             <div class="bg-white rounded-lg shadow p-4">

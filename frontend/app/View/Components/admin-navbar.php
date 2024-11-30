@@ -2,18 +2,22 @@
 
 namespace App\View\Components;
 
+use App\Http\Controllers\AdminController;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class auth_layout extends Component
+class admin_navbar extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+    public $admin;
+    public function __construct($admin)
     {
         //
+        $this->admin = $admin;
     }
 
     /**
@@ -21,6 +25,8 @@ class auth_layout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.auth-layout');
+        return view('components.admin-navbar', [
+            'admin' => $this->admin
+        ]);
     }
 }

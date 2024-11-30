@@ -48,8 +48,8 @@
             class="absolute right-0 mt-2 w-48 bg-ultramarine-900 rounded-md p-3 shadow-lg z-50">
             <div>
                 <div class="text-white border-b border-slate-900 pb-3 mb-3">
-                    <p class="font-semibold text-lg">Imamgg</p>
-                    <p class="text-sm text-gray-300">Admin</p>
+                    <p class="font-semibold text-lg">{{ $admin['data']['name'] }}</p>
+                    <p class="text-sm text-gray-300">{{ $admin['data']['role'] }}</p>
                 </div>
                 <a href="#"
                     class="p-2 text-sm gap-2 items-center flex text-white hover:bg-ultramarine-300 hover:text-black rounded-lg transition duration-150">
@@ -76,7 +76,7 @@
             }).then(data => data.data);
             if (response.status === 200) {
                 await axios.post('/token/destroy-token');
-                const token = await axios.post('/token/get-token')
+                window.location.replace('http://127.0.0.1:8000/auth/login/admin');
             }
         } catch (error) {
             console.log(error)

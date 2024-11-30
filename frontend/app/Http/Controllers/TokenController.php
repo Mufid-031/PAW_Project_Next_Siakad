@@ -46,7 +46,11 @@ class TokenController extends Controller
 
     public static function destroyToken(Request $request)
     {
-        $token = $request->session()->forget('token');
-        return $token;
+        if ($request->session()->has('token')) {
+            $request->session()->forget('token');
+            return response()->json(['status' => 'success', 'message' => 'Token destroyed successfully']);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Token not found']);
     }
 }

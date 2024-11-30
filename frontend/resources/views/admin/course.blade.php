@@ -1,7 +1,7 @@
 {{-- {{ dd($create) }} --}}
 
 <x-admin-layout>
-    <x-admin-sidebar>
+    <x-admin-sidebar :admin="$admin">
         <div class="container mx-auto px-4 py-8">
             <div class="bg-white shadow-md rounded-lg">
                 <div class="flex flex-col md:flex-row justify-between items-center p-4 border-b border-gray-200">

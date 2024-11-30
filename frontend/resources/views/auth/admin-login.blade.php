@@ -37,7 +37,7 @@
                     window.location.replace('http://127.0.0.1:8000/admin/dashboard')
                 }
             } catch (error) {
-                console.log(error);
+                alert(error.response.data.errors);
             }
         });
     </script>
