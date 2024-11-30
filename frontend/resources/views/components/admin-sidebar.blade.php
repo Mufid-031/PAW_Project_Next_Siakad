@@ -1,18 +1,15 @@
-@php
-    $sidebarItems = [
+@props([
+    'sidebarItems' => [
         ['icon' => 'ionicon-home-outline', 'label' => 'Dashboard', 'href' => '/admin/dashboard'],
         ['icon' => 'ionicon-people-outline', 'label' => 'Users', 'href' => '/admin/users'],
         ['icon' => 'ionicon-book-outline', 'label' => 'Course', 'href' => '/admin/course'],
         ['icon' => 'ionicon-calendar-outline', 'label' => 'Schedule ', 'href' => '/admin/schedule'],
-        ['icon' => 'ionicon-school-outline', 'label' => 'Lecture', 'href' => '/admin/teacher'],
+        ['icon' => 'ionicon-school-outline', 'label' => 'Teacher', 'href' => '/admin/teacher'],
         ['icon' => 'ionicon-document-text-outline', 'label' => 'Grade', 'href' => '/admin/grade'],
-        ['icon' => 'ionicon-settings-outline', 'label' => 'Setting', 'href' => '#'],
-    ];
-
-    $isActive = function ($href) {
-        return request()->is(trim($href, '/')) ? true : false;
-    };
-@endphp
+        ['icon' => 'ionicon-settings-outline', 'label' => 'Additional_Services', 'href' => '/admin/service'],
+    ],
+    'activeHref' => request()->path(),
+])
 
 <div x-data="{ sidebarOpen: false, hoveredItem: null }" class="relative w-full">
     <div x-transition:enter="transition ease-out duration-300"
@@ -44,8 +41,8 @@
                         :class="{
                             'bg-ultramarine-100 text-ultramarine-900': hoveredItem === '{{ $item['href'] }}' || (
                                 hoveredItem ===
-                                null && '{{ $isActive($item['href']) ? 'true' : 'false' }}'
-                                === 'true')
+                                null && '{{ $activeHref }}'
+                                === '{{ trim($item['href'], '/') }}')
                         }">
                         <span>
                             <x-dynamic-component :component="$item['icon']"

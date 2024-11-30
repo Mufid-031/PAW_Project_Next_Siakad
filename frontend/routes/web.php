@@ -25,10 +25,6 @@ Route::prefix('auth')->group(function () {
         return view('auth/admin/admin-register');
     });
     Route::get('/login/admin', function () {
-        // $token = TokenController::get();
-        // if ($token) {
-        //     return redirect('/dashboard/students');
-        // }
         return view('auth/admin/admin-login');
     });
 });
@@ -51,6 +47,24 @@ Route::prefix('admin')->group(function () {
     });
     Route::get('/grade', function () {
         return view('admin/grade');
+    });
+    Route::get('/service', function () {
+        return view('admin/service');
+    });
+});
+
+Route::prefix('users/create')->group(function () {
+    Route::get('/admin', function () {
+        return view('admin/users/create/admin');
+    });
+    Route::get('/student', function () {
+        return view('admin/users/create/student');
+    });
+    Route::get('/teacher', function () {
+        return view('admin/users/create/teacher');
+    });
+    Route::get('/course', function () {
+        return view('admin/users/create/course');
     });
 });
 
