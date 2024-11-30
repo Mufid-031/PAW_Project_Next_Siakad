@@ -1,7 +1,5 @@
-@props(['courses'])
-
 @foreach ($courses as $course)
-    <div id="modal-{{ $course['id'] }}"
+    <div id="modal-{{ $course['id'] ?? '' }}"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
         <div class="relative top-20 mx-auto p-5 border w-[640px] shadow-lg rounded-md bg-white">
             <div class="flex justify-between items-center border-b pb-3">
@@ -18,13 +16,13 @@
                     <x-course-detail label="SKS" :value="$course['sks']" />
                 </div>
 
-                <x-course-detail label="Deskripsi" :value="$course['description']" />
+                <x-course-detail label="Deskripsi" :value="'Belum ada deskripsi'" />
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-course-detail label="Program Studi" :value="$course['program']" />
-                    <x-course-detail label="Pengajar" :value="$course['lecturer']" />
-                    <x-course-detail label="Jadwal Kelas" :value="$course['schedule']" />
-                    <x-course-detail label="Ruangan" :value="$course['room']" />
+                    <x-course-detail label="Program Studi" :value="$course['programStudi']" />
+                    <x-course-detail label="Pengajar" :value="$course['teacher']['user']['name'] ?? ''" />
+                    <x-course-detail label="Jadwal Kelas" :value="!empty($course['schedule']) ? $course['schedule'] : 'Belum ditentukan'" />
+                    <x-course-detail label="Ruangan" :value="'Belum ditentukan'" />
                 </div>
             </div>
 
