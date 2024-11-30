@@ -1,4 +1,5 @@
-@foreach ($courses as $course)
+{{-- {{ dd($courses) }} --}}
+@foreach ($courses as $key => $course)
     <div id="modal-{{ $course['id'] ?? '' }}"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
         <div class="relative top-20 mx-auto p-5 border w-[640px] shadow-lg rounded-md bg-white">
@@ -8,7 +9,6 @@
                     <x-ionicon-close-outline class="w-6 h-6" />
                 </button>
             </div>
-
             <div class="mt-4 space-y-4">
                 <div class="grid grid-cols-3 gap-4">
                     <x-course-detail label="Kode Mata Kuliah" :value="$course['code']" />
@@ -20,9 +20,14 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <x-course-detail label="Program Studi" :value="$course['programStudi']" />
-                    <x-course-detail label="Pengajar" :value="$course['teacher']['user']['name'] ?? ''" />
-                    <x-course-detail label="Jadwal Kelas" :value="!empty($course['schedule']) ? $course['schedule'] : 'Belum ditentukan'" />
-                    <x-course-detail label="Ruangan" :value="'Belum ditentukan'" />
+                    <x-course-detail label="Pengajar" :value="$course['teacher']['user']['name']" />
+                    @forelse ($course['schedule'] as $schedule)
+                        <x-course-detail label="Jadwal Kelas" :value="$schedule['time'] ?? 'Belum ditentukan'" />
+                        <x-course-detail label="Ruangan" :value="$schedule['room'] ?? 'Belum ditentukan'" />
+                    @empty
+                        <x-course-detail label="Jadwal Kelas" :value="'Belum ditentukan'" />
+                        <x-course-detail label="Ruangan" :value="'Belum ditentukan'" />
+                    @endforelse
                 </div>
             </div>
 
@@ -35,6 +40,7 @@
         </div>
     </div>
 @endforeach
+
 
 @once
     <script>
