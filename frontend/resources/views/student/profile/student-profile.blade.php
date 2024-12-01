@@ -34,10 +34,10 @@
                         <p class="text-gray-600"><strong>IPK:</strong> 3.75</p>
                     </div>
                 </div>
-                
+
                 <div class="mt-6 text-center">
                     <p class="text-gray-600 mb-4">Terdapat Data yang salah?</p>
-                    <a href="../student/edit-profile" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">Edit</a>
+                    <a href="/student/profile/update" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">Edit</a>
                 </div>
             </div>
         </main>
