@@ -105,7 +105,7 @@
                         <div>
                             <label class="text-sm font-medium text-gray-700">Dibuat pada:</label>
                             <p class="mt-1 text-gray-900">
-                                {{ \Carbon\Carbon::parse($admin['data']['createdAt'])->format('d F Y, H:i') }}</p>
+                                {{ \Carbon\Carbon::parse($admin['data']['createdAt'])->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}</p>
                         </div>
                     </div>
                 </div>
