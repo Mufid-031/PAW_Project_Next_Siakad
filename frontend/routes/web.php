@@ -23,9 +23,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/create/admin', [AdminController::class, 'createAdmin']);
     Route::get('/users/create/teacher', [AdminController::class, 'createTeacher']);
     Route::get('/users/create/student', [AdminController::class, 'createStudent']);
+    Route::get('/users/create/course', [AdminController::class, 'createCourse']);
     Route::get('/course', [AdminController::class, 'course']);
     Route::get('/schedule', [AdminController::class, 'schedule']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
+    Route::get('/service', [AdminController::class, 'service']);
     Route::get('/grade', [AdminController::class, 'grade']);
     Route::get('/ukt', [AdminController::class, 'ukt']);
     Route::get('/ukt/update', [AdminController::class, 'uktUpdate']);

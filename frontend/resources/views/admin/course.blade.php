@@ -7,7 +7,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center p-4 border-b border-gray-200">
                     <h2 class="text-2xl font-bold mb-4 md:mb-0">Manajemen Mata Kuliah</h2>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="/users/create/course"
+                        <a href="/admin/users/create/course"
                             class="bg-ultramarine-400 hover:bg-ultramarine-900 text-white px-4 py-2 rounded-md transition duration-300 text-center">
                             Tambah Mata Kuliah
                         </a>
@@ -82,7 +82,7 @@
                                                 </button>
                                                 <button
                                                     class="text-ultramarine-500 hover:text-ultramarine-500 font-medium flex items-center gap-1"
-                                                    onclick="openModal('1')">
+                                                    onclick="openModal('{{ $course['id'] }}')">
                                                     <x-ionicon-document-text-outline class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Detail</span>
                                                 </button>
@@ -100,32 +100,6 @@
     </x-admin-sidebar>
 </x-admin-layout>
 
-
 {{-- Pop up Modal --}}
-<x-course-modal :courses="[
-    [
-        'id' => '1',
-        'code' => 'E2398',
-        'name' => 'Basis Data',
-        'sks' => '3',
-        'description' =>
-            'Mata kuliah ini membahas tentang konsep dasar basis data, model data, normalisasi, dan implementasi dalam sistem manajemen basis data.',
-        'program' => 'Teknik Informatika',
-        'lecturer' => 'Andharini Dwi Cahyani',
-        'schedule' => 'Senin, 08:00 - 10:30',
-        'room' => 'RKBF 301',
-    ],
-    [
-        'id' => '2',
-        'code' => 'E3932',
-        'name' => 'Dasar Pemrograman Web',
-        'sks' => '3',
-        'description' =>
-            'Mata kuliah ini membahas tentang konsep dasar pemrograman web, HTML, CSS, JavaScript, dan pengembangan aplikasi web sederhana.',
-        'program' => 'Teknik Informatika',
-        'lecturer' => 'Noor Ifada',
-        'schedule' => 'Rabu, 13:00 - 15:30',
-        'room' => 'Lab CC',
-    ],
-]" />
+<x-course-modal :courses="$courses['data']" />
 <x-course-update />

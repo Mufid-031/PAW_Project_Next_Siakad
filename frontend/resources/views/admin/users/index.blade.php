@@ -74,7 +74,7 @@
                                         <tr class="hover:bg-gray-50">
                                             <td
                                                 class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                                {{ $key }}</td>
+                                                {{ $key + 1 }}</td>
                                             <td
                                                 class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                                                 {{ $user['name'] }}</td>
@@ -112,5 +112,5 @@
             </div>
         </div>
     </x-admin-sidebar>
-    <x-users-update />
+    <x-users-update :admin="$admin" />
 </x-admin-layout>

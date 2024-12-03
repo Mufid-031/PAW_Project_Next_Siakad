@@ -1,5 +1,3 @@
-@props(['teachers'])
-
 @foreach ($teachers as $teacher)
     <div id="modal-{{ $teacher['id'] }}"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto hidden h-full w-full z-50">
@@ -14,27 +12,31 @@
             <div class="space-y-4 mb-8">
                 <div class="flex items-center gap-3">
                     <x-ionicon-person-circle-outline class="w-6 h-6 text-ultramarine-900" />
-                    <span class="font-medium">{{ $teacher['name'] }}</span>
+                    <span class="font-medium">{{ $teacher['name'] . ', ' . $teacher['teacher']['gelar'] }}</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <x-ionicon-card-outline class="w-6 h-6 text-ultramarine-900" />
-                    <span class="font-medium">{{ $teacher['nip'] }}</span>
+                    <span class="font-medium">{{ $teacher['teacher']['nip'] }}</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
-                    <span class="font-medium">{{ $teacher['faculty'] }}</span>
+                    <span class="font-medium">{{ $teacher['teacher']['faculty'] ?? 'Fakultas Teknik' }}</span>
                 </div>
             </div>
             <div class="mb-6">
                 <h4 class="font-medium text-lg mb-3">Bidang Keahlian:</h4>
-                <p class="text-gray-600 pl-2">{{ $teacher['expertise'] }}</p>
+                <p class="text-gray-600 pl-2">{{ $teacher['teacher']['keahlian'] }}</p>
             </div>
             <div class="mb-8">
                 <h4 class="font-medium text-lg mb-3">Publikasi:</h4>
                 <ul class="list-disc ml-8 space-y-2 text-gray-600">
-                    @foreach ($teacher['publications'] as $publication)
-                        <li>{{ $publication }}</li>
-                    @endforeach
+                    @if (!empty($teacher['teacher']['publications']))
+                        @foreach ($teacher['teacher']['publications'] as $publication)
+                            <li>{{ $publication }}</li>
+                        @endforeach
+                    @else
+                        <li>Belum ada publikasi</li>
+                    @endif
                 </ul>
             </div>
             <div class="text-right pt-4 border-t">

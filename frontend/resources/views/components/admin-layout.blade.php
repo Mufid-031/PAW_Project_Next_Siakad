@@ -10,8 +10,8 @@
     <title>Admin Dashboard</title>
 </head>
 
-<body>
-    <img src="/image/bg.svg" alt="" class="w-full h-full absolute -z-50 object-cover">
+<body class="bg-[url('/public/image/waves.svg')]">
+
     {{ $slot }}
 
 </body>
