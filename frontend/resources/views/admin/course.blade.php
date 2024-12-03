@@ -1,4 +1,4 @@
-{{-- {{ dd($courses) }} --}}
+{{ dd($courses) }}
 
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">

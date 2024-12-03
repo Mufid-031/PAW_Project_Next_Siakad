@@ -89,12 +89,12 @@ class StudentController extends Controller
 
     public function profile()
     {
-        return view('student.student-profile', ['student' => $this->student]);
+        return view('student.profile.student-profile', ['student' => $this->student]);
     }
 
     public function editProfile()
     {
-        return view('student.student-edit-profile', ['student' => $this->student]);
+        return view('student.profile.student-edit-profile', ['student' => $this->student]);
     }
 
     public function sivitas()
@@ -129,11 +129,11 @@ class StudentController extends Controller
 
     public function pembayaran()
     {
-        return view('student.student-pay', ['student' => $this->student]);
+        return view('student.keuangan.student-pay', ['student' => $this->student]);
     }
 
     public function statusPembayaran()
     {
-        return view('student.student-status-pay', ['student' => $this->student]);
+        return view('student.keuangan.student-status-pay', ['student' => $this->student]);
     }
 }
