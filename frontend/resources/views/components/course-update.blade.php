@@ -1,4 +1,4 @@
-<div x-data="{ isOpen: false }" x-show="isOpen" @update-course-modal.window="isOpen = true"
+<div x-data="{ isOpen: false, course: null }" x-show="isOpen" @update-course-modal.window="isOpen = true; course = $event.detail.course"
   class="fixed inset-0 z-50 overflow-y-auto" x-transition.opacity x-cloak>
   <div class="flex items-center justify-center min-h-screen p-6">
     <div class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity" @click="isOpen = false"></div>
@@ -15,24 +15,24 @@
         <div class="flex flex-col">
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-800">Nama Mata Kuliah</label>
-            <input type="text" name="name"
+            <input x-model="course?.name" type="text" name="name"
               class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
           </div>
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-800">Kode Mata Kuliah</label>
-            <input type="text" name="code"
+            <input x-model="course?.code" type="text" name="code"
               class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
           </div>
 
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-800">Program Studi</label>
-            <input type="text" name="code"
+            <input x-model="course?.programStudi" type="text" name="code"
               class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
           </div>
 
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-800">Dosen Pengajar</label>
-            <input type="text" name="lecturer"
+            <input x-model="course?.teacher.user.name" type="text" name="lecturer"
               class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
           </div>
         </div>

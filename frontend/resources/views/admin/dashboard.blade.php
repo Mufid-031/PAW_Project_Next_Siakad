@@ -1,3 +1,5 @@
+{{-- {{ dd($logs) }} --}}
+
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
         <div class="container mx-auto px-6 py-8">

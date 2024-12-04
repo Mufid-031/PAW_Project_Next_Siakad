@@ -1,6 +1,6 @@
 @props([
     'class' => '',
-]);
+])
 
 <!DOCTYPE html>
 <html lang="en">

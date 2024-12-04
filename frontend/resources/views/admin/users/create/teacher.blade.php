@@ -7,7 +7,7 @@
                     <p class="text-sm text-gray-500">Kelola administrator Anda dengan mudah dari sini</p>
                 </div>
 
-                <form action="" class="space-y-4">
+                <form id="teacherForm" class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-base font-medium text-gray-700">Nama</label>
@@ -42,9 +42,8 @@
                         <div>
                             <label class="block text-base font-medium text-gray-700">Jenis Kelamin</label>
                             <select name="gender" class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
+                                <option value="MAN">Male</option>
+                                <option value="WOMAN">Female</option>
                             </select>
                         </div>
 
@@ -62,5 +61,39 @@
                 </form>
             </div>
         </div>
+        <script>
+            const form = document.querySelector('#teacherForm');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.querySelector('input[name="name"]').value;
+                const email = document.querySelector('input[name="email"]').value;
+                const nip = document.querySelector('input[name="nip"]').value;
+                const password = document.querySelector('input[name="password"]').value;
+                const date = document.querySelector('input[name="date"]').value;
+                const gender = document.querySelector('select[name="gender"]').value;
+                console.log(name, email, nip, password, date, gender);
+                try {
+                    const token = await axios.post('/token/get-token').then(res => res.data);
+                    const response = await axios.post('http://localhost:3000/api/teacher/register', {
+                        name,
+                        email,
+                        nip,
+                        password,
+                        date,
+                        gender
+                    }, {
+                        headers: {
+                            'X-API-TOKEN': token
+                        }
+                    }).then(data => data.data);
+                    if (response.status === 201) {
+                        alert('Success Create New Teacher');
+                        window.location.replace('http://127.0.0.1:8000/admin/users')
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+        </script>
     </x-admin-sidebar>
 </x-admin-layout>

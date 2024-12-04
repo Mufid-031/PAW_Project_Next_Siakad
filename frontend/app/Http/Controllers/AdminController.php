@@ -13,6 +13,7 @@ class AdminController extends Controller
     public $courses;
     public $teachers;
     public $students;
+    public $logs;
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -21,6 +22,7 @@ class AdminController extends Controller
         $this->courses = CourseController::getCourses();
         $this->teachers = AdminController::getTeachers();
         $this->students = AdminController::getStudents();
+        $this->logs = AdminController::getLogs();
     }
 
     public function getUsers()
@@ -127,10 +129,23 @@ class AdminController extends Controller
         }
     }
 
+    public function getLogs()
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/log');
+
+            return $response->json();
+        } else {
+            redirect('/auth/login/admin');
+        }
+    }
+
     // views
     public function dashboard()
     {
-        return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers]);
+        return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers, 'logs' => $this->logs]);
     }
 
     public function users()
@@ -150,7 +165,7 @@ class AdminController extends Controller
 
     public function createStudent()
     {
-        return view('admin.users.create.student', ['admin' => $this->admin]);
+        return view('admin.users.create.student', ['admin' => $this->admin, 'teachers' => $this->teachers]);
     }
 
     public function createCourse()

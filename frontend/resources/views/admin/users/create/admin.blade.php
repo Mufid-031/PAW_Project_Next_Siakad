@@ -7,23 +7,23 @@
                     <p class="text-sm text-gray-500">Kelola administrator Anda dengan mudah dari sini</p>
                 </div>
 
-                <form action="" class="space-y-4">
+                <form class="space-y-4" id="adminForm">
                     <div class="flex flex-col gap-4">
                         <div>
                             <label class="block text-base font-medium text-gray-700">Nama</label>
-                            <input type="text" name="name"
+                            <input type="text" id="name" name="name"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Email</label>
-                            <input type="email" name="email"
+                            <input type="email" id="email" name="email"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Password</label>
-                            <input type="password" name="password"
+                            <input type="password" id="password" name="password"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
                     </div>
@@ -40,5 +40,33 @@
                 </form>
             </div>
         </div>
+
+        <script>
+            const form = document.querySelector('#adminForm');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.querySelector('#name').value;
+                const email = document.querySelector('#email').value;
+                const password = document.querySelector('#password').value;
+                try {
+                    const token = await axios.post('/token/get-token').then(res => res.data);
+                    const response = await axios.post('http://localhost:3000/api/admin/register', {
+                        name,
+                        email,
+                        password
+                    }, {
+                        headers: {
+                            'X-API-TOKEN': token
+                        }
+                    }).then(data => data.data);
+                    if (response.status === 201) {
+                        alert('Success Create New Admin');
+                        window.location.replace('http://127.0.0.1:8000/admin/users')
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+        </script>
     </x-admin-sidebar>
 </x-admin-layout>
