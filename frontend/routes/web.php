@@ -48,11 +48,10 @@ Route::prefix('student')->group(function () {
     Route::get('/eval-dosen', [StudentController::class, 'evalDosen']);
     Route::get('/cuti-req', [StudentController::class, 'cutiReq']);
     Route::get('/absen', [StudentController::class, 'absen']);
-    Route::get('/materi', [StudentController::class, 'materi']);
     Route::get('/payment', [StudentController::class, 'pembayaran']);
     Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
     Route::get('/profile', [StudentController::class, 'profile']);
-    Route::get('/profile/update', [StudentController::class, 'editProfile']);
+    Route::get('/khs', [StudentController::class, 'khs']);
 });
 
 Route::prefix('dosen')->group(function () {

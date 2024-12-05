@@ -74,7 +74,7 @@ class StudentController extends Controller
 
     public function krsAdd()
     {
-        return view('student.tambah-krs', ['student' => $this->student]);
+        return view('student.student-tambah-krs', ['student' => $this->student]);
     }
 
     public function schedule()
@@ -92,11 +92,6 @@ class StudentController extends Controller
         return view('student.profile.student-profile', ['student' => $this->student]);
     }
 
-    public function editProfile()
-    {
-        return view('student.profile.student-edit-profile', ['student' => $this->student]);
-    }
-
     public function sivitas()
     {
         return view('student.student-sivitas', ['student' => $this->student]);
@@ -112,19 +107,9 @@ class StudentController extends Controller
         return view('student.student-eval-dosen', ['student' => $this->student]);
     }
 
-    public function cutiReq()
-    {
-        return view('student.student-cuti-req', ['student' => $this->student]);
-    }
-
     public function absen()
     {
         return view('student.student-absen', ['student' => $this->student]);
-    }
-
-    public function materi()
-    {
-        return view('student.student-materi', ['student' => $this->student]);
     }
 
     public function pembayaran()
@@ -135,5 +120,10 @@ class StudentController extends Controller
     public function statusPembayaran()
     {
         return view('student.keuangan.student-status-pay', ['student' => $this->student]);
+    }
+
+    public function khs()
+    {
+        return view('student.student-khs', ['student' => $this->student]);
     }
 }
