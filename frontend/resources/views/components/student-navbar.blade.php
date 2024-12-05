@@ -37,6 +37,7 @@
                             <div id="dropdown-akademik" class="hidden absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                                 <a href="/student/krs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kartu Rencana Studi</a>
                                 <a href="/student/jadwal" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Jadwal Mata Kuliah</a>
+                                <a href="/student/khs" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Hasil Studi</a>
                                 <a href="/student/grade" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Transkip Nilai</a>
                                 <a href="/student/sivitas" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sivitas</a>
                             </div>
@@ -73,7 +74,6 @@
                     </button>
                     <div id="dropdown-profile" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                         <a href="/student/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Data Pribadi</a>
-                        <a href="/student/cuti-req" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Permintaan Cuti</a>
                         <a href="/student/login" id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
                     </div>
                 </div>

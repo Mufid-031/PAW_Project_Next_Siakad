@@ -12,15 +12,11 @@
                         </div>
                         
                         <div class="space-y-2">
-                            <a href="../student/absensi" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
+                            <a href="/student/absen" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
                                 ABSENSI →
                             </a>
-                            
-                            <a href="../student/materi" class="block w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
-                                Materi
-                            </a>
 
-                            <a href="../student/eval-dosen" class="block w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
+                            <a href="/student/eval-dosen" class="block w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
                                 Form Evaluasi
                             </a>
                         </div>
