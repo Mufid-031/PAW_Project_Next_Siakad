@@ -1,5 +1,6 @@
 @props([
-  'token' => null
+    'token' => null,
+    'student' => null
 ])
 
 <nav class="bg-white shadow-lg">
@@ -70,11 +71,11 @@
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        <span class="ml-2">Harits Putra Junaidi</span>
+                        <span class="ml-2">{{ $student['data']['name'] }}</span>
                     </button>
                     <div id="dropdown-profile" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                         <a href="/student/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Data Pribadi</a>
-                        <a href="/student/login" id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        <button id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
                     </div>
                 </div>
             </div>
@@ -82,6 +83,26 @@
     </div>
 
     <script>
+        const adminLogout = document.querySelector('#sign-out');
+        adminLogout.addEventListener('click', async () => {
+            try {
+                const token = await axios.post('/token/get-token').then(res => res.data);
+                const response = await axios.patch('http://localhost:3000/api/student/logout', {}, {
+                    headers: {
+                        'X-API-TOKEN': token
+                    }
+                }).then(data => data.data);
+                if (response.status === 200) {
+                    await axios.post('/token/destroy-token');
+                    window.location.replace('http://127.0.0.1:8000/auth/login/student');
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        });
+    </script>
+
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", () => {
             const signOut = document.querySelector("#sign-out");
             if (signOut) {
@@ -116,7 +137,7 @@
                 });
             }
         });
-    </script>
+    </script> --}}
 </nav>
 
 <script>
