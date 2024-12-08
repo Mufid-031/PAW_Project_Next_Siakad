@@ -1,4 +1,5 @@
-<x-student-layout>
+{{-- {{ dd($enrollments) }} --}}
+<x-student-layout :student="$student">
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
             {{-- Transkip NIlai --}}
@@ -23,13 +24,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">1</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF101</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Algoritma dan Pemrograman</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">3</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">A</td>
-                            </tr>
+                            @foreach ($enrollments['data'] as $key => $enrollment)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['sks'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['grade'] }}</td>
+                                </tr>
+                            @endforeach
 
                             {{-- Melihat IPK --}}
                             <tr class="bg-gray-100">

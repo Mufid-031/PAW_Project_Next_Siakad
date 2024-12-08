@@ -1,5 +1,5 @@
 <x-layout>
-    <x-student-layout>
+    <x-student-layout :student="$student">
         <main class="ml-20 mr-20 mt-5">
             <div class="container mx-auto">
                 <div class="bg-white p-6 rounded-lg shadow-lg">

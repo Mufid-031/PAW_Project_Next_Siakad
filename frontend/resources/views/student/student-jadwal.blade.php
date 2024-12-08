@@ -1,4 +1,5 @@
-<x-student-layout>
+{{-- {{ dd($enrollments) }} --}}
+<x-student-layout :student="$student">
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg p-6">
@@ -26,14 +27,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">1</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF101</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Algoritma dan Pemrograman</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Dr. John Doe</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Senin, 08:00 - 10:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 101</td>
-                            </tr>
+                            @foreach ($enrollments['data'] as $key => $enrollment)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['teacher']['user']['name'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] }}, {{ $enrollment['schedule']['time'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['room'] }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

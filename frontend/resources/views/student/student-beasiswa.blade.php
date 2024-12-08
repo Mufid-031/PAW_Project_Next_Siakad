@@ -1,4 +1,4 @@
-<x-student-layout>
+<x-student-layout :student="$student">
         <x-layout>
         <main class="ml-20 mr-20 mt-5">
             <div class="container mx-auto">
