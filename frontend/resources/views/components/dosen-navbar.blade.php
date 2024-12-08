@@ -8,7 +8,7 @@
             <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0">
                     <a href="{{ route('dosen.dashboard') }}" class="flex items-center justify-between mr-4">
-                        <div class="text-2xl font-bold gradient-text animate-pulse-slow">YUTIEM</div>
+                        <div class="text-2xl font-bold gradient-text animate-pulse-slow">NextSiakad</div>
                     </a>
                 </div>
                 <div class="hidden sm:block sm:ml-6">
@@ -36,29 +36,13 @@
                             </button>
                             <div id="dropdown-akademik" class="hidden absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                                 <a href="{{ route('dosen.jadwal') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Jadwal Mengajar</a>
-                                <a href="{{ route('dosen.input-nilai') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Input Nilai</a>
+                                <a href="{{ route('dosen.daftar-matkul') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar MK</a>
                                 {{-- <a href="{{ route('dosen.materi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Materi</a> --}}
                                 <a href="{{ route('dosen.perwalian') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar Perwalian</a>
                                 <a href="{{ route('dosen.validasi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Validasi KRS</a>
+                                <a href="{{ route('dosen.absen') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Absensi</a>
                             </div>
                         </div>
-                        <!-- Absensi Menu -->
-                        <div class="relative">
-                            <button onclick="toggleDropdown('absensi')" class="flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 border border-gray-300">
-                                <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5a12.083 12.083 0 01-6.16-10.922L12 14z" />
-                                </svg>
-                                <span>Absensi</span>
-                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div id="dropdown-absensi" class="hidden absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                                <a href="{{ route('dosen.absen') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Absen</a>
-                                <a href="{{ route('dosen.riwayat-absen') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Absen</a>
-                            </div>
-                    </div>
                 </div>
             </div>
             <div class="flex items-center lg:order-2">

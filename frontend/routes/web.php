@@ -56,16 +56,20 @@ Route::prefix('student')->group(function () {
 });
 
 Route::prefix('dosen')->group(function () {
+    
     Route::get('/dashboard', [TeacherController::class, 'dashboard'])->name('dosen.dashboard');
     Route::get('/profile', [TeacherController::class, 'profile'])->name('dosen.profile');
     Route::get('/edit-profile', [TeacherController::class, 'profileUpdate'])->name('dosen.edit-profile');
-    Route::get('/input-nilai', [TeacherController::class, 'grade'])->name('dosen.input-nilai');
+    Route::get('/input-nilai', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
+    Route::get('/daftar-matkul', [TeacherController::class, 'grade'])->name('dosen.daftar-matkul');
+    Route::get('/cetak-nilai', [TeacherController::class, 'cetakNilai'])->name('dosen.cetak-nilai');
+    
     Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
     Route::get('/absen', [TeacherController::class, 'absen'])->name('dosen.absen');
     Route::get('/riwayat-absen', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
     Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
-    Route::get('/validasi', [TeacherController::class, 'validasi'])->name('dosen.validasi');
-    Route::get('/detail-validasi', [TeacherController::class, 'detailValidasi'])->name('dosen.detail-validasi');
+    Route::get('/validasi', [TeacherController::class, 'validation'])->name('dosen.validasi');
+    Route::get('/detail-krs', [TeacherController::class, 'validationDetail'])->name('dosen.detail.krs');
     Route::get('/cuti-req', [TeacherController::class, 'cutiReq'])->name('dosen.cuti-req');
     Route::prefix('materi')->group(function () {
         Route::get('/', [TeacherController::class, 'materi']);

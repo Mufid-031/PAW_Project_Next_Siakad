@@ -26,6 +26,9 @@ class TeacherController extends Controller
         } else {
             redirect('/auth/login/admin');
         }
+    
+        
+        
     }
 
     public static function getTeacher($id)
@@ -60,6 +63,11 @@ class TeacherController extends Controller
 
     public function grade()
     {
+        return view('dosen.dosen-daftar-matkul');
+    }
+
+    public function detailGrade()
+    {
         return view('dosen.dosen-input-nilai');
     }
 
@@ -73,6 +81,12 @@ class TeacherController extends Controller
         return view('dosen.dosen-absen');
     }
 
+    public function cetakNilai()
+        {
+            // Add your implementation here
+            return view('dosen.dosen-cetak-nilai');
+        }
+
     public function historyAbsen()
     {
         return view('dosen.dosen-riwayat-absen');
@@ -80,7 +94,7 @@ class TeacherController extends Controller
 
     public function perwalian()
     {
-        return view('dosen.dosen-perwalian');
+        return view('dosen.dosen-wali');
     }
 
     public function validation()
@@ -90,7 +104,7 @@ class TeacherController extends Controller
 
     public function validationDetail()
     {
-        return view('dosen.dosen-validasi-krs-detail');
+        return view('dosen.dosen-detail-validasi-krs');
     }
 
     public function cutiReq()
@@ -122,4 +136,15 @@ class TeacherController extends Controller
     {
         return view('dosen.dosen-materi-detail');
     }
+    public function mataKuliahAsuh()
+    {
+        $mataKuliahAsuh = [
+            (object)['kode_mk' => '010700', 'nama_mk' => 'SISTEM OPERASI', 'kelas' => 'IFB2X'],
+            (object)['kode_mk' => '110200', 'nama_mk' => 'ANALISIS DESAIN ORIENTASI OBJEK', 'kelas' => 'IFB3C'],
+            (object)['kode_mk' => '120300', 'nama_mk' => 'TEKNOLOGI MULTIMEDIA', 'kelas' => 'TIB2A'],
+        ];
+
+        return view('dosen.dosen-daftar-matkul', compact('mataKuliahAsuh'));
+    }
+    
 }
