@@ -2,7 +2,7 @@
     'token' => null
 ])
 
-<div class="antialiased bg-gray-50 dark:bg-gray-900">
+<div class="antialiased bg-gray-50">
     <x-student-navbar token="{{ $token }}" />
 
     {{-- <x-student-sidebar /> --}}
