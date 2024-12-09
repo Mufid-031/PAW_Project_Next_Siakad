@@ -1,9 +1,9 @@
-{{-- {{ dd($logs) }} --}}
+{{-- {{ dd($courses) }} --}}
 
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
         <div class="container mx-auto px-6 py-8">
-            <x-admin-card :students="$students" :teachers="$teachers" />
+            <x-admin-card :students="$students" :teachers="$teachers" :courses="$courses" :schedules="$schedules" />
 
             <!-- Activity Table -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden mt-8">
@@ -36,32 +36,26 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @php
-                                $mergedData = array_merge($students['data'], $teachers['data']);
-                                usort($mergedData, function ($a, $b) {
-                                    return strtotime($b['createdAt']) - strtotime($a['createdAt']);
-                                });
-                            @endphp
-                            @foreach ($mergedData as $data)
+                            @foreach ($logs['data'] as $log)
                                 <tr class="hover:bg-gray-50 transition-colors duration-200">
                                     <td class="px-6 py-4">
                                         <p class="text-gray-900">
-                                            {{ \Carbon\Carbon::parse($data['createdAt'])->setTimezone('Asia/Jakarta')->format('d F Y') }}
+                                            {{ \Carbon\Carbon::parse($log['createdAt'])->setTimezone('Asia/Jakarta')->format('d F Y') }}
                                         </p>
                                         <p class="text-gray-500">
-                                            {{ \Carbon\Carbon::parse($data['createdAt'])->setTimezone('Asia/Jakarta')->format('H:i') }}
+                                            {{ \Carbon\Carbon::parse($log['createdAt'])->setTimezone('Asia/Jakarta')->format('H:i') }}
                                         </p>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 inline-flex leading-5 font-semibold">
-                                            Membuat Akun {{ $data['role'] }}
+                                            {{ $log['action'] }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="font-medium text-gray-900">{{ $data['name'] }}</div>
+                                        <div class="font-medium text-gray-900">{{ $log['user']['name'] }}</div>
                                     </td>
                                     <td class="px-6 py-4 text-gray-500">
-                                        {{ $data['email'] }}
+                                        {{ $log['user']['email'] }}
                                     </td>
                                 </tr>
                             @endforeach

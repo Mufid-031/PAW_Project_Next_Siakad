@@ -27,23 +27,29 @@
                         <p class="text-gray-600"><strong>NIM:</strong> {{ $student['data']['student']['nim'] }}</p>
                         <p class="text-gray-600"><strong>Nama:</strong> {{ $student['data']['name'] }}</p>
                         <p class="text-gray-600"><strong>Email:</strong> {{ $student['data']['email'] }}</p>
-                        <p class="text-gray-600"><strong>Jenis Kelamin:</strong> {{ $student['data']['gender'] }}</p>
-                        <p class="text-gray-600"><strong>Tanggal Lahir:</strong> {{ $tanggalLahir}}</p>
+                        <p class="text-gray-600"><strong>Jenis Kelamin:</strong>
+                            {{ $student['data']['gender'] == 'MAN' ? 'Laki-laki' : 'Perempuan' }}</p>
+                        <p class="text-gray-600"><strong>Tanggal Lahir:</strong> {{ $tanggalLahir }}</p>
                         <p class="text-gray-600"><strong>Telephone:</strong> {{ $student['data']['telephone'] }}</p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg shadow">
                         <h3 class="text-lg font-semibold text-gray-800 mb-2">Informasi Akademik</h3>
-                        <p class="text-gray-600"><strong>Dosen Pembimbing:</strong> {{ $student['data']['student']['academicAdvisorId']}}</p>
-                        <p class="text-gray-600"><strong>Program Studi:</strong> {{ $student['data']['student']['programStudi']}}</p>
-                        <p class="text-gray-600"><strong>Fakultas:</strong> {{ $student['data']['student']['fakultas']}}</p>
-                        <p class="text-gray-600"><strong>Status:</strong> {{ $student['data']['student']['statusStudent']}}</p>
-                        <p class="text-gray-600"><strong>IPK:</strong> {{ $student['data']['student']['gpa']}}</p>
+                        <p class="text-gray-600"><strong>Dosen Pembimbing:</strong>
+                            {{ $student['data']['student']['advisor']['user']['name'] }}</p>
+                        <p class="text-gray-600"><strong>Program Studi:</strong>
+                            {{ $student['data']['student']['programStudi'] }}</p>
+                        <p class="text-gray-600"><strong>Fakultas:</strong>
+                            {{ $student['data']['student']['fakultas'] }}</p>
+                        <p class="text-gray-600"><strong>Status:</strong>
+                            {{ strToLower($student['data']['student']['statusStudent']) }}</p>
+                        <p class="text-gray-600"><strong>IPK:</strong> {{ $student['data']['student']['gpa'] }}</p>
                     </div>
                 </div>
 
                 <!-- Edit Button -->
                 <div class="mt-6 text-center">
-                    <button onclick="toggleModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                    <button onclick="toggleModal()"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
                         Edit Profil
                     </button>
                 </div>
@@ -51,41 +57,49 @@
         </main>
 
         <!-- Modal -->
-        <div id="editModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div id="editModal"
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
             <div class="bg-white rounded-lg shadow-lg w-1/3">
                 <div class="p-4 border-b">
                     <h2 class="text-xl font-bold text-gray-800">Edit Profil</h2>
                 </div>
-                <form id="edit-profile" class="p-4 grid grid-cols-2 gap-2" >
+                <form id="edit-profile" class="p-4 grid grid-cols-2 gap-2">
                     <!-- Nama -->
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700 font-medium">Nama:</label>
-                        <input type="text" id="name" name="name" value="{{ $student['data']['name'] }}" class="w-full border-gray-300 rounded-lg shadow-sm">
+                        <input type="text" id="name" name="name" value="{{ $student['data']['name'] }}"
+                            class="w-full border-gray-300 rounded-lg shadow-sm">
                     </div>
                     <!-- Email -->
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 font-medium">Email:</label>
-                        <input type="email" id="email" name="email" value="{{ $student['data']['email'] }}" class="w-full border-gray-300 rounded-lg shadow-sm">
+                        <input type="email" id="email" name="email" value="{{ $student['data']['email'] }}"
+                            class="w-full border-gray-300 rounded-lg shadow-sm">
                     </div>
                     <!-- Telepon -->
                     <div class="mb-4">
                         <label for="telephone" class="block text-gray-700 font-medium">Telephone: </label>
-                        <input type="tel" id="telephone" name="telephone" value="{{ $student['data']['telephone'] }}" class="w-full border-gray-300 rounded-lg shadow-sm">
+                        <input type="tel" id="telephone" name="telephone"
+                            value="{{ $student['data']['telephone'] }}"
+                            class="w-full border-gray-300 rounded-lg shadow-sm">
                     </div>
                     <!-- Password -->
                     <div class="mb-4">
                         <label for="password" class="block text-gray-700 font-medium">Password: (opstional)</label>
-                        <input type="password" id="password" name="password" class="w-full border-gray-300 rounded-lg shadow-sm">
-                    <div></div>
-                    <!-- Tombol Simpan -->
-                    <div class="flex justify-end mt-5">
-                        <button type="button" onclick="toggleModal()" class="bg-red-600 hover:bg-red-500 text-white font-medium py-2 px-4 rounded-lg mr-2">
-                            Batal
-                        </button>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
-                            Simpan
-                        </button>
-                    </div>
+                        <input type="password" id="password" name="password"
+                            class="w-full border-gray-300 rounded-lg shadow-sm">
+                        <div></div>
+                        <!-- Tombol Simpan -->
+                        <div class="flex justify-end mt-5">
+                            <button type="button" onclick="toggleModal()"
+                                class="bg-red-600 hover:bg-red-500 text-white font-medium py-2 px-4 rounded-lg mr-2">
+                                Batal
+                            </button>
+                            <button type="submit"
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                                Simpan
+                            </button>
+                        </div>
                 </form>
             </div>
         </div>
@@ -108,7 +122,7 @@
                         telephone
                     }, {
                         headers: {
-                            'X-API-TOKEN': token
+                            'X-API-TOKEN': `${token}`
                         }
                     }).then(data => data.data);
                     if (response.status === 201) {
@@ -119,7 +133,7 @@
                     console.log(error);
                 }
             })
-        </script> 
+        </script>
 
         <script>
             function toggleModal() {

@@ -12,12 +12,14 @@ class StudentController extends Controller
     public $student;
     public $courses;
     public $enrollments;
+    public $schedules;
     public function __construct()
     {
         $this->token = TokenController::get();
         $this->student = StudentController::getStudentDetail();
         $this->courses = CourseController::getCourses();
         $this->enrollments = StudentController::getEnrollment();
+        $this->schedules = ScheduleController::getSchedules();
     }
 
     public static function getStudents()
@@ -86,7 +88,7 @@ class StudentController extends Controller
 
     public function krs()
     {
-        return view('student.student-krs', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        return view('student.student-krs', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
     }
 
     public function krsAdd()
@@ -96,7 +98,7 @@ class StudentController extends Controller
 
     public function schedule()
     {
-        return view('student.student-jadwal', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        return view('student.student-jadwal', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
     }
 
     public function grade()

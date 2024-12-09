@@ -1,4 +1,18 @@
 {{-- {{ dd($enrollments) }} --}}
+{{-- Add this PHP code at the top of the file --}}
+@php
+    function getGradePoint($grade) {
+        switch ($grade) {
+            case 'A': return 4.0;
+            case 'B': return 3.0;
+            case 'C': return 2.0;
+            case 'D': return 1.0;
+            case 'E': return 0.0;
+            default: return 0.0;
+        }
+    }
+@endphp
+
 <x-student-layout :student="$student">
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
@@ -38,8 +52,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $totalSks = 0;
+                                        $totalPoints = 0;
+                                    @endphp
                                     @foreach ($enrollments['data'] as $key => $enrollment)
                                         @if ($enrollment['schedule']['course']['semester'] == 'semester_' . $i)
+                                            @php
+                                                $sks = $enrollment['schedule']['course']['sks'];
+                                                $gradePoint = getGradePoint($enrollment['grade']);
+                                                $totalSks += $sks;
+                                                $totalPoints += ($sks * $gradePoint);
+                                            @endphp
                                             <tr class="hover:bg-gray-50">
                                                 <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
                                                 <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
@@ -52,8 +76,10 @@
 
                                     {{-- Melihat IP --}}
                                     <tr class="bg-gray-100">
-                                        <td colspan="4" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">Nilai IP :</td>
-                                        <td colspan="1" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">3.45</td>
+                                        <td colspan="4" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">Nilai IPK :</td>
+                                        <td colspan="1" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">
+                                            {{ $totalSks > 0 ? number_format($totalPoints / $totalSks, 2) : '0.00' }}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
