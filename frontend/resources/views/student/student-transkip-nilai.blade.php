@@ -70,17 +70,17 @@
             const ipk = document.getElementById('nilai-ipk');
             const grades = document.querySelectorAll('.grade');
             const rows = document.querySelectorAll('tbody tr:not(.bg-gray-100)');
-            
+
             let totalPoints = 0;
             let totalSKS = 0;
 
             rows.forEach(row => {
                 const grade = row.querySelector('.grade').textContent.trim();
                 const sks = parseFloat(row.children[3].textContent);
-                
+
                 if (!isNaN(sks) && grade !== '-') {
                     let gradePoint = 0;
-                    
+
                     switch(grade) {
                         case 'A': gradePoint = 4; break;
                         case 'B': gradePoint = 3; break;

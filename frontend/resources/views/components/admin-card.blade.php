@@ -1,4 +1,4 @@
-@props(['students' => null, 'teachers' => null])
+@props(['students' => null, 'teachers' => null, 'courses' => null, 'schedules' => null])
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <!-- Statistik Mahasiswa -->
@@ -29,7 +29,7 @@
             <x-ionicon-book-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Mata Kuliah Aktif</h3>
-                <p class="text-2xl font-bold">100</p>
+                <p class="text-2xl font-bold">{{ count($courses['data']) }}</p>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <x-ionicon-calendar-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Kelas Aktif</h3>
-                <p class="text-2xl font-bold">15</p>
+                <p class="text-2xl font-bold">{{ count($schedules['data']) }}</p>
             </div>
         </div>
     </div>

@@ -202,6 +202,52 @@
             const token = await axios.post('/token/get-token').then(res => res.data);
             console.log(token);
             console.log(scheduleId);
+            const response = await axios.post('http://localhost:3000/api/enrollment/register', {
+                scheduleId
+            }, {
+                headers: {
+                    'X-API-TOKEN': ${token}
+                }
+            }).then(data => data.data);
+            if (response.status === 201) {
+                alert('Success Add Course');
+                window.location.replace('http://127.0.0.1:8000/student/krs')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        // After successful enrollment, hide the selected rows
+        document.querySelectorAll('input[name="scheduleId"]:checked').forEach((checkbox) => {
+            const row = checkbox.closest('tr');
+            if (row) {
+                row.classList.add('hidden');
+            }
+        });
+    });
+
+    const deleteForm = document.querySelector('#krs-delete');
+    deleteForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const enrollmentIds = [];
+        document.querySelectorAll('input[name="enrollmentId"]:checked').forEach((checkbox) => {
+            enrollmentIds.push(parseInt(checkbox.value));
+            // Show the corresponding course in the top table
+            const scheduleId = checkbox.value;
+            const topRow = document.querySelector('tr[data-schedule-id="${scheduleId}"]');
+            if (topRow) {
+                topRow.classList.remove('hidden');
+            }
+        });
+
+        const scheduleId = [];
+        document.querySelectorAll('input[name="enrollmentId"]:checked').forEach((checkbox) => {
+            scheduleId.push(parseInt(checkbox.value));
+        });
+        try {
+            const token = await axios.post('/token/get-token').then(res => res.data);
+            console.log(token);
+            console.log(scheduleId);
             const response = await axios.delete('http://localhost:3000/api/enrollment', {
                 scheduleId
             }, {

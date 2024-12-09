@@ -14,6 +14,7 @@ class AdminController extends Controller
     public $teachers;
     public $students;
     public $logs;
+    public $schedules;
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -23,6 +24,7 @@ class AdminController extends Controller
         $this->teachers = AdminController::getTeachers();
         $this->students = AdminController::getStudents();
         $this->logs = AdminController::getLogs();
+        $this->schedules = ScheduleController::getSchedules();
     }
 
     public function getUsers()
@@ -145,7 +147,7 @@ class AdminController extends Controller
     // views
     public function dashboard()
     {
-        return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers, 'logs' => $this->logs]);
+        return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers, 'logs' => $this->logs, 'courses' => $this->courses, 'schedules' => $this->schedules]);
     }
 
     public function users()
