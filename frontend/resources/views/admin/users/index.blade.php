@@ -90,12 +90,13 @@
                                             <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
                                                 <div
                                                     class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                                                    <button @click="$dispatch('update-modal', {user :@js($user)})"
+                                                    <button
+                                                        @click="$dispatch('update-modal', {user :@js($user)})"
                                                         class="font-medium flex items-center gap-1">
                                                         <x-far-edit class="w-4 h-4" />
                                                         <span class="hidden sm:inline">Ubah</span>
                                                     </button>
-                                                    <button
+                                                    <button id="delete" data-id="{{ $user['id'] }}"
                                                         class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
                                                         <x-ionicon-trash-outline class="w-4 h-4" />
                                                         <span class="hidden sm:inline">Hapus</span>
@@ -111,6 +112,30 @@
                 </div>
             </div>
         </div>
+        <script>
+            const deleteButtons = document.querySelectorAll('#delete');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const id = button.getAttribute('data-id');
+                    const token = await axios.post('/token/get-token').then(res => res.data);
+                    const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
+
+                    if (confirmDelete) {
+                        try {
+                            await axios.delete(`http://localhost:3000/api/teacher/${id}`, {
+                                headers: {
+                                    'X-API-TOKEN': `${token}`
+                                }
+                            });
+                            alert('Berhasil menghapus pengguna');
+                            window.location.reload();
+                        } catch (error) {
+                            alert('Gagal menghapus pengguna');
+                        }
+                    }
+                });
+            });
+        </script>
         <x-users-update :admin="$admin" />
     </x-admin-sidebar>
 </x-admin-layout>

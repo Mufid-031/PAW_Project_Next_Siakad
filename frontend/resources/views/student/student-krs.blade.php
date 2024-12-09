@@ -52,16 +52,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($schedules['data'] as $key => $schedule)
-                                        @php
-                                            $isEnrolled = false;
-                                            foreach ($enrollments['data'] as $enrollment) {
-                                                if ($enrollment['schedule']['course']['code'] === $schedule['course']['code']) {
-                                                    $isEnrolled = true;
-                                                    break;
-                                                }
-                                            }
-                                        @endphp
-                                        <tr class="hover:bg-gray-50 {{ $isEnrolled ? 'hidden' : '' }}" data-schedule-id="{{ $schedule['id'] }}">
+                                        <tr class="hover:bg-gray-50">
                                             <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
                                                 {{ $loop->iteration }}</td>
                                             <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
@@ -215,7 +206,7 @@
                 scheduleId
             }, {
                 headers: {
-                    'X-API-TOKEN': `${token}`
+                    'X-API-TOKEN': ${token}
                 }
             }).then(data => data.data);
             if (response.status === 201) {
@@ -261,7 +252,7 @@
                 scheduleId
             }, {
                 headers: {
-                    'X-API-TOKEN': `${token}`
+                    'X-API-TOKEN': ${token}
                 }
             }).then(data => data.data);
             if (response.status === 201) {

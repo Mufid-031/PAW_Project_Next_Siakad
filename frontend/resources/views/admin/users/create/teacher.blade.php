@@ -69,9 +69,9 @@
                 const email = document.querySelector('input[name="email"]').value;
                 const nip = document.querySelector('input[name="nip"]').value;
                 const password = document.querySelector('input[name="password"]').value;
-                const date = document.querySelector('input[name="date"]').value;
+                const tanggalLahir = document.querySelector('input[name="date"]').value;
                 const gender = document.querySelector('select[name="gender"]').value;
-                console.log(name, email, nip, password, date, gender);
+                console.log(name, email, nip, password, tanggalLahir, gender);
                 try {
                     const token = await axios.post('/token/get-token').then(res => res.data);
                     const response = await axios.post('http://localhost:3000/api/teacher/register', {
@@ -79,7 +79,7 @@
                         email,
                         nip,
                         password,
-                        date,
+                        tanggalLahir,
                         gender
                     }, {
                         headers: {

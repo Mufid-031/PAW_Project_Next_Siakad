@@ -172,7 +172,7 @@ class AdminController extends Controller
 
     public function createCourse()
     {
-        return view('admin.users.create.course', ['admin' => $this->admin]);
+        return view('admin.users.create.course', ['admin' => $this->admin, 'teachers' => $this->teachers]);
     }
 
     public function course()
@@ -195,9 +195,9 @@ class AdminController extends Controller
         return view('admin.service', ['admin' => $this->admin]);
     }
 
-    public function grade()
+    public function report()
     {
-        return view('admin.grade', ['admin' => $this->admin]);
+        return view('admin.report', ['admin' => $this->admin]);
     }
 
     public function ukt()

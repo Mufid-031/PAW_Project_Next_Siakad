@@ -4,7 +4,11 @@
     function getGradePoint($grade) {
         switch ($grade) {
             case 'A': return 4.0;
+            case 'A-': return 3.7;
+            case 'B+': return 3.3;
             case 'B': return 3.0;
+            case 'B-': return 2.7;
+            case 'C+': return 2.3;
             case 'C': return 2.0;
             case 'D': return 1.0;
             case 'E': return 0.0;
@@ -76,7 +80,7 @@
 
                                     {{-- Melihat IP --}}
                                     <tr class="bg-gray-100">
-                                        <td colspan="4" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">Nilai IPK :</td>
+                                        <td colspan="4" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">Nilai IP :</td>
                                         <td colspan="1" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">
                                             {{ $totalSks > 0 ? number_format($totalPoints / $totalSks, 2) : '0.00' }}
                                         </td>

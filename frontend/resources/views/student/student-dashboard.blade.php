@@ -6,7 +6,7 @@
                 <!-- Bagian Header -->
                 <div class="border-b border-gray-200 mb-6">
                     <h1 class="text-2xl font-bold text-center text-gray-800">
-                        Selamat Datang {{ $student['data']['name'] }}
+                        Selamat Datang {{ strToUpper($student['data']['name']) }}
                     </h1>
                 </div>
 
