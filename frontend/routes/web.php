@@ -28,7 +28,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/schedule', [AdminController::class, 'schedule']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/service', [AdminController::class, 'service']);
-    Route::get('/grade', [AdminController::class, 'grade']);
+    Route::get('/report', [AdminController::class, 'report']);
     Route::get('/ukt', [AdminController::class, 'ukt']);
     Route::get('/ukt/update', [AdminController::class, 'uktUpdate']);
     Route::get('/laporan', [AdminController::class, 'laporan']);
