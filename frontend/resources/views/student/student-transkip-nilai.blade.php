@@ -56,8 +56,7 @@
                                 <td colspan="4"
                                     class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">
                                     Nilai IPK:</td>
-                                <td colspan="1"
-                                    id="nilai-ipk"
+                                <td colspan="1" id="nilai-ipk"
                                     class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">3.45
                                 </td>
                             </tr>
@@ -81,12 +80,22 @@
                 if (!isNaN(sks) && grade !== '-') {
                     let gradePoint = 0;
 
-                    switch(grade) {
-                        case 'A': gradePoint = 4; break;
-                        case 'B': gradePoint = 3; break;
-                        case 'C': gradePoint = 2; break;
-                        case 'D': gradePoint = 1; break;
-                        case 'E': gradePoint = 0; break;
+                    switch (grade) {
+                        case 'A':
+                            gradePoint = 4;
+                            break;
+                        case 'B':
+                            gradePoint = 3;
+                            break;
+                        case 'C':
+                            gradePoint = 2;
+                            break;
+                        case 'D':
+                            gradePoint = 1;
+                            break;
+                        case 'E':
+                            gradePoint = 0;
+                            break;
                     }
 
                     totalPoints += (gradePoint * sks);

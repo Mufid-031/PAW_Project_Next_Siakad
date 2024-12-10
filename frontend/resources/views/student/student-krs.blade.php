@@ -52,7 +52,17 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($schedules['data'] as $key => $schedule)
-                                        <tr class="hover:bg-gray-50">
+                                        @php
+                                            $isEnrolled = false;
+                                            foreach ($enrollments['data'] as $enrollment) {
+                                                if ($enrollment['schedule']['course']['code'] === $schedule['course']['code']) {
+                                                    $isEnrolled = true;
+                                                    break;
+                                                }
+                                            }
+                                        @endphp
+                                        <tr class="hover:bg-gray-50 {{ $isEnrolled ? 'hidden' : '' }}"
+                                            data-schedule-id="{{ $schedule['id'] }}">
                                             <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
                                                 {{ $loop->iteration }}</td>
                                             <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
@@ -202,15 +212,17 @@
             const token = await axios.post('/token/get-token').then(res => res.data);
             console.log(token);
             console.log(scheduleId);
-            const response = await axios.post('http://localhost:3000/api/enrollment/register', {
+            const response = await axios.delete('http://localhost:3000/api/enrollment', {
                 scheduleId
             }, {
                 headers: {
-                    'X-API-TOKEN': ${token}
+                    'X-API-TOKEN': $ {
+                        token
+                    }
                 }
             }).then(data => data.data);
             if (response.status === 201) {
-                alert('Success Add Course');
+                alert('Success Delete Course');
                 window.location.replace('http://127.0.0.1:8000/student/krs')
             }
         } catch (error) {
@@ -229,38 +241,17 @@
     const deleteForm = document.querySelector('#krs-delete');
     deleteForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const enrollmentIds = [];
+        const schedulesId = [];
         document.querySelectorAll('input[name="enrollmentId"]:checked').forEach((checkbox) => {
-            enrollmentIds.push(parseInt(checkbox.value));
+            schedulesId.push(parseInt(checkbox.value));
             // Show the corresponding course in the top table
             const scheduleId = checkbox.value;
-            const topRow = document.querySelector('tr[data-schedule-id="${scheduleId}"]');
+            const topRow = document.querySelector(`tr[data-schedule-id="${scheduleId}"]`);
             if (topRow) {
                 topRow.classList.remove('hidden');
             }
         });
 
-        const scheduleId = [];
-        document.querySelectorAll('input[name="enrollmentId"]:checked').forEach((checkbox) => {
-            scheduleId.push(parseInt(checkbox.value));
-        });
-        try {
-            const token = await axios.post('/token/get-token').then(res => res.data);
-            console.log(token);
-            console.log(scheduleId);
-            const response = await axios.delete('http://localhost:3000/api/enrollment', {
-                scheduleId
-            }, {
-                headers: {
-                    'X-API-TOKEN': ${token}
-                }
-            }).then(data => data.data);
-            if (response.status === 201) {
-                alert('Success Delete Course');
-                window.location.replace('http://127.0.0.1:8000/student/krs')
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        // ... rest of your delete handling code ...
     });
 </script>
