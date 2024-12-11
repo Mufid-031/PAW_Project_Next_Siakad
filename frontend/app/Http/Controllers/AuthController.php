@@ -17,6 +17,10 @@ class AuthController extends Controller
     }
 
     // views
+    public function index() {
+        return view('auth.user-login');
+    }
+
     public function admin()
     {
         if ($this->token != '') {

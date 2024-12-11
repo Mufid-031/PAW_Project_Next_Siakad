@@ -53,11 +53,11 @@
 
                             {{-- Melihat IPK --}}
                             <tr class="bg-gray-100">
-                                <td colspan="4"
+                                <td colspan="4" id="total-sks"
                                     class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">
-                                    Nilai IPK:</td>
+                                    </td>
                                 <td colspan="1" id="nilai-ipk"
-                                    class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">3.45
+                                    class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">IPK: 3.45
                                 </td>
                             </tr>
                         </tbody>
@@ -72,10 +72,13 @@
 
             let totalPoints = 0;
             let totalSKS = 0;
+            let sksDiambil = 0;
 
             rows.forEach(row => {
                 const grade = row.querySelector('.grade').textContent.trim();
                 const sks = parseFloat(row.children[3].textContent);
+
+                sksDiambil += sks;
 
                 if (!isNaN(sks) && grade !== '-') {
                     let gradePoint = 0;
@@ -103,8 +106,9 @@
                 }
             });
 
+            document.getElementById('total-sks').textContent = 'jumlah SKS diambil : ' + sksDiambil;
             const ipkValue = totalSKS > 0 ? (totalPoints / totalSKS) : 0;
-            ipk.textContent = ipkValue.toFixed(2);
+            ipk.textContent = 'IPK : ' + ipkValue.toFixed(2);
         </script>
     </x-layout>
 </x-student-layout>

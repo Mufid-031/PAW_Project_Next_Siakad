@@ -1,3 +1,4 @@
+{{-- {{ dd($schedule) }} --}}
 <x-layout>
     <x-student-layout :student="$student">
         <main class="ml-20 mr-20 mt-5">
@@ -11,14 +12,14 @@
 
                 <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                     <div class="border-b pb-4 mb-4">
-                        <h1 class="text-2xl font-bold text-gray-800">Matkul 1</h1>
-                        <p class="text-gray-600">Kelas A</p>
+                        <h1 class="text-2xl font-bold text-gray-800">{{ $schedule['data']['schedule']['course']['name'] }}</h1>
+                        <p class="text-gray-600">{{ $schedule['data']['schedule']['course']['code'] }}</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Dosen Pengampu</h3>
-                            <p class="text-gray-800">Imam Fahrur Rozi, ST., MT.</p>
+                            <p class="text-gray-800">{{ $schedule['data']['schedule']['teacher']['user']['name'] }}</p>
                         </div>
                         {{-- <div>
                             <h3 class="text-sm font-medium text-gray-500">Semester</h3>

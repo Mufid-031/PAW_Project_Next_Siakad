@@ -1,6 +1,7 @@
+{{-- {{ dd($teacher) }} --}}
 
-<x-dosen-layout>
-    <x-layout>
+<x-layout>
+    <x-dosen-layout :teacher="$teacher">
         <main class="ml-20 mr-20">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <!-- Header Section -->
@@ -18,25 +19,49 @@
                     <table class="w-full border-collapse">
                         <thead>
                             <tr class="bg-gray-50">
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">No</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Kode Kelas</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Mata Kuliah</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Jadwal</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Ruangan</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    No</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Kode Kelas</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Mata Kuliah</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Jadwal</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Ruangan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">1</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF101</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Algoritma dan Pemrograman</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Senin, 08:00 - 10:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 101</td>
-                            </tr>
+                            @forelse ($teacher['data']['teacher']['schedules'] as $key => $schedule)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $key + 1 }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['course']['code'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['course']['name'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['day'] }} {{ $schedule['time'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['room'] }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5"
+                                        class="border border-gray-200 px-4 py-3 text-center text-sm text-gray-600">Tidak
+                                        ada data.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
+
                     </table>
                 </div>
             </div>
         </main>
-    </x-layout>
-</x-dosen-layout>
+    </x-dosen-layout>
+</x-layout>

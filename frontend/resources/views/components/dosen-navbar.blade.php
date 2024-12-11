@@ -1,5 +1,6 @@
 @props([
-  'token' => null
+  'token' => null,
+  'teacher' => null
 ])
 
 <nav class="bg-white shadow-lg">
@@ -18,7 +19,7 @@
                             <a href="{{ route('dosen.dashboard') }}" class="flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 border border-gray-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-                                </svg>                                
+                                </svg>
                                 <span class="ml-2">Dashboard Dosen</span>
                             </a>
                         </div>
@@ -65,11 +66,11 @@
                 <!-- Profile dropdown -->
                 <div class="relative">
                     <button onclick="toggleDropdown('profile')" class="flex items-center ml-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 border border-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> 
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> 
-                            <circle cx="12" cy="7" r="4"></circle> 
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        <span class="ml-2">Nama Dosen</span>
+                        <span class="ml-2">{{ $teacher['data']['name'] }}</span>
                     </button>
                     <div id="dropdown-profile" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                         <a href="{{ route('dosen.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Data Pribadi</a>
@@ -80,7 +81,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const signOut = document.querySelector("#sign-out");

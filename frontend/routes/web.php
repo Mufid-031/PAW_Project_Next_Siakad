@@ -12,6 +12,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('auth')->group(function () {
+    Route::get('/login', [AuthController::class, 'index']);
     Route::get('/login/admin', [AuthController::class, 'admin']);
     Route::get('/login/teacher', [AuthController::class, 'teacher']);
     Route::get('/login/student', [AuthController::class, 'student']);
@@ -47,7 +48,7 @@ Route::prefix('student')->group(function () {
     Route::get('/beasiswa', [StudentController::class, 'beasiswa']);
     Route::get('/eval-dosen', [StudentController::class, 'evalDosen']);
     Route::get('/cuti-req', [StudentController::class, 'cutiReq']);
-    Route::get('/absen', [StudentController::class, 'absen']);
+    Route::get('/absen/{scheduleId}', [StudentController::class, 'absen']);
     Route::get('/payment', [StudentController::class, 'pembayaran']);
     Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
     Route::get('/profile', [StudentController::class, 'profile']);

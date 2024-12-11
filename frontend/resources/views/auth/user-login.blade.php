@@ -18,11 +18,11 @@
         const formAdminLogin = document.querySelector('#login');
         formAdminLogin.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const credential = document.querySelector('#credential').value;
+            const creadential = document.querySelector('#credential').value;
             const password = document.querySelector('#password').value;
             try {
                 const response = await axios.post('http://localhost:3000/api/user/login', {
-                    credential,
+                    creadential,
                     password
                 }).then(data => data.data);
                 if (response.status === 200) {
@@ -37,7 +37,7 @@
                     if (response.data.role === 'ADMIN') {
                         window.location.replace('http://127.0.0.1:8000/admin/dashboard')
                     } else if (response.data.role === 'TEACHER') {
-                        window.location.replace('http://127.0.0.1:8000/teacher/dashboard')
+                        window.location.replace('http://127.0.0.1:8000/dosen/dashboard')
                     } else if (response.data.role === 'STUDENT') {
                         window.location.replace('http://127.0.0.1:8000/student/dashboard')
                     }

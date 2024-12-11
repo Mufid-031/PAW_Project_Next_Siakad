@@ -126,9 +126,15 @@ class StudentController extends Controller
         return view('student.student-eval-dosen', ['student' => $this->student]);
     }
 
-    public function absen()
+    public function absen($scheduleId)
     {
-        return view('student.student-absen', ['student' => $this->student]);
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/enrollment/' . $scheduleId);
+            $schedule = $response->json();
+            return view('student.student-absen', ['student' => $this->student, 'schedule' => $schedule]);
+        }
     }
 
     public function pembayaran()
