@@ -83,7 +83,6 @@ class TeacherController extends Controller
 
     public function cetakNilai()
         {
-            // Add your implementation here
             return view('dosen.dosen-cetak-nilai');
         }
 
@@ -138,13 +137,7 @@ class TeacherController extends Controller
     }
     public function mataKuliahAsuh()
     {
-        $mataKuliahAsuh = [
-            (object)['kode_mk' => '010700', 'nama_mk' => 'SISTEM OPERASI', 'kelas' => 'IFB2X'],
-            (object)['kode_mk' => '110200', 'nama_mk' => 'ANALISIS DESAIN ORIENTASI OBJEK', 'kelas' => 'IFB3C'],
-            (object)['kode_mk' => '120300', 'nama_mk' => 'TEKNOLOGI MULTIMEDIA', 'kelas' => 'TIB2A'],
-        ];
-
-        return view('dosen.dosen-daftar-matkul', compact('mataKuliahAsuh'));
+        return view('dosen.dosen-daftar-matkul');
     }
     
 }

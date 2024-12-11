@@ -15,13 +15,14 @@
                     <div class="bg-gray-50 p-4 rounded-lg shadow">
                         <h3 class="text-lg font-semibold text-gray-800 mb-2">Informasi Pribadi</h3>
                         <p class="text-gray-600"><strong>Nama:</strong> John Doe</p>
+                        <p class="text-gray-600"><strong>NIP:</strong> 1234567890</p>
+                        <p class="text-gray-600"><strong>NIK:</strong> 1234567890123456</p>
+                        <p class="text-gray-600"><strong>Tempat, Tanggal Lahir:</strong> Surabaya, 1 Januari 1990</p>
+                        <p class="text-gray-600"><strong>Alamat:</strong> Jl. Raya No. 123, Surabaya</p>
                         <p class="text-gray-600"><strong>Jenis Kelamin:</strong> Laki-laki</p>
+                        <p class="text-gray-600"><strong>Agama:</strong> Islam</p>
                         <p class="text-gray-600"><strong>Pendidikan Terakhir:</strong> S2</p>
                         <p class="text-gray-600"><strong>Status Aktivitas:</strong> Aktif</p>
-                    </div>
-                    <!-- Academic Information -->
-                    <div class="bg-gray-50 p-4 rounded-lg shadow">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Informasi Akademik</h3>
                         <p class="text-gray-600"><strong>Perguruan Tinggi:</strong> Universitas Trunojoyo</p>
                         <p class="text-gray-600"><strong>Program Studi:</strong> Teknik Informatika</p>
                         <p class="text-gray-600"><strong>Jabatan Fungsional:</strong> Lektor</p>

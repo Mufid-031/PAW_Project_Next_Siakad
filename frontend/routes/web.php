@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\JadwalMengajarController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -62,14 +63,13 @@ Route::prefix('dosen')->group(function () {
     Route::get('/input-nilai', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
     Route::get('/daftar-matkul', [TeacherController::class, 'grade'])->name('dosen.daftar-matkul');
     Route::get('/cetak-nilai', [TeacherController::class, 'cetakNilai'])->name('dosen.cetak-nilai');
-    
-    Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
+    // Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
     Route::get('/absen', [TeacherController::class, 'absen'])->name('dosen.absen');
     Route::get('/riwayat-absen', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
     Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
     Route::get('/validasi', [TeacherController::class, 'validation'])->name('dosen.validasi');
     Route::get('/detail-krs', [TeacherController::class, 'validationDetail'])->name('dosen.detail.krs');
-    Route::get('/cuti-req', [TeacherController::class, 'cutiReq'])->name('dosen.cuti-req');
+    // Route::get('/cuti-req', [TeacherController::class, 'cutiReq'])->name('dosen.cuti-req');
     Route::prefix('materi')->group(function () {
         Route::get('/', [TeacherController::class, 'materi']);
         Route::get('/tambah', [TeacherController::class, 'materiAdd'])->name('dosen.materi.tambah');
@@ -77,6 +77,10 @@ Route::prefix('dosen')->group(function () {
         Route::get('/hapus', [TeacherController::class, 'materiDelete'])->name('dosen.materi.hapus');
         Route::get('/detail', [TeacherController::class, 'materiDetail'])->name('dosen.materi.detail');
     });
+
+
+Route::get('/jadwal', [JadwalMengajarController::class, 'index'])->name('dosen.jadwal');;
+
 });
 
 Route::prefix('token')->group(function () {

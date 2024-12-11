@@ -26,42 +26,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">1</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF101</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Algoritma dan Pemrograman</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Senin, 08:00 - 10:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 101</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">2</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF102</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Struktur Data</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Selasa, 10:00 - 12:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 102</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">3</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF103</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Basis Data</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Rabu, 13:00 - 15:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 103</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">4</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF104</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Jaringan Komputer</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Kamis, 08:00 - 10:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 104</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">5</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">IF105</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Pemrograman Web</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Jumat, 10:00 - 12:00</td>
-                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">Ruang 105</td>
-                            </tr>
+                            @forelse ($jadwal as $item)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->kode_kelas }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->mata_kuliah }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->jadwal }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->ruangan }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="border border-gray-200 px-4 py-3 text-center text-sm text-gray-600">Tidak ada data.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
+                        
                     </table>
                 </div>
             </div>
