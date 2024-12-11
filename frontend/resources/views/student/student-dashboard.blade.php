@@ -1,11 +1,12 @@
-<x-student-layout>
+{{-- {{ dd($student) }} --}}
+<x-student-layout :student="$student">
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <!-- Bagian Header -->
                 <div class="border-b border-gray-200 mb-6">
                     <h1 class="text-2xl font-bold text-center text-gray-800">
-                        Selamat Datang HARITS PUTRA JUNAIDI
+                        Selamat Datang {{ strToUpper($student['data']['name']) }}
                     </h1>
                 </div>
 

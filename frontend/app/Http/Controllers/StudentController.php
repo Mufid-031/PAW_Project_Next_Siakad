@@ -10,10 +10,16 @@ class StudentController extends Controller
 
     public $token;
     public $student;
+    public $courses;
+    public $enrollments;
+    public $schedules;
     public function __construct()
     {
         $this->token = TokenController::get();
         $this->student = StudentController::getStudentDetail();
+        $this->courses = CourseController::getCourses();
+        $this->enrollments = StudentController::getEnrollment();
+        $this->schedules = ScheduleController::getSchedules();
     }
 
     public static function getStudents()
@@ -61,6 +67,19 @@ class StudentController extends Controller
         }
     }
 
+    public function getEnrollment()
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/enrollment');
+
+            return $response->json();
+        } else {
+            redirect('/auth/login/student');
+        }
+    }
+
     // views
     public function dashboard()
     {
@@ -69,22 +88,22 @@ class StudentController extends Controller
 
     public function krs()
     {
-        return view('student.student-krs', ['student' => $this->student]);
+        return view('student.student-krs', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
     }
 
     public function krsAdd()
     {
-        return view('student.student-tambah-krs', ['student' => $this->student]);
+        return view('student.student-tambah-krs', ['student' => $this->student, 'courses' => $this->courses]);
     }
 
     public function schedule()
     {
-        return view('student.student-jadwal', ['student' => $this->student]);
+        return view('student.student-jadwal', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
     }
 
     public function grade()
     {
-        return view('student.student-transkip-nilai', ['student' => $this->student]);
+        return view('student.student-transkip-nilai', ['student' => $this->student, 'enrollments' => $this->enrollments]);
     }
 
     public function profile()
@@ -94,7 +113,7 @@ class StudentController extends Controller
 
     public function sivitas()
     {
-        return view('student.student-sivitas', ['student' => $this->student]);
+        return view('student.student-sivitas', ['student' => $this->student, 'enrollments' => $this->enrollments] );
     }
 
     public function beasiswa()
@@ -124,6 +143,6 @@ class StudentController extends Controller
 
     public function khs()
     {
-        return view('student.student-khs', ['student' => $this->student]);
+        return view('student.student-khs', ['student' => $this->student, 'enrollments' => $this->enrollments]);
     }
 }

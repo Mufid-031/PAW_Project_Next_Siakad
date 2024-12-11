@@ -7,7 +7,7 @@
         ['icon' => 'ionicon-book-outline', 'label' => 'Course', 'href' => '/admin/course'],
         ['icon' => 'ionicon-calendar-outline', 'label' => 'Schedule ', 'href' => '/admin/schedule'],
         ['icon' => 'ionicon-school-outline', 'label' => 'Teacher', 'href' => '/admin/teacher'],
-        ['icon' => 'ionicon-document-text-outline', 'label' => 'Grade', 'href' => '/admin/grade'],
+        ['icon' => 'ionicon-document-text-outline', 'label' => 'Report', 'href' => '/admin/report'],
         ['icon' => 'ionicon-settings-outline', 'label' => 'Additional_Services', 'href' => '/admin/service'],
     ],
     'activeHref' => request()->path(),
