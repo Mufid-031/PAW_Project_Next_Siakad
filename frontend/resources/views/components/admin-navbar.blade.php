@@ -169,20 +169,20 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700">Username</label>
-                                <input type="text" id="name" name="name"
+                                <input type="text" id="profilName" name="name"
                                     value="{{ $admin['data']['name'] }}"
                                     class="mt-1 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-ultramarine-500 focus:ring-ultramarine-500">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="email" id="email" name="email"
+                                <input type="email" id="profilEmail" name="email"
                                     value="{{ $admin['data']['email'] }}"
                                     class="mt-1 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-ultramarine-500 focus:ring-ultramarine-500">
                             </div>
                             <div class="md:col-span-2">
                                 <label for="password" class="block text-sm font-medium text-gray-700">Password
                                     baru</label>
-                                <input type="password" id="password" name="password"
+                                <input type="password" id="profilPwd" name="password"
                                     placeholder="Biarkan kosong untuk menyimpan kata sandi saat ini"
                                     class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-ultramarine-500 focus:ring-ultramarine-500">
                             </div>
@@ -194,7 +194,6 @@
                 <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse space-x-2 space-x-reverse rounded-b-lg">
                     <button id="updateProfileBtn"
                         class="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-ultramarine-600 hover:bg-ultramarine-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ultramarine-500">
-                        {{-- <x-heroicon-o-check class="w-4 h-4 mr-1.5" /> --}}
                         Save Changes
                     </button>
                     <button @click="updateProfileModal = false"
@@ -219,7 +218,7 @@
             }).then(data => data.data);
             if (response.status === 200) {
                 await axios.post('/token/destroy-token');
-                window.location.replace('http://127.0.0.1:8000/auth/login/admin');
+                window.location.replace('http://127.0.0.1:8000/auth/login/');
             }
         } catch (error) {
             console.log(error)

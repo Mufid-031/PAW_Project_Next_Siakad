@@ -1,7 +1,7 @@
 {{-- {{ dd($courses) }} --}}
 
 <x-admin-layout>
-    <x-admin-sidebar :admin="$admin">
+    <x-admin-sidebar :admin="$admin" >
         <div class="container mx-auto px-4 py-8">
             <div class="bg-white shadow-md rounded-lg">
                 <div class="flex flex-col md:flex-row justify-between items-center p-4 border-b border-gray-200">
@@ -40,7 +40,7 @@
                                             Program Studi</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
-                                            Pengajar</th>
+                                            SKS</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
                                             Aksi</th>
@@ -64,14 +64,14 @@
                                             <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
                                                 <span
                                                     class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                    {{ $course['teacher']['user']['name'] }}
+                                                    {{ $course['sks'] }}
                                                 </span>
                                             </td>
                                             <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
                                                 <div
                                                     class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                                                     <button
-                                                        @click="$dispatch('update-course-modal', {course :@js($course)})"
+                                                        @click="$dispatch('update-course-modal', {course : @js($course)})"
                                                         class="font-medium flex items-center gap-1">
                                                         <x-far-edit class="w-4 h-4" />
                                                         <span class="hidden sm:inline">Ubah</span>

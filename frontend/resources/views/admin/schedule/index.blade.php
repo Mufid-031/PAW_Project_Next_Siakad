@@ -57,21 +57,19 @@
                 <!-- Side Panel -->
                 <div class="space-y-6">
                     <div class="bg-white rounded-lg shadow p-4">
-                        <button
-                            class="w-full px-4 py-2 bg-ultramarine-400 hover:bg-ultramarine-900 text-white rounded-lg mb-3">
-                            <i class="fas fa-plus mr-2"></i> Tambah Kelas
-                        </button>
-                        <div class="flex flex-wrap gap-2">
-                            <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded text-sm">
-                                Hari Ini
+                        <a href="/admin/schedule/create/schedule">
+                            <button
+                                class="w-full px-4 py-2 bg-ultramarine-400 hover:bg-ultramarine-900 text-white rounded-lg mb-3">
+                                Tambah Kelas
                             </button>
-                            <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded text-sm">
-                                Minggu Ini
+                        </a>
+                        <a href="">
+                            <button
+                                class="w-full px-4 py-2 bg-ultramarine-400 hover:bg-ultramarine-900 text-white rounded-lg mb-3">
+                                Buka Kelas
                             </button>
-                            <button class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded text-sm">
-                                Bulan Ini
-                            </button>
-                        </div>
+                        </a>
+                        
                     </div>
 
                     <!-- Today's Schedule -->
