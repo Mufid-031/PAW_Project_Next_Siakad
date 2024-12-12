@@ -20,7 +20,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
-                    <span class="font-medium">{{ $teacher['teacher']['faculty'] ?? 'Fakultas Teknik' }}</span>
+                    <span class="font-medium">Fakultas {{ $teacher['teacher']['fakultas'] ?? 'Teknik' }}</span>
                 </div>
             </div>
             <div class="mb-6">

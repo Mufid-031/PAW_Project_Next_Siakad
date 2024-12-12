@@ -9,7 +9,7 @@
             <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0">
                     <a href="{{ route('dosen.dashboard') }}" class="flex items-center justify-between mr-4">
-                        <div class="text-2xl font-bold gradient-text animate-pulse-slow">YUTIEM</div>
+                        <div class="text-2xl font-bold gradient-text animate-pulse-slow">Next Siakad</div>
                     </a>
                 </div>
                 <div class="hidden sm:block sm:ml-6">
@@ -56,7 +56,7 @@
                                 </svg>
                             </button>
                             <div id="dropdown-absensi" class="hidden absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                                <a href="{{ route('dosen.absen') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Absen</a>
+                                <a href="{{ route('dosen.sivitas') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Absen</a>
                                 <a href="{{ route('dosen.riwayat-absen') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Absen</a>
                             </div>
                     </div>
@@ -75,7 +75,7 @@
                     <div id="dropdown-profile" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                         <a href="{{ route('dosen.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Data Pribadi</a>
                         <a href="{{ route('dosen.cuti-req') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Permintaan Cuti</a>
-                        <p id="sign-out" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</p>
+                        <p id="sign-out" class="block w-full cursor-pointer text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</p>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                             return;
                         }
                         console.log(token);
-                        const response = await axios.patch("http://localhost:3000/api/admin/logout", {}, {
+                        const response = await axios.patch("http://localhost:3000/api/teacher/logout", {}, {
                             headers: {
                                 "X-API-TOKEN": token
                             }
@@ -108,7 +108,7 @@
                             console.log(destroyTokenResponse);
                             if (destroyTokenResponse.status === 200) {
                                 console.log("Token destroyed");
-                                window.location.replace("http://next-siakad-new.test:30/auth/login/admin");
+                                window.location.replace("http://127.0.0.1:8000/auth/login");
                             }
                         }
                     } catch (error) {

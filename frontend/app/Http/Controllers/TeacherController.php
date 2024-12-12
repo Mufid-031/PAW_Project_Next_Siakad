@@ -94,11 +94,47 @@ class TeacherController extends Controller
         ]);
     }
 
-    public function absen()
+    public function sivitas()
     {
-        return view('dosen.dosen-absen', [
+        return view('dosen.dosen-sivitas', [
             'teacher' => $this->teacher
         ]);
+    }
+
+    public function absen($scheduleId)
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/schedule/' . $scheduleId);
+            $schedule = $response->json();
+            $absences = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/absensi/' . $scheduleId)->json();
+            return view('dosen.dosen-absen', [
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'absences' => $absences['status'] === 200 ? $absences : null
+            ]);
+        }
+    }
+
+    public function evalDosen($scheduleId)
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/schedule/' . $scheduleId);
+            $schedule = $response->json();
+            $evaluations = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/evaluation/' . $scheduleId)->json();
+            return view('dosen.dosen-eval', [
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'evaluations' => $evaluations['status'] === 200 ? $evaluations : null
+            ]);
+        }
     }
 
     public function historyAbsen()

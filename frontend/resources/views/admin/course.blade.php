@@ -40,7 +40,7 @@
                                             Program Studi</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
-                                            Pengajar</th>
+                                            sks</th>
                                         <th scope="col"
                                             class="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold">
                                             Aksi</th>
@@ -64,7 +64,7 @@
                                             <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
                                                 <span
                                                     class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                    {{ $course['teacher']['user']['name'] }}
+                                                    {{ $course['sks'] }}
                                                 </span>
                                             </td>
                                             <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">

@@ -94,7 +94,7 @@
                 }).then(data => data.data);
                 if (response.status === 200) {
                     await axios.post('/token/destroy-token');
-                    window.location.replace('http://127.0.0.1:8000/auth/login/student');
+                    window.location.replace('http://127.0.0.1:8000/auth/login');
                 }
             } catch (error) {
                 console.log(error)

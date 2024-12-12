@@ -1,4 +1,4 @@
-{{-- {{ dd($teacher) }} --}}
+{{ dd($teacher) }}
 
 <x-layout>
     <x-dosen-layout :teacher="$teacher">

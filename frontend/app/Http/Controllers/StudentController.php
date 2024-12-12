@@ -113,7 +113,7 @@ class StudentController extends Controller
 
     public function sivitas()
     {
-        return view('student.student-sivitas', ['student' => $this->student, 'enrollments' => $this->enrollments] );
+        return view('student.student-sivitas', ['student' => $this->student, 'enrollments' => $this->enrollments]);
     }
 
     public function beasiswa()
@@ -121,19 +121,39 @@ class StudentController extends Controller
         return view('student.student-beasiswa', ['student' => $this->student]);
     }
 
-    public function evalDosen()
+    public function evalDosen($scheduleId)
     {
-        return view('student.student-eval-dosen', ['student' => $this->student]);
+        if ($this->token) {
+            $enrollment = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/enrollment/' . $scheduleId)->json();
+            $evaluation = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/evaluation/' . $enrollment['data']['id'])->json();
+            return view('student.student-eval-dosen', [
+                'student' => $this->student,
+                 'enrollment' => $enrollment,
+                 'evaluation' => $evaluation['status'] === 200 ? $evaluation : null
+            ]);
+        }
     }
 
     public function absen($scheduleId)
     {
         if ($this->token) {
+            // dd($scheduleId, $this->student);
             $response = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/enrollment/' . $scheduleId);
             $schedule = $response->json();
-            return view('student.student-absen', ['student' => $this->student, 'schedule' => $schedule]);
+            $absences = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/absensi/student/' . $scheduleId)->json();
+            return view('student.student-absen', [
+                'student' => $this->student,
+                'schedule' => $schedule,
+                'absences' => $absences['status'] === 200 ? $absences : null
+            ]);
         }
     }
 

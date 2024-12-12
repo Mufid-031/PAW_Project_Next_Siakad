@@ -31,8 +31,8 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-800">Dosen Pengajar</label>
-                        <input x-model="course?.teacher.user.name" type="text" name="lecture" readonly
+                        <label class="block text-sm font-medium text-gray-800">SKS</label>
+                        <input x-model="course?.sks" type="text" name="sks" readonly
                             class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
                     </div>
                 </div>
@@ -58,7 +58,7 @@
         const name = document.querySelector('input[name="name"]').value;
         const code = document.querySelector('input[name="code"]').value;
         const programStudi = document.querySelector('input[name="programStudi"]').value;
-        const lecture = document.querySelector('input[name="lecture"]').value;
+        const sks = document.querySelector('input[name="sks"]').value;
 
         try {
             const token = await axios.post('/token/get-token').then(res => res.data);
@@ -66,7 +66,7 @@
                 name,
                 code,
                 programStudi,
-                lecture
+                sks
             }, {
                 headers: {
                     'X-API-TOKEN': token

@@ -20,7 +20,7 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <x-course-detail label="Program Studi" :value="$course['programStudi']" />
-                    <x-course-detail label="Pengajar" :value="$course['teacher']['user']['name']" />
+                    <x-course-detail label="SKS" :value="$course['sks']" />
                     @forelse ($course['schedule'] as $schedule)
                         <x-course-detail label="Jadwal Kelas" :value="$schedule['time'] ?? 'Belum ditentukan'" />
                         <x-course-detail label="Ruangan" :value="$schedule['room'] ?? 'Belum ditentukan'" />

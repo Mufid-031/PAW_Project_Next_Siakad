@@ -11,7 +11,7 @@
     ],
 ])
 
-<x-admin-layout>
+<x-layout class="bg-[url('/public/image/waves.svg')]">
     <x-auth-layout formId="login" title="credential" :formItems="$formItems" />
 
     <script>
@@ -47,4 +47,4 @@
             }
         });
     </script>
-</x-admin-layout>
+</x-layout>
