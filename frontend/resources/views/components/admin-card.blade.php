@@ -7,7 +7,7 @@
             <x-ionicon-people-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Total Mahasiswa</h3>
-                <p class="text-2xl font-bold">{{ count($students['data']) }}</p>
+                <p class="text-2xl font-bold">{{ count($students['data'] ?? []) }}</p>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
             <x-ionicon-school-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Total Dosen</h3>
-                <p class="text-2xl font-bold">{{ count($teachers['data']) }}</p>
+                <p class="text-2xl font-bold">{{ count($teachers['data'] ?? []) }}</p>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
             <x-ionicon-book-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Mata Kuliah Aktif</h3>
-                <p class="text-2xl font-bold">{{ count($courses['data']) }}</p>
+                <p class="text-2xl font-bold">{{ count($courses['data'] ?? []) }}</p>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <x-ionicon-calendar-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
                 <h3 class="text-gray-500">Kelas Aktif</h3>
-                <p class="text-2xl font-bold">{{ count($schedules['data']) }}</p>
+                <p class="text-2xl font-bold">{{ count($schedules['data'] ?? []) }}</p>
             </div>
         </div>
     </div>
