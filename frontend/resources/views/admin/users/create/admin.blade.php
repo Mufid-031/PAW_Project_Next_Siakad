@@ -11,19 +11,19 @@
                     <div class="flex flex-col gap-4">
                         <div>
                             <label class="block text-base font-medium text-gray-700">Nama</label>
-                            <input type="text" id="name" name="name"
+                            <input type="text" id="adminName" name="name"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" name="email"
+                            <input type="email" id="adminEmail" name="email"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Password</label>
-                            <input type="password" id="password" name="password"
+                            <input type="password" id="adminPwd" name="password"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
                     </div>
@@ -45,9 +45,9 @@
             const form = document.querySelector('#adminForm');
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const name = document.querySelector('#name').value;
-                const email = document.querySelector('#email').value;
-                const password = document.querySelector('#password').value;
+                const name = e.target.name.value;
+                const email = e.target.email.value;
+                const password = e.target.password.value;
                 try {
                     const token = await axios.post('/token/get-token').then(res => res.data);
                     const response = await axios.post('http://localhost:3000/api/admin/register', {

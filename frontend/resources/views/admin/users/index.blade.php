@@ -70,41 +70,50 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach ($users['data'] as $key => $user)
-                                        <tr class="hover:bg-gray-50">
-                                            <td
-                                                class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                                {{ $key + 1 }}</td>
-                                            <td
-                                                class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                                {{ $user['name'] }}</td>
-                                            <td
-                                                class="hidden sm:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                                {{ $user['email'] }}</td>
-                                            <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
-                                                    {{ $user['role'] }}
-                                                </span>
-                                            </td>
-                                            <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
-                                                <div
-                                                    class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                                                    <button
-                                                        @click="$dispatch('update-modal', {user :@js($user)})"
-                                                        class="font-medium flex items-center gap-1">
-                                                        <x-far-edit class="w-4 h-4" />
-                                                        <span class="hidden sm:inline">Ubah</span>
-                                                    </button>
-                                                    <button id="delete" data-id="{{ $user['id'] }}"
-                                                        class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
-                                                        <x-ionicon-trash-outline class="w-4 h-4" />
-                                                        <span class="hidden sm:inline">Hapus</span>
-                                                    </button>
-                                                </div>
+                                    @if (isset($users['data']) && count($users['data']) > 0)
+                                        @foreach ($users['data'] as $key => $user)
+                                            <tr class="hover:bg-gray-50">
+                                                <td
+                                                    class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                                                    {{ $key + 1 }}</td>
+                                                <td
+                                                    class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                                                    {{ $user['name'] }}</td>
+                                                <td
+                                                    class="hidden sm:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                                                    {{ $user['email'] }}</td>
+                                                <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                                    <span
+                                                        class="inline-flex items-center px-2 sm:px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium bg-ultramarine-100 text-ultramarine-800">
+                                                        {{ $user['role'] }}
+                                                    </span>
+                                                </td>
+                                                <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm">
+                                                    <div
+                                                        class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+                                                        <button
+                                                            @click="$dispatch('update-modal', {user : @js($user)})"
+                                                            class="font-medium flex items-center gap-1">
+                                                            <x-far-edit class="w-4 h-4" />
+                                                            <span class="hidden sm:inline">Ubah</span>
+                                                        </button>
+                                                        <button id="delete" data-id="{{ $user['id'] }}"
+                                                            class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
+                                                            <x-ionicon-trash-outline class="w-4 h-4" />
+                                                            <span class="hidden sm:inline">Hapus</span>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="5"
+                                                class="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm text-gray-500">
+                                                Tidak ada data pengguna
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -122,13 +131,15 @@
 
                     if (confirmDelete) {
                         try {
-                            await axios.delete(`http://localhost:3000/api/teacher/${id}`, {
+                            const response = await axios.delete(`http://localhost:3000/api/teacher/${id}`, {
                                 headers: {
                                     'X-API-TOKEN': `${token}`
                                 }
-                            });
-                            alert('Berhasil menghapus pengguna');
-                            window.location.reload();
+                            }).then(res => res.data);
+                            if (response.status === 201) {
+                                alert('Berhasil menghapus pengguna');
+                                window.location.reload();
+                            }
                         } catch (error) {
                             alert('Gagal menghapus pengguna');
                         }

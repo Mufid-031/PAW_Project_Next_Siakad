@@ -20,10 +20,11 @@
             e.preventDefault();
             const creadential = document.querySelector('#credential').value;
             const password = document.querySelector('#password').value;
+            console.log(creadential);
             try {
                 const response = await axios.post('http://localhost:3000/api/user/login', {
-                    creadential,
-                    password
+                    creadential: creadential,
+                    password: password,
                 }).then(data => data.data);
                 if (response.status === 200) {
                     const token = await response.data.token

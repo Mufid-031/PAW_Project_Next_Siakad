@@ -170,19 +170,24 @@ class AdminController extends Controller
         return view('admin.users.create.student', ['admin' => $this->admin, 'teachers' => $this->teachers]);
     }
 
-    public function createCourse()
-    {
-        return view('admin.users.create.course', ['admin' => $this->admin, 'teachers' => $this->teachers]);
-    }
-
     public function course()
     {
-        return view('admin.course', ['courses' => $this->courses, 'admin' => $this->admin]);
+        return view('admin.course.index', ['courses' => $this->courses, 'admin' => $this->admin]);
+    }
+
+    public function createCourse()
+    {
+        return view('admin.course.create.course', ['admin' => $this->admin, 'teachers' => $this->teachers]);
     }
 
     public function schedule()
     {
-        return view('admin.schedule', ['admin' => $this->admin]);
+        return view('admin.schedule.index', ['admin' => $this->admin]);
+    }
+
+    public function createSchedule()
+    {
+        return view('admin.schedule.create.schedule', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers]);
     }
 
     public function teacher()

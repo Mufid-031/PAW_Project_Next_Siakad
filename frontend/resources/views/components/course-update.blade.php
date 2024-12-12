@@ -20,7 +20,7 @@
                     </div>
                     <div class="space-y-2">
                         <label class="block text-sm font-medium text-gray-800">Kode Mata Kuliah</label>
-                        <input x-model="course?.code" type="text" name="code"
+                        <input x-model="course?.code" type="text" name="code" readonly
                             class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
                     </div>
 
@@ -31,9 +31,16 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-800">SKS</label>
-                        <input x-model="course?.sks" type="text" name="sks" readonly
+                        <label class="block text-sm font-medium text-gray-800">Total SKS</label>
+                        <select x-model="course?.sks" type="text" name="sks"
                             class="mt-1 block w-full rounded-md border-gray-300 bg-ultramarine-200 p-3 focus:border-ultramarine-500 focus:ring-ultramarine-500 shadow-sm">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
                     </div>
                 </div>
 
@@ -55,10 +62,10 @@
     const formUpdateCourse = document.querySelector('#formUpdate');
     formUpdateCourse.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = document.querySelector('input[name="name"]').value;
-        const code = document.querySelector('input[name="code"]').value;
-        const programStudi = document.querySelector('input[name="programStudi"]').value;
-        const sks = document.querySelector('input[name="sks"]').value;
+        const name = e.target.name.value;
+        const code = e.target.code.value;
+        const programStudi = e.target.programStudi.value;
+        const sks = e.target.sks.value;
 
         try {
             const token = await axios.post('/token/get-token').then(res => res.data);
@@ -66,7 +73,7 @@
                 name,
                 code,
                 programStudi,
-                sks
+                sks: parseInt(sks),
             }, {
                 headers: {
                     'X-API-TOKEN': token

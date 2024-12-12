@@ -29,7 +29,39 @@
                                     Email</th>
                             </tr>
                         </thead>
-                        <tbody id="logsBody" class="bg-white divide-y divide-gray-200"></tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @if (isset($logs['data']) && count($logs['data']) > 0)
+                                @foreach ($logs['data'] as $log)
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4">
+                                            <p class="text-gray-900">
+                                                {{ \Carbon\Carbon::parse($log['createdAt'])->setTimezone('Asia/Jakarta')->format('d F Y') }}
+                                            </p>
+                                            <p class="text-gray-500">
+                                                {{ \Carbon\Carbon::parse($log['createdAt'])->setTimezone('Asia/Jakarta')->format('H:i') }}
+                                            </p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 inline-flex leading-5 font-semibold">
+                                                {{ $log['action'] }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="font-medium text-gray-900">{{ $log['user']['name'] }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-gray-500">
+                                            {{ $log['user']['email'] }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                        Tidak ada data aktivitas
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
                     </table>
                 </div>
 
@@ -39,64 +71,5 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            const logs = @json($logs['data']); // Data dari backend
-            const logsPerPage = 10; // Jumlah log per halaman
-            let currentPage = 1;
-
-            // Fungsi untuk render tabel log
-            function renderLogsTable(page) {
-                const startIndex = (page - 1) * logsPerPage;
-                const endIndex = startIndex + logsPerPage;
-                const currentLogs = logs.slice(startIndex, endIndex);
-
-                const logsBody = document.getElementById('logsBody');
-                logsBody.innerHTML = '';
-
-                currentLogs.forEach(log => {
-                    const logRow = `
-                        <tr class="hover:bg-gray-50 transition-colors duration-200">
-                            <td class="px-6 py-4">
-                                <p class="text-gray-900">${new Date(log.createdAt).toLocaleDateString('id-ID')}</p>
-                                <p class="text-gray-500">${new Date(log.createdAt).toLocaleTimeString('id-ID')}</p>
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="px-2 inline-flex leading-5 font-semibold">${log.action}</span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="font-medium text-gray-900">${log.user.name}</div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-500">${log.user.email}</td>
-                        </tr>
-                    `;
-                    logsBody.innerHTML += logRow;
-                });
-            }
-
-            // Fungsi untuk render pagination controls
-            function renderPaginationControls() {
-                const totalPages = Math.ceil(logs.length / logsPerPage);
-                const paginationControls = document.getElementById('paginationControls');
-                paginationControls.innerHTML = '';
-
-                for (let i = 1; i <= totalPages; i++) {
-                    const button = document.createElement('button');
-                    button.innerText = i;
-                    button.className =
-                        `px-4 py-2 rounded ${i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`;
-                    button.addEventListener('click', () => {
-                        currentPage = i;
-                        renderLogsTable(currentPage);
-                        renderPaginationControls();
-                    });
-                    paginationControls.appendChild(button);
-                }
-            }
-
-            // Inisialisasi
-            renderLogsTable(currentPage);
-            renderPaginationControls();
-        </script>
     </x-admin-sidebar>
 </x-admin-layout>

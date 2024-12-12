@@ -6,7 +6,7 @@
                     <h2 class="text-2xl font-bold">Manajemen Mata Kuliah</h2>
                 </div>
 
-                <form action="" method="" class="space-y-4" id="courseForm">
+                <form class="space-y-4" id="courseForm">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-base font-medium text-gray-700">Nama Matkul</label>
@@ -76,40 +76,40 @@
                 </form>
             </div>
         </div>
-    </x-admin-sidebar>
 
-    <script>
-        const form = document.querySelector('#courseForm');
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.querySelector('input[name="name"]').value;
-            const code = document.querySelector('input[name="code"]').value;
-            const teacherId = document.querySelector('select[name="teacher"]').value;
-            const sks = document.querySelector('select[name="sks"]').value;
-            const semester = document.querySelector('select[name="semester"]').value;
-            const programStudi = document.querySelector('input[name="program_studi"]').value;
+        <script>
+            const form = document.querySelector('#courseForm');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = e.target.name.value;
+                const code = e.target.code.value;
+                const teacherId = e.target.teacher.value;
+                const sks = e.target.sks.value;
+                const semester = e.target.semester.value;
+                const programStudi = e.target.program_studi.value;
 
-            try {
-                const token = await axios.post('/token/get-token').then(res => res.data);
-                const response = await axios.post('http://localhost:3000/api/course/create', {
-                    name,
-                    code,
-                    teacherId: parseInt(teacherId),
-                    sks: parseInt(sks),
-                    semester,
-                    programStudi,
-                }, {
-                    headers: {
-                        'X-API-TOKEN': token
+                try {
+                    const token = await axios.post('/token/get-token').then(res => res.data);
+                    const response = await axios.post('http://localhost:3000/api/course/create', {
+                        name,
+                        code,
+                        teacherId: parseInt(teacherId),
+                        sks: parseInt(sks),
+                        semester,
+                        programStudi,
+                    }, {
+                        headers: {
+                            'X-API-TOKEN': token
+                        }
+                    }).then(data => data.data);
+                    if (response.status === 201) {
+                        alert('Success Create New Course');
+                        window.location.replace('http://127.0.0.1:8000/admin/course')
                     }
-                }).then(data => data.data);
-                if (response.status === 201) {
-                    alert('Success Create New Course');
-                    window.location.replace('http://127.0.0.1:8000/admin/course')
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
-            }
-        })
-    </script>
+            })
+        </script>
+    </x-admin-sidebar>
 </x-admin-layout>
