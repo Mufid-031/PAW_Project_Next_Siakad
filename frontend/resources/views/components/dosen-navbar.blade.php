@@ -101,18 +101,25 @@
                             }
                         });
                         if (response.status === 200) {
-                            console.log("success");
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: response.data.message,
+                            })
                             const destroyTokenResponse = await axios.post("/token/destroy-token", {
                                 token: token
                             });
-                            console.log(destroyTokenResponse);
                             if (destroyTokenResponse.status === 200) {
                                 console.log("Token destroyed");
-                                window.location.replace("http://127.0.0.1:8000/auth/login");
+                                window.location.replace("/auth/login");
                             }
                         }
                     } catch (error) {
-                        console.error(error.response?.data.message || error.message);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: error.response?.data.message || error.message,
+                        })
                     }
                 });
             }

@@ -261,11 +261,19 @@
                 }
             }).then(data => data.data);
             if (response.status === 201) {
-                alert('Success Add Course');
-                window.location.replace('http://127.0.0.1:8000/student/krs')
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.message,
+                })
+                window.location.reload();
             }
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.response?.data.errors || error.message,
+            })
         }
 
         // After successful enrollment, hide the selected rows

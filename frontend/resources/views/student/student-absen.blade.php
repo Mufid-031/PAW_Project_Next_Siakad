@@ -58,25 +58,31 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($absences['data'] as $absence)
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $absence['pertemuan'] }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ \Carbon\Carbon::parse($absence['createAt'])->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-500">
-                                            {{ $absence['materi'] }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                {{ $absence['statusKehadiran'] ?? "-" }}
-                                            </span>
-                                        </td>
+                                @if ($absences === null)
+                                    <tr>
+                                        <td colspan="4" class="text-center py-4">Belum ada absensi</td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach ($absences['data'] as $absence)
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {{ $absence['pertemuan'] }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{ \Carbon\Carbon::parse($absence['createAt'])->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">
+                                                {{ $absence['materi'] }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    {{ $absence['statusKehadiran'] ?? '-' }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
