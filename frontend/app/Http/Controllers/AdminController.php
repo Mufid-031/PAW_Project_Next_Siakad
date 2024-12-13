@@ -15,6 +15,7 @@ class AdminController extends Controller
     public $students;
     public $logs;
     public $schedules;
+    public $scholarships;
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -25,6 +26,7 @@ class AdminController extends Controller
         $this->students = AdminController::getStudents();
         $this->logs = AdminController::getLogs();
         $this->schedules = ScheduleController::getSchedules();
+        $this->scholarships = BeasiswaController::getAllBeasiswa();
     }
 
     public function getUsers()
@@ -222,7 +224,7 @@ class AdminController extends Controller
 
     public function beasiswa()
     {
-        return view('admin.beasiswa.read', ['admin' => $this->admin]);
+        return view('admin.beasiswa.index', ['admin' => $this->admin, 'scholarships' => $this->scholarships]);
     }
 
     public function beasiswaAdd()

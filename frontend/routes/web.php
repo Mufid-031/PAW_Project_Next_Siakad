@@ -31,6 +31,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/schedule/create/schedule', [AdminController::class, 'createSchedule']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/service', [AdminController::class, 'service']);
+    Route::get(('/service/beasiswa'), [AdminController::class, 'beasiswa']);
+    Route::get(('/service/beasiswa/create'), [AdminController::class, 'beasiswaAdd']);
+    Route::get(('/service/beasiswa/update'), [AdminController::class, 'beasiswaEdit']);
     Route::get('/report', [AdminController::class, 'report']);
     Route::get('/ukt', [AdminController::class, 'ukt']);
     Route::get('/ukt/update', [AdminController::class, 'uktUpdate']);
