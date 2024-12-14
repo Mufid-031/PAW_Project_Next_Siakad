@@ -39,11 +39,12 @@
                                     </ul>
                                 </div>
                             </div>
-                            <select class="p-2 border rounded-lg">
-                                <option value="">-- Filter --</option>
-                                <option value="student">Mahasiswa</option>
-                                <option value="teacher">Dosen</option>
+                            <select class="p-2 border rounded-lg" x-model="filterRole">
+                                <option value="">-- Semua Role --</option>
+                                <option value="STUDENT">Mahasiswa</option>
+                                <option value="TEACHER">Dosen</option>
                             </select>
+
                         </div>
                     </div>
 
@@ -77,8 +78,7 @@
                                         <td class="px-6 py-4" x-text="user.role"></td>
                                         <td class="px-6 py-4">
                                             <div class="flex space-x-2">
-                                                <button
-                                                    @click="$dispatch('update-modal', { user: user })"
+                                                <button @click="$dispatch('update-modal', { user: user })"
                                                     class="font-medium flex items-center gap-1">
                                                     <x-far-edit class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Ubah</span>
@@ -114,14 +114,21 @@
                     return {
                         users: @json($users['data']),
                         currentPage: 1,
-                        rowsPerPage: 5,
+                        rowsPerPage: 10,
+                        filterRole: '', // Untuk menyimpan nilai filter
+                        get filteredUsers() {
+                            if (this.filterRole) {
+                                return this.users.filter(user => user.role === this.filterRole);
+                            }
+                            return this.users;
+                        },
                         get paginatedUsers() {
                             const start = (this.currentPage - 1) * this.rowsPerPage;
                             const end = start + this.rowsPerPage;
-                            return this.users.slice(start, end);
+                            return this.filteredUsers.slice(start, end);
                         },
                         get totalPages() {
-                            return Math.ceil(this.users.length / this.rowsPerPage);
+                            return Math.ceil(this.filteredUsers.length / this.rowsPerPage);
                         },
                         async deleteUser(id) {
                             const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
