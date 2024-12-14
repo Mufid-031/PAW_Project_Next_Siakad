@@ -35,16 +35,25 @@
                     }).catch((error) => {
                         console.error(error.response.data.message || error.message);
                     });
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Welcome " + response.data.name,
+                    });
                     if (response.data.role === 'ADMIN') {
-                        window.location.replace('http://127.0.0.1:8000/admin/dashboard')
+                        window.location.replace('/admin/dashboard')
                     } else if (response.data.role === 'TEACHER') {
-                        window.location.replace('http://127.0.0.1:8000/dosen/dashboard')
+                        window.location.replace('/dosen/dashboard')
                     } else if (response.data.role === 'STUDENT') {
-                        window.location.replace('http://127.0.0.1:8000/student/dashboard')
+                        window.location.replace('/student/dashboard')
                     }
                 }
             } catch (error) {
-                alert(error.response.data.errors);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.response.data.errors || error.message,
+                });
             }
         });
     </script>

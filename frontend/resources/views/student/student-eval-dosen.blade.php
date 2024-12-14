@@ -111,11 +111,19 @@
                 }
             }).then(data => data.data);
             if (response.status === 201) {
-                alert('Success Create Evaluation');
-                window.reload();
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.message,
+                })
+                window.location.reload();
             }
         } catch (error) {
-            console.log(error.response.data.errors);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.response?.data.errors || error.message,
+            })
         }
     })
 </script>

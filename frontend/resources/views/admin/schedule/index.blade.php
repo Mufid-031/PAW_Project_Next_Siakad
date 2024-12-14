@@ -2,9 +2,7 @@
     <x-admin-sidebar :admin="$admin">
         <div class="container mx-auto px-6 py-8">
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <!-- Main Schedule Section -->
                 <div class="lg:col-span-3 space-y-6">
-                    <!-- Header -->
                     <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
                         <div>
                             <h1 class="text-2xl font-bold text-gray-800">Manajemen Jadwal</h1>
@@ -14,7 +12,7 @@
 
                     <!-- Table View -->
                     <div class="bg-white rounded-lg shadow overflow-hidden">
-                        @foreach (['MONDAY' => 'Senin', 'TUESDAY' => 'Selasa', 'WEDNESDAY' => 'Rabu', 'THURSDAY' => 'Kamis', 'FRIDAY' => 'Jumat', 'SATURDAY' => 'Sabtu', 'SUNDAY' => 'Minggu'] as $dayKey => $dayName)
+                        @foreach (['SUNDAY' => 'Minggu', 'MONDAY' => 'Senin', 'TUESDAY' => 'Selasa', 'WEDNESDAY' => 'Rabu', 'THURSDAY' => 'Kamis', 'FRIDAY' => 'Jumat', 'SATURDAY' => 'Sabtu'] as $dayKey => $dayName)
                             @php
                                 $daySchedules = collect($schedules['data'])->filter(function ($schedule) use ($dayKey) {
                                     return $schedule['day'] === $dayKey;
@@ -98,8 +96,7 @@
                             @endphp
 
                             @forelse($todaySchedules as $schedule)
-                                <div
-                                    class="p-3 border rounded-lg hover:bg-gray-50 transition duration-150">
+                                <div class="p-3 border rounded-lg hover:bg-gray-50 transition duration-150">
                                     <div class="flex items-center justify-between">
                                         <span class="font-medium text-gray-700">{{ $schedule['time'] }}</span>
                                         <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded">

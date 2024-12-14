@@ -29,7 +29,7 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Beasiswa</h3>
                         <p class="text-gray-600 mb-6 text-sm">Kelola program beasiswa dan penerima beasiswa secara
                             efektif</p>
-                        <a href=""
+                        <a href="/admin/service/beasiswa"
                             class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-ultramarine-600 hover:bg-ultramarine-50 rounded-xl transition-colors group">
                             <span>Kelola Beasiswa</span>
                             <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>

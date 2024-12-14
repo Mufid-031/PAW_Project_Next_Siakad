@@ -23,13 +23,13 @@
                             <label class="block text-base font-medium text-gray-700">Hari</label>
                             <select name="day" id="day"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
-                                <option value="SUNDAY">Senin</option>
-                                <option value="MONDAY">Selasa</option>
-                                <option value="TUESDAY">Rabu</option>
-                                <option value="WEDNESDAY">Kamis</option>
-                                <option value="THURSDAY">Jumat</option>
-                                <option value="FRIDAY">Sabtu</option>
-                                <option value="SATURDAY">Minggu</option>
+                                <option value="MONDAY">Senin</option>
+                                <option value="TUESDAY">Selasa</option>
+                                <option value="WEDNESDAY">Rabu</option>
+                                <option value="THURSDAY">Kamis</option>
+                                <option value="FRIDAY">Jumat</option>
+                                <option value="SATURDAY">Sabtu</option>
+                                <option value="SUNDAY">Minggu</option>
                             </select>
                         </div>
 
@@ -97,11 +97,15 @@
                     }, {
                         headers: {
                             'X-API-TOKEN': token
-                        }   
+                        }
                     }).then(data => data.data);
                     if (response.status === 201) {
-                        alert('Success Create New Schedule');
-                        window.location.replace('http://127.0.0.1:8000/admin/schedule')
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: response.message,
+                        })
+                        window.location.replace('/admin/schedule')
                     }
                 } catch (error) {
                     console.log(error);

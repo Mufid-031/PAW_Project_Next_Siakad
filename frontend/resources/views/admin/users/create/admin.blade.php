@@ -60,11 +60,19 @@
                         }
                     }).then(data => data.data);
                     if (response.status === 201) {
-                        alert('Success Create New Admin');
-                        window.location.replace('http://127.0.0.1:8000/admin/users')
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: response.message,
+                        })
+                        window.location.replace('/admin/users')
                     }
                 } catch (error) {
-                    console.log(error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: error.response.data.errors || error.message,
+                    })
                 }
             })
         </script>
