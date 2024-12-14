@@ -135,7 +135,7 @@
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="fixed inset-0 bg-black opacity-50"></div>
 
-            <div class="bg-white rounded-lg shadow-xl max-w-xl w-full relative">
+            <form id="editProfile" class="bg-white rounded-lg shadow-xl max-w-xl w-full relative">
                 <!-- Header -->
                 <div class="flex items-center justify-between p-4 border-b">
                     <h3 class="text-xl font-semibold text-gray-900">Edit Profile</h3>
@@ -190,9 +190,8 @@
                     </div>
                 </div>
 
-                <!-- Footer -->
                 <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse space-x-2 space-x-reverse rounded-b-lg">
-                    <button id="updateProfileBtn"
+                    <button type="submit"
                         class="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-ultramarine-600 hover:bg-ultramarine-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ultramarine-500">
                         Save Changes
                     </button>
@@ -201,7 +200,7 @@
                         Cancel
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -233,4 +232,40 @@
             })
         }
     });
+
+    const form = document.querySelector('#editProfile');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(name, email, password);
+
+        try {
+            const token = await axios.post('/token/get-token').then(res => res.data);
+            const response = await axios.patch('http://localhost:3000/api/admin', {
+                name,
+                email,
+                password
+            }, {
+                headers: {
+                    'X-API-TOKEN': token
+                }
+            }).then(data => data.data);
+            if (response.status === 201) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.message,
+                })
+                window.location.replace('/admin/dashboard')
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.response.data.errors || error.message,
+            })
+        }
+    })
 </script>

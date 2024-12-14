@@ -77,8 +77,7 @@
                                         <td class="px-6 py-4" x-text="user.role"></td>
                                         <td class="px-6 py-4">
                                             <div class="flex space-x-2">
-                                                <button
-                                                    @click="$dispatch('update-modal', { user: user })"
+                                                <button @click="$dispatch('update-modal', { user: user })"
                                                     class="font-medium flex items-center gap-1">
                                                     <x-far-edit class="w-4 h-4" />
                                                     <span class="hidden sm:inline">Ubah</span>
@@ -109,6 +108,7 @@
                 </div>
             </div>
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
                 function userManagement() {
                     return {
@@ -124,8 +124,17 @@
                             return Math.ceil(this.users.length / this.rowsPerPage);
                         },
                         async deleteUser(id) {
-                            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
-                            if (confirmDelete) {
+                            const confirmDelete = await Swal.fire({
+                                title: 'Apakah Anda yakin?',
+                                text: "Anda tidak akan dapat mengembalikan ini!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ya, hapus!'
+                            });
+
+                            if (confirmDelete.isConfirmed) {
                                 try {
                                     const token = await axios.post('/token/get-token').then(res => res.data);
                                     const response = await axios.delete(`http://localhost:3000/api/teacher/${id}`, {
@@ -134,14 +143,22 @@
                                         }
                                     }).then(res => res.data);
                                     if (response.status === 201) {
-                                        alert('Berhasil menghapus pengguna');
+                                        Swal.fire(
+                                            'Dihapus!',
+                                            'Pengguna telah dihapus.',
+                                            'success'
+                                        );
                                         this.users = this.users.filter(user => user.id !== id);
                                         if (this.paginatedUsers.length === 0 && this.currentPage > 1) {
                                             this.currentPage--;
                                         }
                                     }
                                 } catch (error) {
-                                    alert('Gagal menghapus pengguna');
+                                    Swal.fire(
+                                        'Gagal!',
+                                        'Pengguna gagal dihapus.',
+                                        'error'
+                                    );
                                 }
                             }
                         }

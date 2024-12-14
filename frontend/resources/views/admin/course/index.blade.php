@@ -73,8 +73,7 @@
                                                         <x-far-edit class="w-4 h-4" />
                                                         <span class="hidden sm:inline">Ubah</span>
                                                     </button>
-                                                    <button :data-id="course.code"
-                                                        @click="deleteCourse(course.id)"
+                                                    <button :data-id="course.code" @click="deleteCourse(course.code)"
                                                         class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1">
                                                         <x-ionicon-trash-outline class="w-4 h-4" />
                                                         <span class="hidden sm:inline">Hapus</span>
@@ -129,12 +128,12 @@
                         return Math.ceil(this.courses.length / this.itemsPerPage);
                     },
 
-                    async deleteCourse(courseId) {
+                    async deleteCourse(courseCode) {
                         const token = await axios.post('/token/get-token').then(res => res.data);
                         const confirmDelete = confirm('Apakah Anda yakin ingin menghapus course ini?');
                         if (confirmDelete) {
                             try {
-                                await axios.delete(`http://localhost:3000/api/course/${courseId}`, {
+                                await axios.delete(`http://localhost:3000/api/course/${courseCode}`, {
                                     headers: {
                                         'X-API-TOKEN': `${token}`
                                     }
@@ -143,8 +142,9 @@
                                     icon: "success",
                                     title: "Success",
                                     text: "Course berhasil dihapus",
-                                })
-                                window.location.reload();
+                                }).then(() => {
+                                    window.location.reload();
+                                });
                             } catch (error) {
                                 Swal.fire({
                                     icon: "error",
@@ -156,37 +156,6 @@
                     }
                 }
             }
-
-            // Existing delete functionality
-            const deleteButtons = document.querySelectorAll('.delete');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', async () => {
-                    const codeId = button.getAttribute('data-id');
-                    const token = await axios.post('/token/get-token').then(res => res.data);
-                    const confirmDelete = confirm('Apakah Anda yakin ingin menghapus course ini?');
-                    if (confirmDelete) {
-                        try {
-                            await axios.delete(`http://localhost:3000/api/course/${codeId}`, {
-                                headers: {
-                                    'X-API-TOKEN': `${token}`
-                                }
-                            });
-                            Swal.fire({
-                                icon: "success",
-                                title: "Success",
-                                text: "Course berhasil dihapus",
-                            })
-                            window.location.reload();
-                        } catch (error) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Error",
-                                text: error.response?.data.errors || error.message,
-                            })
-                        }
-                    }
-                });
-            });
         </script>
     </x-admin-sidebar>
 </x-admin-layout>

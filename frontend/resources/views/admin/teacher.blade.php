@@ -6,13 +6,11 @@
                     <div class="flex-1">
                         <input type="text" placeholder="Cari dosen..."
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-ultramarine-500 focus:border-ultramarine-500"
-                            x-model="searchQuery"
-                            @input="filterTeachers">
+                            x-model="searchQuery" @input="filterTeachers">
                     </div>
                     <select
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-ultramarine-500 focus:border-ultramarine-500"
-                        x-model="selectedFaculty"
-                        @change="filterTeachers">
+                        x-model="selectedFaculty" @change="filterTeachers">
                         <option value="">Semua Fakultas</option>
                         <option value="teknik">Fakultas Teknik</option>
                         <option value="">Fakultas Lainnya</option>
@@ -22,14 +20,15 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="teachersBody">
                 <template x-for="teacher in paginatedTeachers" :key="teacher.id">
-                    <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                    <div
+                        class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
                         <div class="p-6">
                             <div class="flex items-center space-x-4 mb-4">
                                 <div class="bg-ultramarine-100 p-3 rounded-full">
                                     <x-ionicon-person-circle-outline class="w-8 h-8 text-ultramarine-900" />
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-900" x-text="`${teacher.name}, ${teacher.teacher.gelar}`"></h3>
+                                    <h3 class="text-lg font-semibold text-gray-900" x-text="teacher.name"></h3>
                                     <p class="text-sm text-gray-500" x-text="`NIP: ${teacher.teacher.nip}`"></p>
                                 </div>
                             </div>
@@ -37,7 +36,7 @@
                             <div class="space-y-3 mb-6">
                                 <div class="flex items-center gap-3">
                                     <x-ionicon-school-outline class="w-5 h-5 text-ultramarine-900" />
-                                    <span class="text-gray-700" x-text="teacher.teacher.faculty"></span>
+                                    <span class="text-gray-700" x-text="`Fakultas ${teacher.teacher.fakultas}`"></span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <x-ionicon-mail-outline class="w-5 h-5 text-ultramarine-900" />
@@ -45,8 +44,7 @@
                                 </div>
                             </div>
 
-                            <button type="button"
-                                @click="openModal(teacher.id)"
+                            <button type="button" @click="openModal(teacher.id)"
                                 class="w-full py-2 px-4 bg-ultramarine-900 text-white rounded-lg hover:bg-ultramarine-800 transition-colors duration-200 flex items-center justify-center gap-2">
                                 <span>Lihat Detail</span>
                                 <x-ionicon-arrow-forward-outline class="w-4 h-4" />
@@ -61,9 +59,8 @@
                 <div id="paginationControls" class="flex justify-center space-x-2">
                     <template x-for="page in totalPages" :key="page">
                         <button @click="currentPage = page"
-                            :class="{'bg-blue-700': currentPage === page, 'bg-blue-500': currentPage !== page}"
-                            class="px-4 py-2 rounded text-white hover:bg-blue-700"
-                            x-text="page"></button>
+                            :class="{ 'bg-blue-700': currentPage === page, 'bg-blue-500': currentPage !== page }"
+                            class="px-4 py-2 rounded text-white hover:bg-blue-700" x-text="page"></button>
                     </template>
                 </div>
             </div>
@@ -96,16 +93,12 @@
                     filterTeachers() {
                         this.filteredTeachers = this.teachers.filter(teacher => {
                             const nameMatch = teacher.name.toLowerCase().includes(this.searchQuery.toLowerCase());
-                            const facultyMatch = this.selectedFaculty === '' || teacher.teacher.faculty === this.selectedFaculty;
+                            const facultyMatch = this.selectedFaculty === '' || teacher.teacher.faculty === this
+                                .selectedFaculty;
                             return nameMatch && facultyMatch;
                         });
                         this.currentPage = 1;
                     },
-
-                    openModal(teacherId) {
-                        // Implement your modal opening logic here
-                        console.log('Opening modal for teacher:', teacherId);
-                    }
                 }
             }
         </script>

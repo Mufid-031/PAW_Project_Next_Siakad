@@ -12,7 +12,7 @@
             <div class="space-y-4 mb-8">
                 <div class="flex items-center gap-3">
                     <x-ionicon-person-circle-outline class="w-6 h-6 text-ultramarine-900" />
-                    <span class="font-medium">{{ $teacher['name'] . ', ' . $teacher['teacher']['gelar'] }}</span>
+                    <span class="font-medium">{{ $teacher['name'] }}</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <x-ionicon-card-outline class="w-6 h-6 text-ultramarine-900" />
@@ -22,10 +22,14 @@
                     <x-ionicon-school-outline class="w-6 h-6 text-ultramarine-900" />
                     <span class="font-medium">Fakultas {{ $teacher['teacher']['fakultas'] ?? 'Teknik' }}</span>
                 </div>
+                <div class="flex items-center gap-3">
+                    <x-ionicon-calendar-outline class="w-6 h-6 text-ultramarine-900" />
+                    <span class="font-medium">Tanggal Lahir: {{ \Carbon\Carbon::parse($teacher['tanggalLahir'])->format('d-m-Y') ?? 'Tidak diketahui' }}</span>
+                </div>
             </div>
             <div class="mb-6">
                 <h4 class="font-medium text-lg mb-3">Bidang Keahlian:</h4>
-                <p class="text-gray-600 pl-2">{{ $teacher['teacher']['keahlian'] }}</p>
+                <p class="text-gray-600 pl-2">{{ $teacher['teacher']['keahlian'] ?? 'Belum ditentukan' }}</p>
             </div>
             <div class="mb-8">
                 <h4 class="font-medium text-lg mb-3">Publikasi:</h4>
