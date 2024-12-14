@@ -41,8 +41,13 @@
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Waktu</label>
-                            <input type="time" name="time" id="time"
-                                class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <input type="time" name="timeStart" id="timeStart"
+                                    class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
+                                <span class="mt-1">-</span>
+                                <input type="time" name="timeEnd" id="timeEnd"
+                                    class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
+                            </div>
                         </div>
 
                         <div>
@@ -76,7 +81,9 @@
                 const courseId = e.target.course.value;
                 const day = e.target.day.value;
                 const room = e.target.room.value;
-                const time = e.target.time.value;
+                const timeStart = e.target.timeStart.value;
+                const timeEnd = e.target.timeEnd.value;
+                const time = `${timeStart}-${timeEnd}`;
                 const teacherId = e.target.teacher.value;
 
                 try {
