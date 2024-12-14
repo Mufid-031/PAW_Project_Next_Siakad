@@ -76,9 +76,14 @@
 
                                     {{-- Melihat IP --}}
                                     <tr class="bg-gray-100">
-                                        <td colspan="4" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">Nilai IP :</td>
+                                        <td colspan="3" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">
+                                            Total SKS:
+                                        </td>
                                         <td colspan="1" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">
-                                            {{ $totalSks > 0 ? number_format($totalPoints / $totalSks, 2) : '0.00' }}
+                                            {{ $totalSks }}
+                                        </td>
+                                        <td colspan="1" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">
+                                            Nilai IP: {{ $totalSks > 0 ? number_format($totalPoints / $totalSks, 2) : '0.00' }}
                                         </td>
                                     </tr>
                                 </tbody>

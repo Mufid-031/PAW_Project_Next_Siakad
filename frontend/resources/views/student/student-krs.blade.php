@@ -141,85 +141,106 @@
                             </div>
                         </div>
                     </form>
+                     <!-- Dropdown for Semester Selection -->
+                     <div class="mb-4">
+                        <label for="semester-select" class="block text-sm font-medium text-gray-700">Pilih Semester:</label>
+                        <select id="semester-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            @for ($i = 1; $i <= 8; $i++)
+                                <option value="{{ $i }}">KRS Semester {{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+
                     <form id="krs-delete">
-                        <!-- Table -->
-                        <div class="overflow-x-auto">
-                            <table class="w-full border-collapse">
-                                <thead>
-                                    <tr class="bg-gray-50">
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
-                                            No</th>
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
-                                            Kode Kelas</th>
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
-                                            Mata Kuliah</th>
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
-                                            Jadwal</th>
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
-                                            Semester</th>
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
-                                            SKS</th>
-                                        <th
-                                            class="border border-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-600">
-                                            Pilih</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($enrollments['data'] as $key => $enrollment)
-                                        <tr data-enrollment-id="{{ $enrollment['schedule']['id'] }}"
-                                            class="hover:bg-gray-50">
-                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                {{ $loop->iteration }}</td>
-                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                {{ $enrollment['schedule']['course']['code'] }}</td>
-                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                {{ $enrollment['schedule']['course']['name'] }}</td>
-                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                {{ $enrollment['schedule']['day'] . ', ' . $enrollment['schedule']['time'] }}
-                                            </td>
-                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                {{ $enrollment['schedule']['course']['semester'] }}</td>
-                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                {{ $enrollment['schedule']['course']['sks'] }}</td>
-                                            <td class="border border-gray-200 px-4 py-3 text-center">
-                                                <input type="checkbox" name="enrollmentId"
-                                                    value="{{ $enrollment['schedule']['id'] }}"
-                                                    class="form-checkbox h-5 w-5 text-blue-600">
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr class="bg-gray-50">
-                                        <td colspan="5"
-                                            class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">
-                                            Total SKS:
-                                        </td>
-                                        <td id="total-sks-enroll" colspan="2"
-                                            class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">
-                                            0
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <div class="flex justify-end mt-3">
-                                <button type="submit" id="delete-selected"
-                                    class="mb-5 bg-red-600 hover:bg-red-700 text-white py-2 px-[70px] rounded-lg">Hapus
-                                    MataKuliah</button>
+                        <!-- Tables for each semester -->
+                        @for ($i = 1; $i <= 8; $i++)
+                            <div id="semester-{{ $i }}" class="semester-table hidden">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-4">KRS Semester {{ $i }}</h2>
+                                <div class="overflow-x-auto mb-4">
+                                    <table class="w-full border-collapse">
+                                        <thead>
+                                            <tr class="bg-gray-50">
+                                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">No</th>
+                                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Kode Kelas</th>
+                                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Mata Kuliah</th>
+                                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Jadwal</th>
+                                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Semester</th>
+                                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">SKS</th>
+                                                <th class="border border-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-600">Pilih</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($enrollments['data'] as $key => $enrollment)
+                                                @if ($enrollment['schedule']['course']['semester'] == 'semester_' . $i)
+                                                    <tr data-enrollment-id="{{ $enrollment['schedule']['id'] }}" class="hover:bg-gray-50">
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] . ', ' . $enrollment['schedule']['time'] }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['semester'] }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['sks'] }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-center">
+                                                            <input type="checkbox" name="enrollmentId" value="{{ $enrollment['schedule']['id'] }}" class="form-checkbox h-5 w-5 text-blue-600">
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="bg-gray-50">
+                                                <td colspan="5" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">
+                                                    Total SKS:
+                                                </td>
+                                                <td id="total-sks-{{ $i }}" colspan="2" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600">
+                                                    0
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="flex justify-end mt-3">
+                                        <button type="submit" id="delete-selected" class="mb-5 bg-red-600 hover:bg-red-700 text-white py-2 px-[70px] rounded-lg">Hapus MataKuliah</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endfor
                     </form>
                 </div>
             </div>
         </main>
     </x-layout>
 </x-student-layout>
+
+<script>
+    document.getElementById('semester-select').addEventListener('change', function() {
+        const semester = this.value;
+        // Sembunyikan semua tabel semester
+        document.querySelectorAll('.semester-table').forEach(table => {
+            table.classList.add('hidden');
+        });
+
+        // Tampilkan tabel semester yang dipilih
+        document.getElementById('semester-' + semester).classList.remove('hidden');
+
+        // Update total SKS untuk semester yang dipilih
+        updateTotalSks(semester);
+    });
+
+    // Tampilkan tabel semester 1 secara default
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('semester-select').value = 1;
+        document.getElementById('semester-1').classList.remove('hidden');
+        updateTotalSks(1);
+    });
+
+    function updateTotalSks(semester) {
+        let totalSks = 0;
+        document.querySelectorAll(`#semester-${semester} tbody tr`).forEach((row) => {
+            const sks = parseInt(row.querySelector('td:nth-child(6)').innerText);
+            totalSks += sks;
+        });
+        document.getElementById(`total-sks-${semester}`).innerText = totalSks;
+    }
+</script>
 
 <script>
     const addButtons = document.querySelectorAll('input[name="scheduleId"]');
@@ -232,23 +253,39 @@
                     .textContent);
         })
     });
-    const deleteButtons = document.querySelectorAll('input[name="enrollmentId"]');
-    deleteButtons.forEach(deleteButton => {
-        deleteButton.addEventListener('change', () => {
-            const totalSks = document.getElementById('total-sks-enroll');
-            deleteButton.checked ? totalSks.textContent = parseInt(totalSks.textContent) + parseInt(
-                    deleteButton.parentElement.previousElementSibling.textContent) : totalSks
-                .textContent = parseInt(totalSks.textContent) - parseInt(deleteButton.parentElement
-                    .previousElementSibling.textContent);
-        })
-    });
+
     const form = document.querySelector('#krs');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const scheduleId = [];
+        let totalSks = 0;
+        const scheduleTimes = new Set();
+        let hasConflict = false;
+
         document.querySelectorAll('input[name="scheduleId"]:checked').forEach((checkbox) => {
+            const row = checkbox.closest('tr');
             scheduleId.push(parseInt(checkbox.value));
+            const sks = parseInt(row.querySelector('td:nth-child(6)').innerText);
+            totalSks += sks;
+
+            const scheduleTime = row.querySelector('td:nth-child(4)').innerText;
+            if (scheduleTimes.has(scheduleTime)) {
+                hasConflict = true;
+            } else {
+                scheduleTimes.add(scheduleTime);
+            }
         });
+
+        if (totalSks > 24) {
+            alert('Total SKS tidak boleh lebih dari 24.');
+            return;
+        }
+
+        if (hasConflict) {
+            alert('Jadwal bentrok terdeteksi. Silakan pilih jadwal yang tidak bentrok.');
+            return;
+        }
+
         try {
             const token = await axios.post('/token/get-token').then(res => res.data);
             console.log(token);
@@ -307,8 +344,12 @@
                 }
             }).then(data => data.data);
             if (response.status === 201) {
-                alert('Success Delete Course');
-                window.location.replace('http://127.0.0.1:8000/student/krs')
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.message,
+                })
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
