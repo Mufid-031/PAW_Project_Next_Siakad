@@ -2,7 +2,7 @@
 
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
-        <main class="ml-20 mr-20">
+        <main class="ml-20 mr-20" x-data>
             <div class="max-w-6xl mx-auto p-6">
                 <a href="/dosen/sivitas" class="flex items-center text-gray-400 hover:text-gray-300 mb-6">
                     <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -24,9 +24,10 @@
                             <p class="text-gray-800">{{ $schedule['data']['teacher']['user']['name'] }}</p>
                         </div>
                         <div class="text-right">
-                            <button
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">Tambah
-                                Absen</button>
+                            <button @click="$dispatch('create-absen-modal')"
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                                Tambah Absen
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -54,37 +55,53 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($absences['data'] as $absence)
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $absence['pertemuan'] }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ \Carbon\Carbon::parse($absence['statusCounts'][0]['createAt'])->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-500">{{ $absence['statusCounts'][0]['materi'] }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                {{ $absence['statusCounts'][0]['statusKehadiran'] ?? "HADIR" }} {{ $absence['statusCounts'][0]['count'] ?? "0" }}
-                                            </span>
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                {{ $absence['statusCounts'][1]['statusKehadiran'] ?? "ALPHA" }}
-                                                {{ $absence['statusCounts'][1]['count'] ?? "0" }}
-                                            </span>
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                                {{ $absence['statusCounts'][2]['statusKehadiran'] ?? "SAKIT" }}
-                                                {{ $absence['statusCounts'][2]['count'] ?? "0" }}
-                                            </span>
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                {{ $absence['statusCounts'][3]['statusKehadiran'] ?? "IZIN" }}
-                                                {{ $absence['statusCounts'][3]['count'] ?? "0" }}
-                                            </span>
+                                @if (!empty($absences['data']))
+                                    @foreach ($absences['data'] as $absence)
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {{ $absence['pertemuan'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{ \Carbon\Carbon::parse($absence['statusCounts'][0]['createAt'])->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">
+                                                {{ $absence['statusCounts'][0]['materi'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                @php
+                                                    $statuses = collect($absence['statusCounts'])->keyBy(
+                                                        'statusKehadiran',
+                                                    );
+                                                @endphp
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    HADIR
+                                                    {{ $statuses['HADIR']['count'] ?? '0' }}
+                                                </span>
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    ALPHA
+                                                    {{ $statuses['ALPA']['count'] ?? '0' }}
+                                                </span>
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                    SAKIT
+                                                    {{ $statuses['SAKIT']['count'] ?? '0' }}
+                                                </span>
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    IZIN
+                                                    {{ $statuses['IZIN']['count'] ?? '0' }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="4"
+                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                            Tidak ada data absensi.
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -92,4 +109,5 @@
             </div>
         </main>
     </x-dosen-layout>
+    <x-dosen-absen-modal />
 </x-layout>

@@ -109,6 +109,7 @@
                 </div>
             </div>
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
                 function userManagement() {
                     return {
@@ -131,8 +132,17 @@
                             return Math.ceil(this.filteredUsers.length / this.rowsPerPage);
                         },
                         async deleteUser(id) {
-                            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
-                            if (confirmDelete) {
+                            const confirmDelete = await Swal.fire({
+                                title: 'Apakah Anda yakin?',
+                                text: "Anda tidak akan dapat mengembalikan ini!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ya, hapus!'
+                            });
+
+                            if (confirmDelete.isConfirmed) {
                                 try {
                                     const token = await axios.post('/token/get-token').then(res => res.data);
                                     const response = await axios.delete(`http://localhost:3000/api/teacher/${id}`, {
@@ -141,14 +151,22 @@
                                         }
                                     }).then(res => res.data);
                                     if (response.status === 201) {
-                                        alert('Berhasil menghapus pengguna');
+                                        Swal.fire(
+                                            'Dihapus!',
+                                            'Pengguna telah dihapus.',
+                                            'success'
+                                        );
                                         this.users = this.users.filter(user => user.id !== id);
                                         if (this.paginatedUsers.length === 0 && this.currentPage > 1) {
                                             this.currentPage--;
                                         }
                                     }
                                 } catch (error) {
-                                    alert('Gagal menghapus pengguna');
+                                    Swal.fire(
+                                        'Gagal!',
+                                        'Pengguna gagal dihapus.',
+                                        'error'
+                                    );
                                 }
                             }
                         }

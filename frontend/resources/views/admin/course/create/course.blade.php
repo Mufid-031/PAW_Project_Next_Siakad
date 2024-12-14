@@ -77,6 +77,7 @@
             </div>
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             const form = document.querySelector('#courseForm');
             form.addEventListener('submit', async (e) => {
@@ -103,8 +104,12 @@
                         }
                     }).then(data => data.data);
                     if (response.status === 201) {
-                        alert('Success Create New Course');
-                        window.location.replace('http://127.0.0.1:8000/admin/course')
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: response.message,
+                        })
+                        window.location.replace('/admin/course')
                     }
                 } catch (error) {
                     console.log(error);

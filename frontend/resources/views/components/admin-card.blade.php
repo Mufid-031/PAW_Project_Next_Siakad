@@ -2,7 +2,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <!-- Statistik Mahasiswa -->
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-red-500">
         <div class="flex items-center gap-3">
             <x-ionicon-people-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Statistik Dosen -->
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-500">
         <div class="flex items-center gap-3">
             <x-ionicon-school-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Statistik Mata Kuliah -->
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-yellow-500">
         <div class="flex items-center gap-3">
             <x-ionicon-book-outline class="w-8 h-8 text-ultramarine-900" />
             <div>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- Statistik Kelas -->
-    <div class="bg-white rounded-lg shadow p-4">
+    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-ultramarine-500">
         <div class="flex items-center gap-3">
             <x-ionicon-calendar-outline class="w-8 h-8 text-ultramarine-900" />
             <div>

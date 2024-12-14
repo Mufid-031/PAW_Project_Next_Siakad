@@ -184,7 +184,7 @@ class AdminController extends Controller
 
     public function schedule()
     {
-        return view('admin.schedule.index', ['admin' => $this->admin]);
+        return view('admin.schedule.index', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers, 'schedules' => $this->schedules]);
     }
 
     public function createSchedule()

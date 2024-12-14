@@ -132,8 +132,8 @@ class StudentController extends Controller
             ])->get('http://localhost:3000/api/evaluation/' . $enrollment['data']['id'])->json();
             return view('student.student-eval-dosen', [
                 'student' => $this->student,
-                 'enrollment' => $enrollment,
-                 'evaluation' => $evaluation['status'] === 200 ? $evaluation : null
+                'enrollment' => $enrollment,
+                'evaluation' => $evaluation['status'] === 200 ? $evaluation : null
             ]);
         }
     }

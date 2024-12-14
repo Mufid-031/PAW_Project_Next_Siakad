@@ -74,11 +74,24 @@
                                             <td class="px-6 py-4 text-sm text-gray-500">
                                                 {{ $absence['materi'] }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <span
+                                            <td class="px-6 py-4 whitespace-nowrap flex items-center">
+                                                <select name="statusKehadiran"
                                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {{ $absence['statusKehadiran'] ?? '-' }}
-                                                </span>
+                                                    <option value="ALPA"
+                                                        {{ $absence['statusKehadiran'] == 'ALPHA' ? 'selected' : '' }}>
+                                                        Alpha</option>
+                                                    <option value="HADIR"
+                                                        {{ $absence['statusKehadiran'] == 'HADIR' ? 'selected' : '' }}>
+                                                        Hadir</option>
+                                                </select>
+                                                <button type="button"
+                                                    class="ml-2 px-2 py-1 flex text-xs font-semibold text-white bg-blue-500 rounded update-status"
+                                                    data-student-id="{{ $absence['studentId'] }}"
+                                                    data-schedule-id="{{ $absence['scheduleId'] }}"
+                                                    data-pertemuan="{{ $absence['pertemuan'] }}"
+                                                    data-materi="{{ $absence['materi'] }}">
+                                                    <x-fas-edit class="w-4 h-4" /> Update
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -91,3 +104,47 @@
         </main>
     </x-student-layout>
 </x-layout>
+
+<script>
+    document.querySelectorAll('.update-status').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const studentId = e.target.getAttribute('data-student-id');
+            const scheduleId = e.target.getAttribute('data-schedule-id');
+            const pertemuan = e.target.getAttribute('data-pertemuan');
+            const materi = e.target.getAttribute('data-materi');
+            const statusKehadiran = e.target.previousElementSibling.value;
+
+            try {
+                const token = await axios.post('/token/get-token').then(res => res.data);
+                const response = await axios.patch('http://localhost:3000/api/absensi/', {
+                    studentId: parseInt(studentId),
+                    scheduleId: parseInt(scheduleId),
+                    statusKehadiran,
+                    pertemuan: parseInt(pertemuan),
+                    materi
+                }, {
+                    headers: {
+                        'X-API-TOKEN': token
+                    }
+                }).then(data => data.data);
+
+                if (response.status === 201) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: response.message,
+                    });
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: error.response.data.errors || error.message,
+                });
+            }
+        });
+    });
+</script>
