@@ -13,6 +13,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('auth')->group(function () {
+    Route::get('/login', [AuthController::class, 'index']);
     Route::get('/login/admin', [AuthController::class, 'admin']);
     Route::get('/login/teacher', [AuthController::class, 'teacher']);
     Route::get('/login/student', [AuthController::class, 'student']);
@@ -63,7 +64,7 @@ Route::prefix('dosen')->group(function () {
     Route::get('/input-nilai', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
     Route::get('/daftar-matkul', [TeacherController::class, 'grade'])->name('dosen.daftar-matkul');
     Route::get('/cetak-nilai', [TeacherController::class, 'cetakNilai'])->name('dosen.cetak-nilai');
-    // Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
+    Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
     Route::get('/absen', [TeacherController::class, 'absen'])->name('dosen.absen');
     Route::get('/riwayat-absen', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
     Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
@@ -79,7 +80,7 @@ Route::prefix('dosen')->group(function () {
     });
 
 
-Route::get('/jadwal', [JadwalMengajarController::class, 'index'])->name('dosen.jadwal');;
+// Route::get('/jadwal', [JadwalMengajarController::class, 'jadwal'])->name('dosen.jadwal');
 
 });
 

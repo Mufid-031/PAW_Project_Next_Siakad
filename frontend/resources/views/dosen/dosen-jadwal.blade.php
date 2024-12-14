@@ -1,5 +1,5 @@
 
-<x-dosen-layout>
+<x-dosen-layout :teacher="$teacher">
     <x-layout>
         <main class="ml-20 mr-20">
             <div class="bg-white rounded-lg shadow-lg p-6">
@@ -26,13 +26,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($jadwal as $item)
+                            @forelse ($enrollments['data'] as $key => $enrollment)
                                 <tr class="hover:bg-gray-50">
                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->kode_kelas }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->mata_kuliah }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->jadwal }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $item->ruangan }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] }}, {{ $enrollment['schedule']['time'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['room'] }}</td>
                                 </tr>
                             @empty
                                 <tr>

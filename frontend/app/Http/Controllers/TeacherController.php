@@ -9,10 +9,12 @@ class TeacherController extends Controller
 {
 
     public $token;
+    public $teacher;
 
     public function __construct()
     {
         $this->token = TokenController::get();
+        $this->teacher = TeacherController::getTeacherDetail();
     }
 
     public function getTeachers()
@@ -26,9 +28,6 @@ class TeacherController extends Controller
         } else {
             redirect('/auth/login/admin');
         }
-    
-        
-        
     }
 
     public static function getTeacher($id)
@@ -45,65 +44,123 @@ class TeacherController extends Controller
         }
     }
 
+    public static function getTeacherDetail()
+    {
+        $token = TokenController::get();
+        if ($token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $token
+            ])->get('http://localhost:3000/api/teacher/detail');
+
+            return $response->json();
+        } else {
+            redirect('/auth/login/admin');
+        }
+    }
+
     // views
     public function dashboard()
     {
-        return view('dosen.dosen-dashboard');
+        return view('dosen.dosen-dashboard', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function profile()
     {
-        return view('dosen.dosen-profile');
+        return view('dosen.dosen-profile', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function profileUpdate()
     {
-        return view('dosen.dosen-edit-profile');
+        return view('dosen.dosen-edit-profile', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function grade()
     {
-        return view('dosen.dosen-daftar-matkul');
-    }
-
-    public function detailGrade()
-    {
-        return view('dosen.dosen-input-nilai');
+        return view('dosen.dosen-input-nilai', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function schedule()
     {
-        return view('dosen.dosen-jadwal');
+        return view('dosen.dosen-jadwal', [
+            'teacher' => $this->teacher
+        ]);
     }
 
-    public function absen()
+    public function sivitas()
     {
-        return view('dosen.dosen-absen');
+        return view('dosen.dosen-sivitas', [
+            'teacher' => $this->teacher
+        ]);
     }
 
-    public function cetakNilai()
-        {
-            return view('dosen.dosen-cetak-nilai');
+    public function absen($scheduleId)
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/schedule/' . $scheduleId);
+            $schedule = $response->json();
+            $absences = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/absensi/' . $scheduleId)->json();
+            return view('dosen.dosen-absen', [
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'absences' => $absences['status'] === 200 ? $absences : null
+            ]);
         }
+    }
+
+    public function evalDosen($scheduleId)
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/schedule/' . $scheduleId);
+            $schedule = $response->json();
+            $evaluations = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/evaluation/' . $scheduleId)->json();
+            return view('dosen.dosen-eval', [
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'evaluations' => $evaluations['status'] === 200 ? $evaluations : null
+            ]);
+        }
+    }
 
     public function historyAbsen()
     {
-        return view('dosen.dosen-riwayat-absen');
+        return view('dosen.dosen-riwayat-absen', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function perwalian()
     {
-        return view('dosen.dosen-wali');
+        return view('dosen.dosen-perwalian', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function validation()
     {
-        return view('dosen.dosen-validasi-krs');
+        return view('dosen.dosen-validasi-krs', [
+            'teacher' => $this->teacher
+        ]);
     }
 
     public function validationDetail()
     {
-        return view('dosen.dosen-detail-validasi-krs');
+        return view('dosen.dosen-validasi-krs-detail');
     }
 
     public function cutiReq()
@@ -135,9 +192,4 @@ class TeacherController extends Controller
     {
         return view('dosen.dosen-materi-detail');
     }
-    public function mataKuliahAsuh()
-    {
-        return view('dosen.dosen-daftar-matkul');
-    }
-    
 }
