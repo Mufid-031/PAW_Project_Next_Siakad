@@ -42,8 +42,8 @@
         </div>
 
         <script>
-            const form = document.querySelector('#adminForm');
-            form.addEventListener('submit', async (e) => {
+            const adminForm = document.querySelector('#adminForm');
+            adminForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const name = e.target.name.value;
                 const email = e.target.email.value;

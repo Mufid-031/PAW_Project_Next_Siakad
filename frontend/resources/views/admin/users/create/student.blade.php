@@ -57,7 +57,8 @@
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Dosen Pembimbing</label>
-                            <select name="dosen_pembimbing" id="dosen_pembimbing" class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
+                            <select name="dosen_pembimbing" id="dosen_pembimbing"
+                                class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                                 @foreach ($teachers['data'] as $teacher)
                                     <option value="{{ $teacher['teacher']['id'] }}">{{ $teacher['name'] }}</option>
                                 @endforeach
@@ -80,8 +81,8 @@
         </div>
 
         <script>
-            const form = document.querySelector('#studentForm');
-            form.addEventListener('submit', async (e) => {
+            const studentForm = document.querySelector('#studentForm');
+            studentForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const name = e.target.name.value;
                 const nim = e.target.nim.value;
