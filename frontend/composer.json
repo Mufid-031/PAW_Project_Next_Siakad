@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.9",
         "luvi-ui/laravel-luvi": "^0.3.3",
         "mallardduck/blade-lucide-icons": "^1.23",
+        "midtrans/midtrans-php": "2.*",
         "owenvoke/blade-fontawesome": "^2.8"
     },
     "require-dev": {
