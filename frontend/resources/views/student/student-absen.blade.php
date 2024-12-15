@@ -76,10 +76,16 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap flex items-center">
                                                 <select name="statusKehadiran"
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                class="status-select px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
                                                     <option value="ALPA"
                                                         {{ $absence['statusKehadiran'] == 'ALPHA' ? 'selected' : '' }}>
                                                         Alpha</option>
+                                                    <option value="IZIN"
+                                                        {{ $absence['statusKehadiran'] == 'IZIN' ? 'selected' : '' }}>
+                                                        Izin</option>
+                                                    <option value="SAKIT"
+                                                        {{ $absence['statusKehadiran'] == 'SAKIT' ? 'selected' : '' }}>
+                                                        Sakit</option>
                                                     <option value="HADIR"
                                                         {{ $absence['statusKehadiran'] == 'HADIR' ? 'selected' : '' }}>
                                                         Hadir</option>
@@ -104,6 +110,53 @@
         </main>
     </x-student-layout>
 </x-layout>
+
+<style>
+    .status-select {
+        background-color: #fd7777; /* (Alpha) */
+    }
+    .status-select.izin {
+        background-color: #fde69a; /* Yellow for Izin */
+    }
+    .status-select.sakit {
+        background-color: #92efff; /* Blue for Sakit */
+    }
+    .status-select.hadir {
+        background-color: #90ffaa; /* Green for Hadir */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selects = document.querySelectorAll('.status-select');
+
+        selects.forEach(select => {
+            updateSelectColor(select);
+
+            select.addEventListener('change', function() {
+                updateSelectColor(select);
+            });
+        });
+
+        function updateSelectColor(select) {
+            select.classList.remove('alpha', 'izin', 'sakit', 'hadir');
+            switch (select.value) {
+                case 'ALPHA':
+                    select.classList.add('alpha');
+                    break;
+                case 'IZIN':
+                    select.classList.add('izin');
+                    break;
+                case 'SAKIT':
+                    select.classList.add('sakit');
+                    break;
+                case 'HADIR':
+                    select.classList.add('hadir');
+                    break;
+            }
+        }
+    });
+</script>
 
 <script>
     document.querySelectorAll('.update-status').forEach(button => {
