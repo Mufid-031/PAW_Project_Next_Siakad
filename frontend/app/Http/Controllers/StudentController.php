@@ -13,6 +13,8 @@ class StudentController extends Controller
     public $courses;
     public $enrollments;
     public $schedules;
+    public $announcements;
+
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -20,6 +22,7 @@ class StudentController extends Controller
         $this->courses = CourseController::getCourses();
         $this->enrollments = StudentController::getEnrollment();
         $this->schedules = ScheduleController::getSchedules();
+        $this->announcements = PengumumanController::getAllAnnouncements();
     }
 
     public static function getStudents()
@@ -84,6 +87,11 @@ class StudentController extends Controller
     public function dashboard()
     {
         return view('student.student-dashboard', ['student' => $this->student]);
+    }
+
+    public function pengumuman()
+    {
+        return view('student.student-pengumuman', ['student' => $this->student, 'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null]);
     }
 
     public function krs()
