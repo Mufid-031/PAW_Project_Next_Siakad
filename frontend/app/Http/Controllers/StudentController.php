@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Midtrans\Config;
+use Midtrans\Snap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -13,6 +14,8 @@ class StudentController extends Controller
     public $courses;
     public $enrollments;
     public $schedules;
+    public $scholarships;
+    public $payment;
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -20,6 +23,7 @@ class StudentController extends Controller
         $this->courses = CourseController::getCourses();
         $this->enrollments = StudentController::getEnrollment();
         $this->schedules = ScheduleController::getSchedules();
+        $this->scholarships = BeasiswaController::getAllBeasiswa();
     }
 
     public static function getStudents()
@@ -118,7 +122,7 @@ class StudentController extends Controller
 
     public function beasiswa()
     {
-        return view('student.student-beasiswa', ['student' => $this->student]);
+        return view('student.student-beasiswa', ['student' => $this->student, 'scholarships' => $this->scholarships]);
     }
 
     public function evalDosen($scheduleId)
@@ -170,5 +174,46 @@ class StudentController extends Controller
     public function khs()
     {
         return view('student.student-khs', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+    }
+
+    public function process(Request $request)
+    {
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+
+        // Ambil data dari form
+        $name = $request->input('name');
+        $golongan = $request->input('golongan');
+        $amount = $request->input('amount'); // Jumlah yang sudah ditentukan dan tidak dapat diubah
+
+        // Data transaksi
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'ORDER-' . time(),
+                'gross_amount' => (int) $amount, // Jumlah tetap
+            ],
+            'customer_details' => [
+                'first_name' => $name, // Nama dari form
+                'email' => 'user@example.com', // Email default atau dari form jika diperlukan
+            ],
+            'item_details' => [
+                [
+                    'id' => 'ukt-iii',
+                    'price' => (int) $amount,
+                    'quantity' => 1,
+                    'name' => 'UKT Golongan ' . $golongan,
+                ],
+            ],
+        ];
+
+        // Generate Snap Token
+        $snapToken = Snap::getSnapToken($params);
+
+        // Kirim token dan student ke view
+        $student = $this->student;
+        return view('student.keuangan.result', compact('snapToken', 'student'));
     }
 }

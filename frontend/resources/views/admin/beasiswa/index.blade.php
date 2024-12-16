@@ -54,10 +54,14 @@
                                     class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-900 transition-colors">
                                     Edit
                                 </button>
-                                <button
-                                    class="px-2 py-1 bg-ultramarine-400 text-white rounded-md hover:bg-ultramarine-900 transition-colors">
-                                    Hapus
-                                </button>
+                                <form action="/admin/service/beasiswa/{{ $scholarship['id'] }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="px-2 py-1 bg-ultramarine-400 text-white rounded-md hover:bg-ultramarine-900 transition-colors">
+                                        Hapus
+                                    </button>
+                                </form>
                             </div>
                             <a href="{{ $scholarship['link'] }}" target="_blank"
                                 class="px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition-colors">

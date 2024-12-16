@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,10 +55,13 @@ Route::prefix('student')->group(function () {
     Route::get('/eval-dosen/{scheduleId}', [StudentController::class, 'evalDosen']);
     Route::get('/cuti-req', [StudentController::class, 'cutiReq']);
     Route::get('/absen/{scheduleId}', [StudentController::class, 'absen']);
-    Route::get('/payment', [StudentController::class, 'pembayaran']);
-    Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
     Route::get('/profile', [StudentController::class, 'profile']);
     Route::get('/khs', [StudentController::class, 'khs']);
+    Route::get('/payment', [StudentController::class, 'pembayaran']);
+    Route::post('/payment/process', [StudentController::class, 'process'])->name('payment.process');
+    Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
+    Route::get('/profile', [StudentController::class, 'profile']);
+    Route::get('/profile/update', [StudentController::class, 'editProfile']);
 });
 
 Route::prefix('dosen')->group(function () {

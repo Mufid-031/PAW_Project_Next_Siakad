@@ -1,6 +1,6 @@
-<x-layout>
-    <x-admin-layout>
-        <main class="p-4 md:ml-64 h-auto pt-20">
+<x-admin-layout>
+    <x-admin-sidebar :admin="$admin">
+        <div class="container mx-auto px-6 py-8">
             <h1 class="text-2xl font-bold text-center mb-5">Kelola golongan UKT</h1>
             <div class="container mx-auto">
                 <table class="table-auto w-full bg-white shadow-md rounded border border-gray-200">
@@ -56,6 +56,6 @@
                     </tbody>
                 </table>
             </div>
-        </main>
-    </x-admin-layout>
-</x-layout>
+        </div>
+    </x-admin-sidebar>
+</x-admin-layout>
