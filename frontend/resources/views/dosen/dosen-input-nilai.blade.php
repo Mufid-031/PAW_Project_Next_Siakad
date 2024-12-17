@@ -1,106 +1,92 @@
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
-        <main class="ml-20 mr-20 mt-5">
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h1 class="text-2xl font-bold text-center text-gray-800 mb-4">
-                    Input Nilai Mata Kuliah: {{ isset($schedule['course']) ? $schedule['course']['name'] : 'Nama Mata Kuliah Tidak Ditemukan' }} 
-                    ({{ isset($schedule['course']) ? $schedule['course']['code'] : 'Kode Tidak Ditemukan' }})
-                </h1>
-                <p class="text-center mb-6">
-                    Kelas: {{ $schedule['class'] ?? 'Kelas Tidak Ditemukan' }} | 
-                    Semester: {{ $schedule['semester'] ?? 'Semester Tidak Ditemukan' }}
-                </p>
-                
+        <main class="ml-20 mr-20 mt-5" x-data>
+            <div class="max-w-6xl mx-auto p-6">
+                <a href="/dosen/sivitas" class="flex items-center text-gray-400 hover:text-gray-300 mb-6">
+                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Kembali
+                </a>
 
-                <!-- Form Input Nilai -->
-                <form id="gradeForm">
-                    @csrf
-                    <div class="space-y-4">
-                        @foreach ($enrollments as $enrollment)
-                            <div class="flex justify-between items-center">
-                                <div class="flex-1">
-                                    <label class="block text-sm font-semibold text-gray-600">
-                                        {{ $enrollment['student']['name'] }}
-                                    </label>
-                                    <input type="hidden" name="enrollment_ids[]" value="{{ $enrollment['id'] }}">
-                                </div>
-                                <div class="flex-1">
-                                    <label class="block text-sm font-semibold text-gray-600">Nilai Angka</label>
-                                    <input type="number" 
-                                           name="grades[{{ $enrollment['id'] }}][numeric]" 
-                                           value="{{ old('grades.' . $enrollment['id'] . '.numeric', $enrollment['numeric_grade'] ?? '') }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-md">
-                                    @error('grades.' . $enrollment['id'] . '.numeric')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="flex-1">
-                                    <label class="block text-sm font-semibold text-gray-600">Nilai Huruf</label>
-                                    <select name="grades[{{ $enrollment['id'] }}][letter]" 
-                                            class="w-full px-4 py-2 border border-gray-300 rounded-md">
-                                        <option value="A" {{ old('grades.' . $enrollment['id'] . '.letter', $enrollment['letter_grade'] ?? '') === 'A' ? 'selected' : '' }}>A</option>
-                                        <option value="B" {{ old('grades.' . $enrollment['id'] . '.letter', $enrollment['letter_grade'] ?? '') === 'B' ? 'selected' : '' }}>B</option>
-                                        <option value="C" {{ old('grades.' . $enrollment['id'] . '.letter', $enrollment['letter_grade'] ?? '') === 'C' ? 'selected' : '' }}>C</option>
-                                        <option value="D" {{ old('grades.' . $enrollment['id'] . '.letter', $enrollment['letter_grade'] ?? '') === 'D' ? 'selected' : '' }}>D</option>
-                                        <option value="E" {{ old('grades.' . $enrollment['id'] . '.letter', $enrollment['letter_grade'] ?? '') === 'E' ? 'selected' : '' }}>E</option>
-                                    </select>
-                                    @error('grades.' . $enrollment['id'] . '.letter')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <div class="border-b pb-4 mb-4">
+                        <h1 class="text-2xl font-bold text-gray-800">{{ $schedule['data']['course']['name'] }}</h1>
+                        <p class="text-gray-600">{{ $schedule['data']['course']['code'] }}</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Dosen Pengampu</h3>
+                            <p class="text-gray-800">{{ $schedule['data']['teacher']['user']['name'] }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b grid grid-cols-2">
+                        <h2 class="text-lg font-semibold text-gray-800">Riwayat Kehadiran & Input Nilai</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <form method="POST" action="{{ route('dosen.input-nilai', $schedule['data']['id']) }}">
+                            @csrf
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pertemuan</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Mahasiswa</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Kehadiran</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai Tugas</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai UTS</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai UAS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach ($absences['data'] as $absence)
+                                        @foreach ($absence['students'] as $student)
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="px-6 py-4 text-sm text-gray-500">{{ $absence['pertemuan'] }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-500">{{ $student['name'] }} ({{ $student['nim'] }})</td>
+                                                <td class="px-6 py-4">
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                        @if ($student['status'] === 'HADIR') bg-green-100 text-green-800
+                                                        @elseif ($student['status'] === 'ALPA') bg-red-100 text-red-800
+                                                        @elseif ($student['status'] === 'SAKIT') bg-blue-100 text-blue-800
+                                                        @elseif ($student['status'] === 'IZIN') bg-yellow-100 text-yellow-800
+                                                        @endif">
+                                                        {{ $student['status'] }}
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <input type="number" name="nilai_tugas[{{ $student['id'] }}]" 
+                                                           class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                           min="0" max="100" placeholder="Nilai Tugas">
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <input type="number" name="nilai_uts[{{ $student['id'] }}]" 
+                                                           class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                           min="0" max="100" placeholder="Nilai UTS">
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <input type="number" name="nilai_uas[{{ $student['id'] }}]" 
+                                                           class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                                           min="0" max="100" placeholder="Nilai UAS">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="text-right mt-4">
+                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                                    Simpan Nilai
+                                </button>
                             </div>
-                        @endforeach
+                        </form>                        
                     </div>
-
-                    <div class="mt-6 flex justify-end space-x-4">
-                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Simpan</button>
-                        <button type="reset" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </main>
-
-        <script>
-            const form = document.querySelector('#gradeForm');
-            form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-        const formData = new FormData(form);
-        const grades = {};
-
-        formData.forEach((value, key) => {
-            const match = key.match(/grades\[(\d+)\]\[(\w+)\]/);
-            if (match) {
-                const [_, enrollmentId, gradeType] = match;
-                grades[enrollmentId] = grades[enrollmentId] || {};
-                grades[enrollmentId][gradeType] = value;
-            }
-        });
-
-        try {
-            // Ambil token dari sesi secara langsung di backend (misalnya, lewat route)
-            const responseToken = await axios.get('/api/get-token'); // atau sesuaikan dengan API Anda
-
-            const token = responseToken.data.token;
-
-            const response = await axios.post('http://localhost:3000/api/enrollments/grades', {
-                grades
-            }, {
-                headers: {
-                    'X-API-TOKEN': token
-                }
-            });
-
-            if (response.data.status === 200) {
-                alert(response.data.message || 'Success Update Grades');
-                window.location.reload();
-            }
-        } catch (error) {
-            console.error(error);
-            alert('Failed to update grades. Please try again.');
-        }
-    });
-
-        </script>
     </x-dosen-layout>
 </x-layout>

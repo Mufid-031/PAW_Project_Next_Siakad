@@ -29,7 +29,7 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Beasiswa</h3>
                         <p class="text-gray-600 mb-6 text-sm">Kelola program beasiswa dan penerima beasiswa secara
                             efektif</p>
-                        <a href="/admin/service/beasiswa"
+                        <a href="/admin/beasiswa"
                             class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-ultramarine-600 hover:bg-ultramarine-50 rounded-xl transition-colors group">
                             <span>Kelola Beasiswa</span>
                             <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
@@ -51,7 +51,7 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Pembayaran</h3>
                         <p class="text-gray-600 mb-6 text-sm">Kelola pembayaran SPP dan biaya kuliah dengan sistematis
                         </p>
-                        <a href=""
+                        <a href="/admin/ukt"
                             class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-green-600 hover:bg-green-50 rounded-xl transition-colors group">
                             <span>Kelola Pembayaran</span>
                             <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
@@ -72,7 +72,7 @@
                         </div>
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Pengumuman</h3>
                         <p class="text-gray-600 mb-6 text-sm">Kelola pengumuman dan informasi kampus secara terpusat</p>
-                        <a href=""
+                        <a href="/admin/service/pengumuman"
                             class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-orange-600 hover:bg-orange-50 rounded-xl transition-colors group">
                             <span>Kelola Pengumuman</span>
                             <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>

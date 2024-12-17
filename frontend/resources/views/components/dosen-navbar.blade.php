@@ -37,7 +37,7 @@
                             </button>
                             <div id="dropdown-akademik" class="hidden absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                                 <a href="{{ route('dosen.jadwal') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Jadwal Mengajar</a>
-                                <a href="{{ route('dosen.daftar-matkul') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar MK</a>
+                                {{-- <a href="{{ route('dosen.daftar-matkul') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar MK</a> --}}
                                 {{-- <a href="{{ route('dosen.materi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Materi</a> --}}
                                 <a href="{{ route('dosen.perwalian') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar Perwalian</a>
                                 <a href="{{ route('dosen.validasi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Validasi KRS</a>

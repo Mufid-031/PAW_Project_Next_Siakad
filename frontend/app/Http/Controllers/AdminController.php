@@ -16,6 +16,7 @@ class AdminController extends Controller
     public $logs;
     public $schedules;
     public $scholarships;
+    public $announcements;
     public function __construct()
     {
         $this->token = TokenController::get();
@@ -27,6 +28,7 @@ class AdminController extends Controller
         $this->logs = AdminController::getLogs();
         $this->schedules = ScheduleController::getSchedules();
         $this->scholarships = BeasiswaController::getAllBeasiswa();
+        $this->announcements = PengumumanController::getAllAnnouncements();
     }
 
     public function getUsers()
@@ -224,7 +226,7 @@ class AdminController extends Controller
 
     public function beasiswa()
     {
-        return view('admin.beasiswa.index', ['admin' => $this->admin, 'scholarships' => $this->scholarships]);
+        return view('admin.beasiswa.index', ['admin' => $this->admin, 'scholarships' => $this->scholarships['status'] == 200 ? $this->scholarships : null]);
     }
 
     public function beasiswaAdd()
@@ -235,5 +237,15 @@ class AdminController extends Controller
     public function beasiswaEdit()
     {
         return view('admin.beasiswa.edit', ['admin' => $this->admin]);
+    }
+
+    public function pengumuman()
+    {
+        return view('admin.pengumuman.index', ['admin' => $this->admin, 'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null]);
+    }
+
+    public function pengumumanAdd()
+    {
+        return view('admin.pengumuman.add', ['admin' => $this->admin]);
     }
 }

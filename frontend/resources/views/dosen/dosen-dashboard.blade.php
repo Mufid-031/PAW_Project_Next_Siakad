@@ -88,8 +88,8 @@
                                 <polyline points="22,6 12,13 2,6" />
                             </svg>
                             <div class="text-white">
-                                <h3 class="text-xl font-semibold">Email</h3>
-                                <p class="text-blue-100">3 unread messages</p>
+                                <a href="{{ route('dosen.pengumuman') }}" class="text-xl font-semibold">Pengumuman</a>
+                                <p class="text-blue-100">Lihat Pengumuman</p>
                             </div>
                         </div>
                     </div>
