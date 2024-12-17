@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Midtrans\Config;
 use Midtrans\Snap;
 use Illuminate\Http\Request;
@@ -170,7 +171,18 @@ class StudentController extends Controller
 
     public function pembayaran()
     {
-        return view('student.keuangan.student-pay', ['student' => $this->student]);
+        $payments = Http::withHeaders([
+            'X-API-TOKEN' => $this->token
+        ])->get('http://localhost:3000/api/pembayaran')->json();
+
+        if (!$payments || $payments['status'] !== 200) {
+            return redirect()->back()->with('error', 'Gagal memuat informasi pembayaran');
+        }
+
+        return view('student.keuangan.student-pay', [
+            'student' => $this->student,
+            'payments' => $payments['data']
+        ]);
     }
 
     public function statusPembayaran()

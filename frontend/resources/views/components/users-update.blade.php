@@ -61,8 +61,8 @@
 </div>
 
 <script>
-    const form = document.querySelector('#updateForm');
-    form.addEventListener('submit', async (e) => {
+    const updateUsers = document.querySelector('#updateForm');
+    updateUsers.addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = e.target.id.value;
         const name = e.target.name.value;

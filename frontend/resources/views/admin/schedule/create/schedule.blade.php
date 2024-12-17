@@ -75,8 +75,8 @@
         </div>
 
         <script>
-            const form = document.querySelector('#scheduleForm');
-            form.addEventListener('submit', async (e) => {
+            const formSchedule = document.querySelector('#scheduleForm');
+            formSchedule.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const courseId = e.target.course.value;
                 const day = e.target.day.value;

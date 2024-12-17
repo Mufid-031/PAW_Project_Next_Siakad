@@ -1,17 +1,29 @@
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
-        <div class="container mx-auto px-6 py-8">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div class="lg:col-span-3 space-y-6">
-                    <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
+        <div class="container mx-auto px-4 py-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-3 space-y-8">
+                    <div class="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm">
                         <div>
-                            <h1 class="text-2xl font-bold text-gray-800">Manajemen Jadwal</h1>
-                            <p class="text-gray-600">{{ date('F Y') }}</p>
+                            <h1 class="text-3xl font-bold text-gray-900">Manajemen Jadwal</h1>
+                            <p class="text-gray-600 mt-1">{{ date('F Y') }}</p>
                         </div>
                     </div>
 
-                    <!-- Table View -->
-                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="border-b bg-gray-50">
+                            <nav class="flex flex-wrap px-4">
+                                @foreach (['SUNDAY' => 'Minggu', 'MONDAY' => 'Senin', 'TUESDAY' => 'Selasa', 'WEDNESDAY' => 'Rabu', 'THURSDAY' => 'Kamis', 'FRIDAY' => 'Jumat', 'SATURDAY' => 'Sabtu'] as $dayKey => $dayName)
+                                    <button onclick="showDay('{{ $dayKey }}')"
+                                        class="tab-button px-6 py-4 text-sm font-medium transition-all duration-200 border-b-2 {{ $dayKey === strtoupper(now()->englishDayOfWeek) ? 'border-ultramarine-500 text-ultramarine-600 bg-white' : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300' }}"
+                                        data-target="{{ $dayKey }}">
+                                        {{ $dayName }}
+                                    </button>
+                                @endforeach
+                            </nav>
+                        </div>
+
+                        <!-- Schedule Content -->
                         @foreach (['SUNDAY' => 'Minggu', 'MONDAY' => 'Senin', 'TUESDAY' => 'Selasa', 'WEDNESDAY' => 'Rabu', 'THURSDAY' => 'Kamis', 'FRIDAY' => 'Jumat', 'SATURDAY' => 'Sabtu'] as $dayKey => $dayName)
                             @php
                                 $daySchedules = collect($schedules['data'])->filter(function ($schedule) use ($dayKey) {
@@ -19,36 +31,43 @@
                                 });
                             @endphp
 
-                            <div class="border-b last:border-b-0">
-                                <!-- Day Header -->
-                                <div class="bg-gray-50 px-6 py-3">
-                                    <h3 class="text-lg font-semibold text-gray-800">{{ $dayName }}</h3>
-                                </div>
-
-                                <!-- Day Schedules -->
-                                <div class="divide-y divide-gray-200">
+                            <div id="{{ $dayKey }}"
+                                class="schedule-content {{ $dayKey === strtoupper(now()->englishDayOfWeek) ? 'block' : 'hidden' }}">
+                                <div class="divide-y divide-gray-100">
                                     @if ($daySchedules->count() > 0)
                                         @foreach ($daySchedules->sortBy('time') as $schedule)
-                                            <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50">
+                                            <div
+                                                class="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors duration-150">
                                                 <div class="flex-1">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        {{ $schedule['course']['name'] }}</div>
-                                                    <div class="text-sm text-gray-500">{{ $schedule['room'] }}</div>
+                                                    <div class="text-base font-semibold text-gray-900">
+                                                        {{ $schedule['course']['name'] }}
+                                                    </div>
+                                                    <div class="text-sm text-gray-600 mt-1">
+                                                        <span class="inline-flex items-center">
+                                                            <svg class="w-4 h-4 mr-1" fill="none"
+                                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                                            </svg>
+                                                            {{ $schedule['room'] }}
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <div class="flex-1 text-sm text-gray-500">
+                                                <div class="flex-1 text-sm font-medium text-gray-900">
                                                     {{ $schedule['time'] }}
                                                 </div>
-                                                <div class="flex-1 text-right">
+                                                <div class="flex items-center space-x-4">
                                                     <span
-                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                        class="px-3 py-1 text-sm font-semibold rounded-full {{ count($schedule['enrollments']) >= $schedule['kouta'] ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
                                                         {{ count($schedule['enrollments']) }}/{{ $schedule['kouta'] }}
                                                     </span>
                                                 </div>
                                             </div>
                                         @endforeach
                                     @else
-                                        <div class="px-6 py-4 text-sm text-gray-500 text-center">
-                                            Tidak ada jadwal
+                                        <div class="px-6 py-8 text-center">
+                                            <div class="text-gray-500">Tidak ada jadwal untuk hari ini</div>
                                         </div>
                                     @endif
                                 </div>
@@ -57,8 +76,7 @@
                     </div>
                 </div>
 
-                <!-- Side Panel -->
-                <div class="space-y-6">
+                <div class="space-y-8">
                     <div class="bg-white rounded-lg shadow p-4">
                         <a href="/admin/schedule/create/schedule">
                             <button
@@ -72,11 +90,10 @@
                                 Buka Kelas
                             </button>
                         </a>
-
                     </div>
 
-                    <!-- Today's Schedule Card -->
-                    <div class="bg-white rounded-lg shadow-sm p-4">
+                    <!-- Today Schedule Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
                         <h2 class="text-lg font-semibold mb-4 flex items-center text-gray-800">
                             <svg class="w-5 h-5 mr-2 text-ultramarine-500" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -113,28 +130,26 @@
                             @endforelse
                         </div>
                     </div>
-
-                    <!-- Upcoming Events -->
-                    <div class="bg-white rounded-lg shadow p-4">
-                        <h2 class="text-lg font-semibold mb-4 flex items-center">
-                            <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Jadwal Mendatang
-                        </h2>
-                        <div class="space-y-2">
-                            @foreach (['Sempro', 'UAS', 'Semhas'] as $event)
-                                <div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                                    <p class="font-medium">{{ $event }}</p>
-                                    <p class="text-sm text-gray-600">Tomorrow, 09:00</p>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </x-admin-sidebar>
+
+    <script>
+        function showDay(dayId) {
+            document.querySelectorAll('.schedule-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            document.getElementById(dayId).classList.remove('hidden');
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('border-ultramarine-500', 'text-ultramarine-600');
+                button.classList.add('border-transparent', 'text-gray-500');
+            });
+
+            const activeButton = document.querySelector(`[data-target="${dayId}"]`);
+            activeButton.classList.remove('border-transparent', 'text-gray-500');
+            activeButton.classList.add('border-ultramarine-500', 'text-ultramarine-600');
+        }
+    </script>
 </x-admin-layout>

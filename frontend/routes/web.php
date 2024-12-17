@@ -14,9 +14,6 @@ Route::get('/', function () {
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', [AuthController::class, 'index']);
-    Route::get('/login/admin', [AuthController::class, 'admin']);
-    Route::get('/login/teacher', [AuthController::class, 'teacher']);
-    Route::get('/login/student', [AuthController::class, 'student']);
 });
 
 Route::prefix('admin')->group(function () {
