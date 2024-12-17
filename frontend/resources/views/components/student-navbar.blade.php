@@ -93,11 +93,20 @@
                     }
                 }).then(data => data.data);
                 if (response.status === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: response.message,
+                    })
                     await axios.post('/token/destroy-token');
-                    window.location.replace('http://127.0.0.1:8000/auth/login/student');
+                    window.location.replace('/auth/login');
                 }
             } catch (error) {
-                console.log(error)
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: error.response.data.errors || error.message,
+                })
             }
         });
     </script>

@@ -9,7 +9,11 @@ class TeacherController extends Controller
 {
 
     public $token;
+    public $student;
     public $teacher;
+    public $courses;
+    public $enrollments;
+    public $schedules;
 
     public function __construct()
     {
@@ -82,10 +86,86 @@ class TeacherController extends Controller
 
     public function grade()
     {
-        return view('dosen.dosen-input-nilai', [
+        return view('dosen.dosen-daftar-matkul', [
             'teacher' => $this->teacher
         ]);
     }
+
+    public function getEnrollment()
+    {
+        if ($this->token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/enrollment');
+
+            return $response->json();
+        } else {
+            redirect('/auth/login/student');
+        }
+    }
+
+    public function detailGrade($scheduleId)
+    {
+        if ($this->token) {
+            $scheduleResponse = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get("http://localhost:3000/api/schedule/{$scheduleId}");
+            
+            if ($scheduleResponse->status() !== 200) {
+                return redirect()->back()->with('error', 'Gagal memuat data jadwal');
+            }
+
+            $schedule = $scheduleResponse->json();
+            $enrollments = $this->getEnrollmentsByScheduleId($scheduleId);
+
+            return view('dosen.dosen-input-nilai', [
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'enrollments' => $enrollments
+            ]);
+        }
+    }
+
+    public function getEnrollmentsByScheduleId($scheduleId)
+    {
+        if ($this->token) {
+            $enrollmentsResponse = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get("http://localhost:3000/api/enrollments/{$scheduleId}");
+            
+            if ($enrollmentsResponse->status() !== 200) {
+                return [];
+            }
+
+            return $enrollmentsResponse->json();
+        }
+    }
+
+    public function storeNilai(Request $request, $scheduleId)
+    {
+        if ($this->token) {
+            $validated = $request->validate([
+                'grades.*.numeric' => 'required|numeric|min:0|max:100',
+                'grades.*.letter' => 'required|in:A,B,C,D,E',
+            ]);
+
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->post('http://localhost:3000/api/enrollments/grades', [
+                'schedule_id' => $scheduleId,
+                'grades' => $request->grades,
+            ]);
+
+            if ($response->status() === 200) {
+                return redirect()->route('nilai.input', $scheduleId)->with('success', 'Nilai berhasil disimpan');
+            } else {
+                return redirect()->back()->with('error', 'Gagal menyimpan nilai');
+            }
+        }
+    }
+
+
+
 
     public function schedule()
     {
@@ -144,19 +224,85 @@ class TeacherController extends Controller
         ]);
     }
 
-    public function perwalian()
-    {
-        return view('dosen.dosen-perwalian', [
-            'teacher' => $this->teacher
+    public function perwalian($id)
+{
+    try {
+        // Ambil data dosen berdasarkan ID
+        $teacherResponse = Http::get("http://localhost:3000/api/teachers/" .$id);
+
+        if ($teacherResponse->failed()) {
+            throw new \Exception('Gagal mengambil data dosen.');
+        }
+
+        $teacher = $teacherResponse->json();
+
+        // Ambil data mahasiswa bimbingan
+        $studentResponse = Http::get("http://localhost:3000/api/teacher/{$id}/students");
+
+        if ($studentResponse->failed()) {
+            throw new \Exception('Gagal mengambil data mahasiswa bimbingan.');
+        }
+
+        $students = $studentResponse->json('students') ?? [];
+
+        // Kirim data ke view
+        return view('dosen.dosen.perwalian', [
+            'teacher' => $teacher,
+            'students' => $students,
         ]);
+
+    } catch (\Exception $e) {
+        // Tangani error dengan pesan yang lebih informatif
+        return back()->with('error', $e->getMessage());
+    }
+}
+
+
+    public function validation($scheduleId = null)
+{
+    if (is_null($scheduleId)) {
+        // Fetch the first available schedule as default
+        $response = Http::withHeaders([
+            'X-API-TOKEN' => $this->token
+        ])->get('http://localhost:3000/api/schedules');
+
+        $schedules = $response->json();
+        if (!empty($schedules['data'])) {
+            $scheduleId = $schedules['data'][0]['id']; // Ambil schedule pertama
+        } else {
+            return redirect()->back()->with('error', 'Tidak ada jadwal tersedia.');
+        }
     }
 
-    public function validation()
-    {
-        return view('dosen.dosen-validasi-krs', [
-            'teacher' => $this->teacher
-        ]);
+    // Lakukan validasi untuk scheduleId
+    $scheduleResponse = Http::withHeaders([
+        'X-API-TOKEN' => $this->token
+    ])->get("http://localhost:3000/api/schedule/{$scheduleId}");
+
+    $schedule = $scheduleResponse->json();
+
+    if (!$schedule || $scheduleResponse->failed()) {
+        return redirect()->back()->with('error', 'Jadwal tidak ditemukan.');
     }
+
+    $enrollments = Http::withHeaders([
+        'X-API-TOKEN' => $this->token
+    ])->get("http://localhost:3000/api/enrollments/{$scheduleId}")->json();
+
+    if ($enrollments['status'] !== 200) {
+        return redirect()->back()->with('error', 'Data KRS mahasiswa tidak ditemukan.');
+    }
+
+    return view('dosen.dosen-validasi-krs', [
+        'teacher' => $this->teacher,
+        'schedule' => $schedule,
+        'enrollments' => $enrollments['data'] ?? [],
+    ]);
+}
+
+
+
+
 
     public function validationDetail()
     {

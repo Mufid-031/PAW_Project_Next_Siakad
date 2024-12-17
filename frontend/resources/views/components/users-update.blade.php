@@ -64,11 +64,11 @@
     const form = document.querySelector('#updateForm');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const id = document.querySelector('#id').value;
-        const role = document.querySelector('#role').value;
-        const name = document.querySelector('#name').value;
-        const email = document.querySelector('#email').value;
-        const password = document.querySelector('#password').value;
+        const id = e.target.id.value;
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const role = e.target.role.value;
+        const password = e.target.password.value;
         try {
             const token = await axios.post('/token/get-token').then(res => res.data);
             const response = await axios.patch('http://localhost:3000/api/admin/user', {
@@ -83,11 +83,19 @@
                 }
             }).then(data => data.data);
             if (response.status === 201) {
-                alert('Success Update User');
-                window.location.replace('http://127.0.0.1:8000/admin/users')
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.message,
+                })
+                window.location.replace('/admin/users')
             }
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.response.data.errors || error.message,
+            })
         }
     })
 </script>

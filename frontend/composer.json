@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-icons": "^1.7",
         "blade-ui-kit/blade-zondicons": "^1.5",
         "codeat3/blade-carbon-icons": "^2.31",
         "faisal50x/blade-ionicons": "^1.0",
@@ -20,6 +21,7 @@
         "owenvoke/blade-fontawesome": "^2.8"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",

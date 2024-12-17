@@ -1,6 +1,6 @@
-<x-dosen-layout>
+<x-dosen-layout :teacher="$teacher">
     <x-layout>
-            <main class="mr-20 ml-20">
+            <main class="mr-20 ml-20 mt-5">
                 <div class="container mx-auto p-6">
                     <h2 class="text-2xl font-bold text-center mb-6 text-blue-600">Validasi Kartu Rencana Studi (KRS)</h2>
                     

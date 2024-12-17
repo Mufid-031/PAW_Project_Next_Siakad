@@ -29,7 +29,7 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Beasiswa</h3>
                         <p class="text-gray-600 mb-6 text-sm">Kelola program beasiswa dan penerima beasiswa secara
                             efektif</p>
-                        <a href=""
+                        <a href="/admin/service/beasiswa"
                             class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-ultramarine-600 hover:bg-ultramarine-50 rounded-xl transition-colors group">
                             <span>Kelola Beasiswa</span>
                             <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
@@ -75,6 +75,69 @@
                         <a href=""
                             class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-orange-600 hover:bg-orange-50 rounded-xl transition-colors group">
                             <span>Kelola Pengumuman</span>
+                            <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tambah Alumni Card -->
+                <div
+                    class="bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-blue-50 rounded-2xl">
+                                <i class="fas fa-user-graduate text-2xl text-blue-500"></i>
+                            </div>
+                            <span
+                                class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Aktif</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Tambah Alumni</h3>
+                        <p class="text-gray-600 mb-6 text-sm">Kelola data alumni dengan mudah dan efisien</p>
+                        <a href=""
+                            class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-blue-600 hover:bg-blue-50 rounded-xl transition-colors group">
+                            <span>Kelola Alumni</span>
+                            <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tambah Berita Card -->
+                <div
+                    class="bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-purple-50 rounded-2xl">
+                                <i class="fas fa-newspaper text-2xl text-purple-500"></i>
+                            </div>
+                            <span
+                                class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Aktif</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Tambah Berita</h3>
+                        <p class="text-gray-600 mb-6 text-sm">Kelola berita kampus dengan mudah dan cepat</p>
+                        <a href=""
+                            class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-purple-600 hover:bg-purple-50 rounded-xl transition-colors group">
+                            <span>Kelola Berita</span>
+                            <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kritik Saran Card -->
+                <div
+                    class="bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-red-50 rounded-2xl">
+                                <i class="fas fa-comments text-2xl text-red-500"></i>
+                            </div>
+                            <span
+                                class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Aktif</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Kritik Saran</h3>
+                        <p class="text-gray-600 mb-6 text-sm">Kelola kritik dan saran dari mahasiswa dan staf</p>
+                        <a href=""
+                            class="inline-flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-xl transition-colors group">
+                            <span>Kelola Kritik Saran</span>
                             <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
                         </a>
                     </div>

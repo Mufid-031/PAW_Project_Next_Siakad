@@ -1,7 +1,8 @@
+{{-- {{ dd($teacher) }} --}}
 
-<x-dosen-layout :teacher="$teacher">
-    <x-layout>
-        <main class="ml-20 mr-20">
+<x-layout>
+    <x-dosen-layout :teacher="$teacher">
+        <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <!-- Header Section -->
                 <div class="border-b border-gray-200 mb-6">
@@ -14,36 +15,52 @@
                 </div>
 
                 <!-- Schedule Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
+                <div class="overflow-x-auto w-full">
+                    <table class="min-w-full table-auto">                
                         <thead>
                             <tr class="bg-gray-50">
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">No</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Kode Kelas</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Mata Kuliah</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Jadwal</th>
-                                <th class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">Ruangan</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    No</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Kode Kelas</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Mata Kuliah</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Jadwal</th>
+                                <th
+                                    class="border border-gray-200 px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                                    Ruangan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($enrollments['data'] as $key => $enrollment)
+                            @forelse ($teacher['data']['teacher']['schedules'] as $key => $schedule)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] }}, {{ $enrollment['schedule']['time'] }}</td>
-                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['room'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $key + 1 }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['course']['code'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['course']['name'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['day'] }} {{ $schedule['time'] }}</td>
+                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                        {{ $schedule['room'] }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="border border-gray-200 px-4 py-3 text-center text-sm text-gray-600">Tidak ada data.</td>
+                                    <td colspan="5"
+                                        class="border border-gray-200 px-4 py-3 text-center text-sm text-gray-600">Tidak
+                                        ada data.</td>
                                 </tr>
                             @endforelse
                         </tbody>
-                        
                     </table>
                 </div>
             </div>
         </main>
-    </x-layout>
-</x-dosen-layout>
+    </x-dosen-layout>
+</x-layout>

@@ -27,9 +27,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/create/student', [AdminController::class, 'createStudent']);
     Route::get('/users/create/course', [AdminController::class, 'createCourse']);
     Route::get('/course', [AdminController::class, 'course']);
+    Route::get('/course/create/course', [AdminController::class, 'createCourse']);
     Route::get('/schedule', [AdminController::class, 'schedule']);
+    Route::get('/schedule/create/schedule', [AdminController::class, 'createSchedule']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/service', [AdminController::class, 'service']);
+    Route::get(('/service/beasiswa'), [AdminController::class, 'beasiswa']);
+    Route::get(('/service/beasiswa/create'), [AdminController::class, 'beasiswaAdd']);
+    Route::get(('/service/beasiswa/update'), [AdminController::class, 'beasiswaEdit']);
     Route::get('/report', [AdminController::class, 'report']);
     Route::get('/ukt', [AdminController::class, 'ukt']);
     Route::get('/ukt/update', [AdminController::class, 'uktUpdate']);
@@ -47,9 +52,9 @@ Route::prefix('student')->group(function () {
     Route::get('/grade', [StudentController::class, 'grade']);
     Route::get('/sivitas', [StudentController::class, 'sivitas']);
     Route::get('/beasiswa', [StudentController::class, 'beasiswa']);
-    Route::get('/eval-dosen', [StudentController::class, 'evalDosen']);
+    Route::get('/eval-dosen/{scheduleId}', [StudentController::class, 'evalDosen']);
     Route::get('/cuti-req', [StudentController::class, 'cutiReq']);
-    Route::get('/absen', [StudentController::class, 'absen']);
+    Route::get('/absen/{scheduleId}', [StudentController::class, 'absen']);
     Route::get('/payment', [StudentController::class, 'pembayaran']);
     Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
     Route::get('/profile', [StudentController::class, 'profile']);
@@ -61,14 +66,22 @@ Route::prefix('dosen')->group(function () {
     Route::get('/dashboard', [TeacherController::class, 'dashboard'])->name('dosen.dashboard');
     Route::get('/profile', [TeacherController::class, 'profile'])->name('dosen.profile');
     Route::get('/edit-profile', [TeacherController::class, 'profileUpdate'])->name('dosen.edit-profile');
-    Route::get('/input-nilai', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
+    // Route::get('/input-nilai', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
+    // Route::get('/input-nilai/{kode_mk}', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
+    Route::get('/input-nilai/{scheduleId}', [TeacherController::class, 'detailGrade'])->name('dosen.input-nilai');
+    Route::post('/input-nilai/{scheduleId}', [TeacherController::class, 'storeNilai'])->name('dosen.store-nilai');
     Route::get('/daftar-matkul', [TeacherController::class, 'grade'])->name('dosen.daftar-matkul');
     Route::get('/cetak-nilai', [TeacherController::class, 'cetakNilai'])->name('dosen.cetak-nilai');
     Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
-    Route::get('/absen', [TeacherController::class, 'absen'])->name('dosen.absen');
+    Route::get('/sivitas', [TeacherController::class, 'sivitas'])->name('dosen.sivitas');
+    Route::get('/absen/{scheduleId}', [TeacherController::class, 'absen'])->name('dosen.absen');
+    Route::get('/eval-dosen/{scheduleId}', [TeacherController::class, 'evalDosen'])->name('dosen.eval-dosen');
     Route::get('/riwayat-absen', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
-    Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
-    Route::get('/validasi', [TeacherController::class, 'validation'])->name('dosen.validasi');
+    // Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
+    Route::get('/perwalian/{id}', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
+    Route::get('/validasi/{scheduleId?}', [TeacherController::class, 'validation'])->name('dosen.validasi');
+    Route::post('/validasi-krs/{enrollment_id}', [TeacherController::class, 'validasiKRS'])->name('dosen.validasi.krs');
+
     Route::get('/detail-krs', [TeacherController::class, 'validationDetail'])->name('dosen.detail.krs');
     // Route::get('/cuti-req', [TeacherController::class, 'cutiReq'])->name('dosen.cuti-req');
     Route::prefix('materi')->group(function () {
@@ -77,8 +90,11 @@ Route::prefix('dosen')->group(function () {
         Route::get('/edit', [TeacherController::class, 'materiUpdate'])->name('dosen.materi.edit');
         Route::get('/hapus', [TeacherController::class, 'materiDelete'])->name('dosen.materi.hapus');
         Route::get('/detail', [TeacherController::class, 'materiDetail'])->name('dosen.materi.detail');
+
     });
 
+    Route::post('/dosen/store-grade', [TeacherController::class, 'storeGrade'])->name('dosen.storeGrade');
+    // Route::get('/teacher/{id}', [TeacherController::class, 'show'])->name('teacher.profile');
 
 // Route::get('/jadwal', [JadwalMengajarController::class, 'jadwal'])->name('dosen.jadwal');
 

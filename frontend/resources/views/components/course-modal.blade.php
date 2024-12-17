@@ -14,19 +14,19 @@
                     <x-course-detail label="Kode Mata Kuliah" :value="$course['code']" />
                     <x-course-detail label="Nama Mata Kuliah" :value="$course['name']" />
                     <x-course-detail label="SKS" :value="$course['sks']" />
+                    <x-course-detail label="Program Studi" :value="$course['programStudi']" />
+                    <x-course-detail label="Deskripsi" :value="'Belum ada deskripsi'" />
                 </div>
 
-                <x-course-detail label="Deskripsi" :value="'Belum ada deskripsi'" />
-
-                <div class="grid grid-cols-2 gap-4">
-                    <x-course-detail label="Program Studi" :value="$course['programStudi']" />
-                    <x-course-detail label="Pengajar" :value="$course['teacher']['user']['name']" />
+                <div class="grid grid-cols-3 gap-4">
                     @forelse ($course['schedule'] as $schedule)
-                        <x-course-detail label="Jadwal Kelas" :value="$schedule['time'] ?? 'Belum ditentukan'" />
-                        <x-course-detail label="Ruangan" :value="$schedule['room'] ?? 'Belum ditentukan'" />
+                        <x-course-detail label="Jadwal Kelas" :value="$schedule['time']" />
+                        <x-course-detail label="Ruangan" :value="$schedule['room']" />
+                        <x-course-detail label="Hari" :value="$schedule['day']" />
                     @empty
                         <x-course-detail label="Jadwal Kelas" :value="'Belum ditentukan'" />
                         <x-course-detail label="Ruangan" :value="'Belum ditentukan'" />
+                        <x-course-detail label="Hari" :value="'Belum ditentukan'" />
                     @endforelse
                 </div>
             </div>

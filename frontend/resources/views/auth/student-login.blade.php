@@ -21,8 +21,8 @@
             const nim = document.querySelector('#nim').value;
             const password = document.querySelector('#password').value;
             try {
-                const response = await axios.post('http://localhost:3000/api/student/login', {
-                    nim,
+                const response = await axios.post('http://localhost:3000/api/user/login', {
+                    credential: nim,
                     password
                 }).then(data => data.data);
                 if (response.status === 200) {

@@ -13,7 +13,7 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-base font-medium text-gray-700">Nama</label>
-                            <input type="text" id="name" name="name"
+                            <input type="text" id="studName" name="name"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
 
@@ -25,13 +25,13 @@
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" name="email"
+                            <input type="email" id="studEmail" name="email"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-base font-medium text-gray-700">Password</label>
-                            <input type="password" id="password" name="password"
+                            <input type="password" id="studPwd" name="password"
                                 class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
                         <div>
@@ -83,14 +83,14 @@
             const form = document.querySelector('#studentForm');
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const name = document.querySelector('#name').value;
-                const nim = document.querySelector('#nim').value;
-                const email = document.querySelector('#email').value;
-                const password = document.querySelector('#password').value;
-                const tanggalLahir = document.querySelector('#date').value;
-                const gender = document.querySelector('#gender').value;
-                const programStudi = document.querySelector('#program_studi').value;
-                const academicAdvisorId = document.querySelector('#dosen_pembimbing').value;
+                const name = e.target.name.value;
+                const nim = e.target.nim.value;
+                const email = e.target.email.value;
+                const password = e.target.password.value;
+                const tanggalLahir = e.target.date.value;
+                const gender = e.target.gender.value;
+                const programStudi = e.target.program_studi.value;
+                const academicAdvisorId = e.target.dosen_pembimbing.value;
                 try {
                     const token = await axios.post('/token/get-token').then(res => res.data);
                     const response = await axios.post('http://localhost:3000/api/student/register', {
@@ -108,11 +108,19 @@
                         }
                     }).then(data => data.data);
                     if (response.status === 201) {
-                        alert('Success Create New Student');
-                        window.location.replace('http://127.0.0.1:8000/admin/users')
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: response.message,
+                        })
+                        window.location.replace('/admin/users')
                     }
                 } catch (error) {
-                    console.log(error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: error.response.data.errors || error.message,
+                    })
                 }
             })
         </script>

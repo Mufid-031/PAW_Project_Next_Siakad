@@ -1,6 +1,6 @@
-<x-dosen-layout>
+<x-dosen-layout :teacher="$teacher">
     <x-layout>
-        <main class="ml-20 mr-20">
+        <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <h1 class="text-2xl font-bold mb-4 text-center">Formulir Permohonan Cuti Dosen</h1>
                 <p class="mb-4 text-gray-600 text-center">Silakan isi formulir berikut untuk mengajukan permohonan cuti. Pastikan semua informasi yang diberikan adalah benar dan lengkap.</p>

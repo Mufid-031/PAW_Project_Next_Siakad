@@ -1,4 +1,4 @@
-<x-dosen-layout>
+<x-dosen-layout :teacher="$teacher">
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg">
