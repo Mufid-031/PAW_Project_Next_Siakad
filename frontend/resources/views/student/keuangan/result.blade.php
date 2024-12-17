@@ -1,3 +1,5 @@
+{{-- {{ dd($semester, $student['data']['student']['id']) }} --}}
+
 <x-layout>
     <x-student-layout :student="$student">
         <main class="ml-20 mr-20 mt-5">
@@ -10,18 +12,36 @@
                 </div>
             </div>
         </main>
-        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
-        </script>
         <script>
             const payButton = document.getElementById('pay-button');
             payButton.addEventListener('click', function() {
                 snap.pay('{{ $snapToken }}', {
-                    onSuccess: function(result) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: 'Pembayaran berhasil',
-                        })
+                    onSuccess: async function(result) {
+                        try {
+                            const token = await axios.post('/token/get-token').then(res => res.data);
+                            const response = await axios.patch(
+                                'http://localhost:3000/api/pembayaran/confirm/{{ $semester }}', {}, {
+                                    headers: {
+                                        'X-API-TOKEN': `${token}`
+                                    }
+                                }).then(data => data.data);
+
+                            if (response.status === 201) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: 'Pembayaran berhasil',
+                                }).then(() => {
+                                    window.location.replace('/student/payment');
+                                })
+                            }
+                        } catch (error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: error.response.data.errors || error.message,
+                            })
+                        }
                     },
                     onPending: function(result) {
                         Swal.fire({

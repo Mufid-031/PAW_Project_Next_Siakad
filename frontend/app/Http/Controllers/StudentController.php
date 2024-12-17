@@ -27,6 +27,11 @@ class StudentController extends Controller
         $this->schedules = ScheduleController::getSchedules();
         $this->announcements = PengumumanController::getAllAnnouncements();
         $this->scholarships = BeasiswaController::getAllBeasiswa();
+        // Konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
     }
 
     public static function getStudents()
@@ -187,7 +192,7 @@ class StudentController extends Controller
 
     public function statusPembayaran()
     {
-        return view('student.keuangan.student-status-pay', ['student' => $this->student]);
+        return view('student.keuangan.student-status-pay', ['student' => $this->student, 'payments' => $this->payments['status'] === 200 ? $this->payments['data'] : null]);
     }
 
     public function khs()
@@ -197,34 +202,22 @@ class StudentController extends Controller
 
     public function process(Request $request)
     {
-        // Konfigurasi Midtrans
-        Config::$serverKey = config('midtrans.server_key');
-        Config::$isProduction = config('midtrans.is_production');
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
 
         // Ambil data dari form
         $name = $request->input('name');
-        $golongan = $request->input('golongan');
         $amount = $request->input('amount'); // Jumlah yang sudah ditentukan dan tidak dapat diubah
+        $email = $request->input('email');
+        $semester = $request->input('semester');
 
         // Data transaksi
         $params = [
             'transaction_details' => [
-                'order_id' => 'ORDER-' . time(),
-                'gross_amount' => (int) $amount, // Jumlah tetap
+                'order_id' => rand(),
+                'gross_amount' => (int)$amount, // Jumlah tetap
             ],
             'customer_details' => [
-                'first_name' => $name, // Nama dari form
-                'email' => 'user@example.com', // Email default atau dari form jika diperlukan
-            ],
-            'item_details' => [
-                [
-                    'id' => 'ukt-iii',
-                    'price' => (int) $amount,
-                    'quantity' => 1,
-                    'name' => 'UKT Golongan ' . $golongan,
-                ],
+                'name' => $name, // Nama dari form
+                'email' => $email, // Email default atau dari form jika diperlukan
             ],
         ];
 
@@ -233,6 +226,6 @@ class StudentController extends Controller
 
         // Kirim token dan student ke view
         $student = $this->student;
-        return view('student.keuangan.result', compact('snapToken', 'student'));
+        return view('student.keuangan.result', compact('snapToken', 'student', 'semester'));
     }
 }

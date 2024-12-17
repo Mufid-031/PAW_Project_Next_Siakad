@@ -1,14 +1,15 @@
-<x-student-layout :student="$student">
-    <x-layout>
+{{-- {{ dd($payments) }} --}}
+
+<x-layout>
+    <x-student-layout :student="$student">
         <main class="ml-20 mr-20 mt-5">
             <div class="container mx-auto">
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h1 class="text-2xl font-bold mb-5">Form Pembayaran UKT</h1>
-                    <form method="POST" action="{{ route('payment.process') }}">
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-medium">Nama</label>
-                            <input type="text" value="{{ strToUpper($student['data']['name']) }}" name="name"
-                                readonly class="w-full border px-3 py-2 rounded bg-gray-100">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium">Nama</label>
+                        <input type="text" value="{{ $student['data']['name'] }}" readonly
+                            class="w-full border px-3 py-2 rounded bg-gray-100" name="name" id="name">
                         </div>
 
                         <div class="overflow-x-auto">
@@ -23,14 +24,19 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($payments as $key => $payment)
+                                    <form method="POST" action="{{ route('payment.process') }}">
+                                        @csrf
+                                        <input type="hidden" value="{{ $student['data']['name'] }}" readonly
+                                            class="w-full border px-3 py-2 rounded bg-gray-100" name="name" id="name">
+                                        <input type="hidden" name="email" id="email" value="{{ $student['data']['email'] }}">
                                         <tr>
                                             <td class="py-2 px-4 border">
-                                                <input type="text" value="Semester {{ $key + 1 }}"
+                                                <input type="text" value="semester_{{ $key + 1 }}"
                                                     name="semester" readonly
                                                     class="w-full border px-3 py-2 rounded bg-gray-100">
                                             </td>
                                             <td class="py-2 px-4 border">
-                                                <input type="text" value="{{ $payment['total'] }}" name="totalAmount"
+                                                <input type="text" value="{{ $payment['total'] }}" name="amount"
                                                     readonly class="w-full border px-3 py-2 rounded bg-gray-100">
                                             </td>
                                             <td class="py-2 px-4 border">
@@ -52,13 +58,13 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
+                                    </form>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
-    </x-layout>
-</x-student-layout>
+    </x-student-layout>
+</x-layout>
