@@ -21,8 +21,16 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                @if (!empty($scholarships['data']))
+            <div class="grid grid-cols-1 justify-center gap-6 mb-8">
+                @if ($scholarships == null)
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-5">
+                            <div class="flex justify-between items-center text-center">
+                                <h3 class="text-lg font-semibold text-gray-800">Tidak ada beasiswa</h3>
+                            </div>
+                        </div>
+                    </div>
+                @else
                     @foreach ($scholarships['data'] as $scholarship)
                         <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                             <div class="p-5">
@@ -57,8 +65,8 @@
                                         class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-900 transition-colors">
                                         Edit
                                     </button>
-                                    <button id="deleteBtn-{{ $scholarship['id'] }}"
-                                        data-scholarship-id="{{ $scholarship['id'] }}"
+                                    <button
+                                        onclick="deleteConfirmation({{ $scholarship['id'] }})"
                                         class="px-2 py-1 bg-ultramarine-400 text-white rounded-md hover:bg-ultramarine-900 transition-colors">
                                         Hapus
                                     </button>
@@ -70,63 +78,48 @@
                             </div>
                         </div>
                     @endforeach
-                @else
-                    <p class="text-gray-600">Tidak ada data beasiswa.</p>
                 @endif
             </div>
         </div>
+
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const deleteButtons = document.querySelectorAll('[id^="deleteBtn-"]');
-                deleteButtons.forEach(button => {
-                    button.addEventListener('click', async function() {
-                        const scholarshipId = this.dataset.scholarshipId;
-                        const scholarshipCard = this.closest('.bg-white.rounded-lg');
-
-                        const confirmDelete = await Swal.fire({
-                            title: 'Apakah Anda yakin?',
-                            text: "Anda tidak akan dapat mengembalikan ini!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ya, hapus!'
-                        });
-
-                        if (confirmDelete.isConfirmed) {
-                            try {
-                                const token = await axios.post('/token/get-token').then(res => res.data);
-                                const response = await axios.delete(
-                                    `http://localhost:3000/api/beasiswa/${scholarshipId}`, {
-                                        headers: {
-                                            'X-API-TOKEN': `${token}`
-                                        }
-                                    }
-                                ).then(res => res.data);
-
-                                if (response.status === 201) {
-                                    Swal.fire(
-                                        'Dihapus!',
-                                        'Beasiswa telah dihapus.',
-                                        'success'
-                                    ).then(() => {
-                                        // Remove only the specific scholarship card
-                                        if (scholarshipCard) {
-                                            scholarshipCard.remove();
-                                        }
-                                    });
+            async function deleteConfirmation(id) {
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Beasiswa akan dihapus!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        try {
+                            const token = await axios.post('/token/get-token').then(res => res.data);
+                            const response = await axios.delete('http://localhost:3000/api/beasiswa/' + id, {
+                                headers: {
+                                    'X-API-TOKEN': `${token}`
                                 }
-                            } catch (error) {
+                            }).then(res => res.data);
+                            if (response.status === 201) {
                                 Swal.fire(
-                                    'Gagal!',
-                                    'Beasiswa gagal dihapus.',
-                                    'error'
+                                    'Dihapus!',
+                                    'Beasiswa telah dihapus.',
+                                    'success'
                                 );
+                                window.location.reload();
                             }
+                        } catch (error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: error.response?.data.errors || error.message,
+                            })
                         }
-                    });
-                });
-            });
+                    }
+                })
+
+            }
         </script>
     </x-admin-sidebar>
 </x-admin-layout>

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,27 +14,31 @@ Route::get('/', function () {
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', [AuthController::class, 'index']);
-    Route::get('/login/admin', [AuthController::class, 'admin']);
-    Route::get('/login/teacher', [AuthController::class, 'teacher']);
-    Route::get('/login/student', [AuthController::class, 'student']);
 });
 
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
-    Route::get('/users', [AdminController::class, 'users']);
-    Route::get('/users/create/admin', [AdminController::class, 'createAdmin']);
-    Route::get('/users/create/teacher', [AdminController::class, 'createTeacher']);
-    Route::get('/users/create/student', [AdminController::class, 'createStudent']);
-    Route::get('/users/create/course', [AdminController::class, 'createCourse']);
+    Route::prefix('users')->group(function () {
+        Route::get('/', [AdminController::class, 'users']);
+        Route::get('/create/admin', [AdminController::class, 'createAdmin']);
+        Route::get('/create/teacher', [AdminController::class, 'createTeacher']);
+        Route::get('/create/student', [AdminController::class, 'createStudent']);
+        Route::get('/create/course', [AdminController::class, 'createCourse']);
+    });
     Route::get('/course', [AdminController::class, 'course']);
     Route::get('/course/create/course', [AdminController::class, 'createCourse']);
     Route::get('/schedule', [AdminController::class, 'schedule']);
     Route::get('/schedule/create/schedule', [AdminController::class, 'createSchedule']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
-    Route::get('/service', [AdminController::class, 'service']);
-    Route::get(('/service/beasiswa'), [AdminController::class, 'beasiswa']);
-    Route::get(('/service/beasiswa/create'), [AdminController::class, 'beasiswaAdd']);
-    Route::get(('/service/beasiswa/update'), [AdminController::class, 'beasiswaEdit']);
+    Route::prefix('service')->group(function () {
+        Route::get('/', [AdminController::class, 'service']);
+        Route::get('/beasiswa', [AdminController::class, 'beasiswa']);
+        Route::get('/beasiswa/create', [AdminController::class, 'beasiswaAdd']);
+        Route::get('/beasiswa/update', [AdminController::class, 'beasiswaEdit']);
+        Route::get('/pengumuman', [AdminController::class, 'pengumuman']);
+        Route::get('/pengumuman/create', [AdminController::class, 'pengumumanAdd']);
+        Route::get('/pengumuman/update', [AdminController::class, 'pengumumanEdit']);
+    });
     Route::get('/report', [AdminController::class, 'report']);
     Route::get('/ukt', [AdminController::class, 'ukt']);
     Route::get('/ukt/update', [AdminController::class, 'uktUpdate']);
@@ -45,6 +50,7 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('student')->group(function () {
     Route::get('/dashboard', [StudentController::class, 'dashboard']);
+    Route::get('/pengumuman', [StudentController::class, 'pengumuman']);
     Route::get('/krs', [StudentController::class, 'krs']);
     Route::get('/krs/add', [StudentController::class, 'krsAdd']);
     Route::get('/jadwal', [StudentController::class, 'schedule']);
@@ -54,16 +60,20 @@ Route::prefix('student')->group(function () {
     Route::get('/eval-dosen/{scheduleId}', [StudentController::class, 'evalDosen']);
     Route::get('/cuti-req', [StudentController::class, 'cutiReq']);
     Route::get('/absen/{scheduleId}', [StudentController::class, 'absen']);
-    Route::get('/payment', [StudentController::class, 'pembayaran']);
-    Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
     Route::get('/profile', [StudentController::class, 'profile']);
     Route::get('/khs', [StudentController::class, 'khs']);
+    Route::get('/payment', [StudentController::class, 'pembayaran']);
+    Route::post('/payment/process', [StudentController::class, 'process'])->name('payment.process');
+    Route::get('/payment/status', [StudentController::class, 'statusPembayaran']);
+    Route::get('/profile', [StudentController::class, 'profile']);
+    Route::get('/profile/update', [StudentController::class, 'editProfile']);
 });
 
 Route::prefix('dosen')->group(function () {
     Route::get('/dashboard', [TeacherController::class, 'dashboard'])->name('dosen.dashboard');
     Route::get('/profile', [TeacherController::class, 'profile'])->name('dosen.profile');
     Route::get('/edit-profile', [TeacherController::class, 'profileUpdate'])->name('dosen.edit-profile');
+    Route::get('/pengumuman', [TeacherController::class, 'pengumuman'])->name('dosen.pengumuman');
     Route::get('/input-nilai', [TeacherController::class, 'grade'])->name('dosen.input-nilai');
     Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
     Route::get('/sivitas', [TeacherController::class, 'sivitas'])->name('dosen.sivitas');

@@ -22,7 +22,12 @@
                         @endfor
                     </select>
                 </div>
-
+                <!-- Print Button -->
+                <div class="mb-4">
+                    <button id="print-button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg">
+                        Cetak PDF
+                    </button>
+                </div>
                 <!-- Tables for each semester -->
                 @for ($i = 1; $i <= 8; $i++)
                     <div id="semester-{{ $i }}" class="semester-table hidden">
@@ -61,6 +66,35 @@
         </main>
     </x-layout>
 </x-student-layout>
+
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .semester-table, .semester-table * {
+            visibility: visible;
+        }
+        .semester-table {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000 !important;
+            padding: 8px !important;
+        }
+    }
+</style>
+<script>
+    document.getElementById('print-button').addEventListener('click', () => {
+        window.print();
+    });
+</script>
 
 <script>
     document.getElementById('semester-select').addEventListener('change', function() {

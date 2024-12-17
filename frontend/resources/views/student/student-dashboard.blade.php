@@ -23,7 +23,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Nilai IPK</p>
-                            <h3 class="text-2xl font-bold">3.85</h3>
+                            <h3 class="text-2xl font-bold">{{ $student['data']['student']['gpa'] }}</h3>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
@@ -33,8 +33,8 @@
                 <div class="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-6 hover-scale">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-500">Credits Completed</p>
-                            <h3 class="text-2xl font-bold">98/144</h3>
+                            <p class="text-gray-500">SKS Completed</p>
+                            <h3 class="text-2xl font-bold">{{ $student['data']['student']['sks'] }}/144</h3>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -77,8 +77,8 @@
                             <polyline points="22,6 12,13 2,6"/>
                         </svg>
                         <div class="text-white">
-                            <a href="#"><h3 class="text-xl font-semibold">Email</h3></a>
-                            <p class="text-blue-100">3 unread messages</p>
+                            <a href="/student/pengumuman"><h3 class="text-xl font-semibold">Pengumuman</h3></a>
+                            <p class="text-blue-100">Lihat Pengumuman</p>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <!-- Academic -->
                 <div class="group bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg shadow-lg p-6 hover-scale cursor-pointer">
                     <div class="flex items-center space-x-4">
-                        
+
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white transform group-hover:rotate-12 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
@@ -159,7 +159,7 @@
                 </div>
             </div>
         </main>
-        
+
         <!-- Loading Script -->
         <script>
             window.addEventListener('load', function() {

@@ -15,25 +15,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Contoh Data -->
+                                @foreach ($payments as $payment)
                                 <tr class="border-t border-gray-200">
-                                    <td class="px-4 py-2">Semester 1 </td>
-                                    <td class="px-4 py-2">Rp 2.000.000</td>
-                                    <td class="px-4 py-2">Bank Transfer</td>
-                                    <td class="px-4 py-2 text-green-600 font-bold">SUCCESS</td>
+                                    <td class="px-4 py-2">{{ $payment->semester }}</td>
+                                    <td class="px-4 py-2">Rp {{ number_format($payment->amount, 0, ',', '.') }}</td>
+                                    <td class="px-4 py-2">{{ $payment->method }}</td>
+                                    <td class="px-4 py-2 text-{{ $payment->status == 'SUCCESS' ? 'green' : ($payment->status == 'PENDING' ? 'yellow' : 'red') }}-600 font-bold">{{ $payment->status }}</td>
                                 </tr>
-                                <tr class="border-t border-gray-200">
-                                    <td class="px-4 py-2">Semester 2 </td>
-                                    <td class="px-4 py-2">Rp 2.000.000</td>
-                                    <td class="px-4 py-2">E-Wallet</td>
-                                    <td class="px-4 py-2 text-yellow-600 font-bold">PENDING</td>
-                                </tr>
-                                <tr class="border-t border-gray-200">
-                                    <td class="px-4 py-2">Semester 3 </td>
-                                    <td class="px-4 py-2">Rp 2.000.000</td>
-                                    <td class="px-4 py-2">Bank Transfer</td>
-                                    <td class="px-4 py-2 text-red-600 font-bold">FAILED</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

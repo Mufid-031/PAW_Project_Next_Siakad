@@ -1,4 +1,4 @@
-{{-- {{ dd($enrollment) }} --}}
+{{-- {{ dd($enrollment, $evaluation) }} --}}
 
 <x-layout>
     <x-student-layout :student="$student">
@@ -77,11 +77,11 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Nilai</h3>
-                                <p class="text-gray-800">{{ $evaluation['data']['nilai'] }}</p>
+                                <p class="text-gray-800">{{ $evaluation['data'][0]['nilai'] }}</p>
                             </div>
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Komentar</h3>
-                                <p class="text-gray-800">{{ $evaluation['data']['komentar'] ?? 'Tidak ada komentar' }}</p>
+                                <p class="text-gray-800">{{ $evaluation['data'][0]['komentar'] ?? 'Tidak ada komentar' }}</p>
                             </div>
                         </div>
                     </div>

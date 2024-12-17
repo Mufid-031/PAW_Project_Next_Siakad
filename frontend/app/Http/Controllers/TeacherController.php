@@ -10,11 +10,13 @@ class TeacherController extends Controller
 
     public $token;
     public $teacher;
+    public $announcements;
 
     public function __construct()
     {
         $this->token = TokenController::get();
         $this->teacher = TeacherController::getTeacherDetail();
+        $this->announcements = PengumumanController::getAllAnnouncements();
     }
 
     public function getTeachers()
@@ -63,6 +65,14 @@ class TeacherController extends Controller
     {
         return view('dosen.dosen-dashboard', [
             'teacher' => $this->teacher
+        ]);
+    }
+
+    public function pengumuman()
+    {
+        return view('dosen.dosen-pengumuman', [
+            'teacher' => $this->teacher,
+            'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null
         ]);
     }
 
@@ -128,7 +138,7 @@ class TeacherController extends Controller
             $schedule = $response->json();
             $evaluations = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
-            ])->get('http://localhost:3000/api/evaluation/' . $scheduleId)->json();
+            ])->get('http://localhost:3000/api/evaluation/teacher/' . $scheduleId)->json();
             return view('dosen.dosen-eval', [
                 'teacher' => $this->teacher,
                 'schedule' => $schedule,

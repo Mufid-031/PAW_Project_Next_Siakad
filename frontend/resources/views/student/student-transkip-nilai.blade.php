@@ -12,7 +12,13 @@
                         Berikut adalah transkip nilai Anda.
                     </p>
                 </div>
-                <div class="overflow-x-auto mb-4">
+                <!-- Print Button -->
+                <div class="mb-4">
+                    <button id="print-button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg">
+                        Cetak PDF
+                    </button>
+                </div>
+                <div class="overflow-x-auto mb-4" id="transkip-table">
                     <table class="w-full border-collapse">
                         <thead>
                             <tr class="bg-gray-50">
@@ -65,6 +71,36 @@
                 </div>
             </div>
         </main>
+
+        <style>
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+                #transkip-table, #transkip-table * {
+                    visibility: visible;
+                }
+                #transkip-table {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                }
+                table {
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 1px solid #000 !important;
+                    padding: 8px !important;
+                }
+            }
+        </style>
+        <script>
+            document.getElementById('print-button').addEventListener('click', () => {
+                window.print();
+            });
+        </script>
+
         <script>
             const ipk = document.getElementById('nilai-ipk');
             const grades = document.querySelectorAll('.grade');

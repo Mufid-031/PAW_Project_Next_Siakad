@@ -9,11 +9,16 @@
                             class="bg-ultramarine-400 hover:bg-ultramarine-900 text-white px-4 py-2 rounded-md transition duration-300 text-center">
                             Tambah Mata Kuliah
                         </a>
-                        <select class="p-2 border rounded-lg">
-                            <option>-- Filter --</option>
-                            <option>Pemrograman Web</option>
-                            <option>Basis Data</option>
-                            <option>Algoritma</option>
+                        <select class="p-2 border rounded-lg" x-model="filterSemester">
+                            <option value="">-- Semua Semester --</option>
+                            <option value="semester_1">Semester 1</option>
+                            <option value="semester_2">Semester 2</option>
+                            <option value="semester_3">Semester 3</option>
+                            <option value="semester_4">Semester 4</option>
+                            <option value="semester_5">Semester 5</option>
+                            <option value="semester_6">Semester 6</option>
+                            <option value="semester_7">Semester 7</option>
+                            <option value="semester_8">Semester 8</option>
                         </select>
                     </div>
                 </div>
@@ -117,16 +122,33 @@
                     courses: @json($courses['data']),
                     currentPage: 1,
                     itemsPerPage: 10,
+                    filterSemester: "",
+                    semesters: ['semester_1', 'semester_2', 'semester_3', 'semester_4'],
 
                     get paginatedCourses() {
+                        let filteredCourses = this.courses;
+
+                        // Filter by semester if applicable
+                        if (this.filterSemester) {
+                            filteredCourses = filteredCourses.filter(
+                                course => course.semester === this.filterSemester
+                            );
+                        }
+
+                        // Pagination logic
                         const start = (this.currentPage - 1) * this.itemsPerPage;
                         const end = start + this.itemsPerPage;
-                        return this.courses.slice(start, end);
+                        return filteredCourses.slice(start, end);
                     },
 
                     get totalPages() {
-                        return Math.ceil(this.courses.length / this.itemsPerPage);
+                        const filteredCourses = this.filterSemester ?
+                            this.courses.filter(course => course.semester === this.filterSemester) :
+                            this.courses;
+
+                        return Math.ceil(filteredCourses.length / this.itemsPerPage);
                     },
+
 
                     async deleteCourse(courseCode) {
                         const token = await axios.post('/token/get-token').then(res => res.data);
