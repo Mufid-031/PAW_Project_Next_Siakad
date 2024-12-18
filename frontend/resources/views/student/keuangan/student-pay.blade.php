@@ -10,25 +10,27 @@
                         <label class="block text-gray-700 font-medium">Nama</label>
                         <input type="text" value="{{ $student['data']['name'] }}" readonly
                             class="w-full border px-3 py-2 rounded bg-gray-100" name="name" id="name">
-                        </div>
+                    </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full bg-white border">
-                                <thead>
-                                    <tr class="bg-gray-100">
-                                        <th class="py-2 px-4 border text-left">Semester</th>
-                                        <th class="py-2 px-4 border text-left">Total UKT</th>
-                                        <th class="py-2 px-4 border text-left">Sudah Dibayar</th>
-                                        <th class="py-2 px-4 border text-left">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($payments as $key => $payment)
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="py-2 px-4 border text-left">Semester</th>
+                                    <th class="py-2 px-4 border text-left">Total UKT</th>
+                                    <th class="py-2 px-4 border text-left">Sudah Dibayar</th>
+                                    <th class="py-2 px-4 border text-left">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($payments as $key => $payment)
                                     <form method="POST" action="{{ route('payment.process') }}">
                                         @csrf
                                         <input type="hidden" value="{{ $student['data']['name'] }}" readonly
-                                            class="w-full border px-3 py-2 rounded bg-gray-100" name="name" id="name">
-                                        <input type="hidden" name="email" id="email" value="{{ $student['data']['email'] }}">
+                                            class="w-full border px-3 py-2 rounded bg-gray-100" name="name"
+                                            id="name">
+                                        <input type="hidden" name="email" id="email"
+                                            value="{{ $student['data']['email'] }}">
                                         <tr>
                                             <td class="py-2 px-4 border">
                                                 <input type="text" value="semester_{{ $key + 1 }}"

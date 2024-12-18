@@ -1,108 +1,79 @@
 
-<x-layout>
-    <x-admin-layout :admin="$admin">
-        <main class="ml-20 mr-20" x-data>
-            <div class="max-w-6xl mx-auto p-6">
-                <a href="/admin/service" class="flex items-center text-gray-400 hover:text-gray-300 mb-6">
-                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Kembali
-                </a>
+<x-admin-layout>
+    <x-admin-sidebar :admin="$admin">
+        <div class="container mx-auto px-4 py-8">
+            <div class="p-4 border-2 border-gray-200 rounded-lg">
+                <div class="mb-4">
+                    <h2 class="text-2xl font-bold">Manajemen Akun Admin</h2>
+                    <p class="text-sm text-gray-500">Kelola administrator Anda dengan mudah dari sini</p>
+                </div>
 
-                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-                    <div class="border-b pb-4 mb-4">
-                        <h1 class="text-2xl font-bold text-gray-800">Data Pembayaran</h1>
-                        <p class="text-gray-600">Uang Kuliah Tahunan</p>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <select name="semester" id="semester" class="w-1/2">
-                            <option value="semester_1">Semester 1</option>
-                            <option value="semester_2">Semester 2</option>
-                        </select>
-                        <div class="text-right">
-                            <button @click="$dispatch('create-pembayaran-modal')"
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
-                                Tambah Pembayaran
-                            </button>
+                <form class="space-y-4" id="pembayaranForm">
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <label class="block text-base font-medium text-gray-700">Total</label>
+                            <input type="number" id="adminTotal" name="total"
+                                class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
                         </div>
-                    </div>
-                </div>
 
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <div class="px-6 py-4 border-b grid grid-cols-2">
-                        <h2 class="text-lg font-semibold text-gray-800">Riwayat Pembayaran</h2>
+                         <div>
+                            <label class="block text-base font-medium text-gray-700">Semester</label>
+                            <select name="semester" class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm">
+                                <option value="semester_1">Semester 1</option>
+                                <option value="semester_2">Semester 2</option>
+                                <option value="semester_3">Semester 3</option>
+                                <option value="semester_4">Semester 4</option>
+                                <option value="semester_5">Semester 5</option>
+                                <option value="semester_6">Semester 6</option>
+                                <option value="semester_7">Semester 7</option>
+                                <option value="semester_8">Semester 8</option>
+                            </select>
+                        </div>
+
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Semester</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Total</th>
-                                    <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Status Pembayaran</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @if (!empty($absences['data']))
-                                    @foreach ($absences['data'] as $absence)
-                                        <tr class="hover:bg-gray-50">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $absence['pertemuan'] }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ \Carbon\Carbon::parse($absence['statusCounts'][0]['createAt'])->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">
-                                                {{ $absence['statusCounts'][0]['materi'] }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                @php
-                                                    $statuses = collect($absence['statusCounts'])->keyBy(
-                                                        'statusKehadiran',
-                                                    );
-                                                @endphp
-                                                <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    HADIR
-                                                    {{ $statuses['HADIR']['count'] ?? '0' }}
-                                                </span>
-                                                <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                    ALPHA
-                                                    {{ $statuses['ALPA']['count'] ?? '0' }}
-                                                </span>
-                                                <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                                    SAKIT
-                                                    {{ $statuses['SAKIT']['count'] ?? '0' }}
-                                                </span>
-                                                <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                    IZIN
-                                                    {{ $statuses['IZIN']['count'] ?? '0' }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="4"
-                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                            Tidak ada data absensi.
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                    <div class="flex justify-end gap-4 pt-6 mt-6 border-t border-gray-200">
+                        <a href="/admin/service"
+                            class="px-6 py-2.5 bg-red-500 text-white rounded-md hover:bg-red-900 transition-colors">
+                            Batal
+                        </a>
+                        <button type="submit"
+                            class="px-6 py-2.5 bg-ultramarine-400 text-white rounded-md hover:bg-ultramarine-900 transition-colors">
+                            Simpan
+                        </button>
                     </div>
-                </div>
+                </form>
             </div>
-        </main>
-    </x-admin-layout>
-</x-layout>
+        </div>
+
+        <script>
+            const formPembayaran = document.querySelector('#pembayaranForm');
+            formPembayaran.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const total = e.target.total.value;
+                const semester = e.target.semester.value;
+
+                try {
+                    const token = await axios.post('/token/get-token').then(res => res.data);
+                    const response = await axios.post('http://localhost:3000/api/pembayaran', {
+                        total: parseInt(total),
+                        semester
+                    }, {
+                        headers: {
+                            'X-API-TOKEN': token
+                        }
+                    }).then(data => data.data);
+                    if (response.status === 201) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: response.message,
+                        })
+                        window.location.replace('/admin/service')
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+        </script>
+    </x-admin-sidebar>
+</x-admin-layout>
