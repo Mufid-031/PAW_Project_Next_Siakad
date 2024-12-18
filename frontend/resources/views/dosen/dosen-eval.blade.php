@@ -31,7 +31,7 @@
                         <h1 class="text-2xl font-bold text-gray-800">Riwayat Evaluasi</h1>
                     </div>
 
-                    @if ($evaluations['data'] === [] || $evaluations === null)
+                    @if ($evaluations === null)
                         <p class="text-gray-800">Belum ada riwayat evaluasi</p>
                     @else
                         <table class="min-w-full divide-y divide-gray-200">

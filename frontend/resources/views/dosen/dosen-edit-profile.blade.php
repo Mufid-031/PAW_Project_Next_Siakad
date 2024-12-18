@@ -1,5 +1,5 @@
-<x-dosen-layout>
-    <x-layout>
+<x-layout>
+    <x-dosen-layout>
         <main class="mr-20 ml-20">
             <div class="container mx-auto p-6">
                 <form method="POST" action="#">
@@ -7,15 +7,18 @@
                     <!-- Input Nama Dosen -->
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                        <input type="text" name="name" id="name" placeholder="Nama Lengkap" value="Dr. Agus Santoso, M.T." class="mt-1 block w-full" />
+                        <input type="text" name="name" id="name" placeholder="Nama Lengkap"
+                            value="Dr. Agus Santoso, M.T." class="mt-1 block w-full" />
                         <p class="mt-2 text-sm text-gray-500">Masukkan nama lengkap sesuai identitas Anda.</p>
                     </div>
 
                     <!-- Input NIP -->
                     <div class="mb-4">
                         <label for="nip" class="block text-sm font-medium text-gray-700">NIP</label>
-                        <input type="text" name="nip" id="nip" placeholder="123456789" value="1987654321" class="mt-1 block w-full" />
-                        <p class="mt-2 text-sm text-gray-500">NIP Anda akan digunakan sebagai identifikasi utama di sistem.</p>
+                        <input type="text" name="nip" id="nip" placeholder="123456789" value="1987654321"
+                            class="mt-1 block w-full" />
+                        <p class="mt-2 text-sm text-gray-500">NIP Anda akan digunakan sebagai identifikasi utama di
+                            sistem.</p>
                     </div>
 
                     <!-- Select Email -->
@@ -36,7 +39,8 @@
                     <!-- Input Bio -->
                     <div class="mb-4">
                         <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
-                        <textarea name="bio" id="bio" placeholder="Ceritakan sedikit tentang diri Anda" class="mt-1 block w-full resize-none">Dosen Teknik Informatika yang berpengalaman dalam bidang Kecerdasan Buatan dan Pembelajaran Mesin. Aktif sebagai pembimbing penelitian mahasiswa sarjana dan pascasarjana.</textarea>
+                        <textarea name="bio" id="bio" placeholder="Ceritakan sedikit tentang diri Anda"
+                            class="mt-1 block w-full resize-none">Dosen Teknik Informatika yang berpengalaman dalam bidang Kecerdasan Buatan dan Pembelajaran Mesin. Aktif sebagai pembimbing penelitian mahasiswa sarjana dan pascasarjana.</textarea>
                         <p class="mt-2 text-sm text-gray-500">
                             Anda dapat menggunakan <span>@mention</span> untuk menyebut pengguna atau organisasi lain.
                         </p>
@@ -49,5 +53,5 @@
                 </form>
             </div>
         </main>
-    </x-layout>
-</x-dosen-layout>
+    </x-dosen-layout>
+</x-layout>
