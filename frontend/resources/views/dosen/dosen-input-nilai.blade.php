@@ -1,4 +1,4 @@
-{{-- {{ dd($absences) }} --}}
+{{ dd($absences) }}
 
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
@@ -53,7 +53,7 @@
                                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $absence['pertemuan'] }}</td>
                                                 <td class="px-6 py-4 text-sm text-gray-500">{{ $student['name'] }} ({{ $student['nim'] }})</td>
                                                 <td class="px-6 py-4">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                         @if ($student['status'] === 'HADIR') bg-green-100 text-green-800
                                                         @elseif ($student['status'] === 'ALPA') bg-red-100 text-red-800
                                                         @elseif ($student['status'] === 'SAKIT') bg-blue-100 text-blue-800
@@ -63,17 +63,17 @@
                                                     </span>
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    <input type="number" name="nilai_tugas[{{ $student['id'] }}]" 
+                                                    <input type="number" name="nilai_tugas[{{ $student['id'] }}]"
                                                            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                                                            min="0" max="100" placeholder="Nilai Tugas">
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    <input type="number" name="nilai_uts[{{ $student['id'] }}]" 
+                                                    <input type="number" name="nilai_uts[{{ $student['id'] }}]"
                                                            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                                                            min="0" max="100" placeholder="Nilai UTS">
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    <input type="number" name="nilai_uas[{{ $student['id'] }}]" 
+                                                    <input type="number" name="nilai_uas[{{ $student['id'] }}]"
                                                            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                                                            min="0" max="100" placeholder="Nilai UAS">
                                                 </td>
@@ -87,7 +87,7 @@
                                     Simpan Nilai
                                 </button>
                             </div>
-                        </form>                        
+                        </form>
                     </div>
                 </div>
             </div>
