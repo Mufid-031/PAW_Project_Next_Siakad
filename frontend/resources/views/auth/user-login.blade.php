@@ -11,7 +11,7 @@
     ],
 ])
 
-<x-layout class="bg-[url('/public/image/waves.svg')]">
+<x-layout class="bg-[url('/public/images/waves.svg')]">
     <x-auth-layout formId="login" title="credential" :formItems="$formItems" />
 
     <script>
