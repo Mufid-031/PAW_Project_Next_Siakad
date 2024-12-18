@@ -3,12 +3,7 @@
 ])
 
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="en">
-=======
-<html lang="en" class="scroll-smooth">
-
->>>>>>> c071a4f05b5f1030eb3ee66a1827cbb4de3432ab
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -93,7 +93,7 @@
                                         <label for="keahlian" class="block text-gray-700 font-medium">Keahlian:
                                         </label>
                                         <input type="text" id="keahlian" name="keahlian"
-                                            value="{{ $teacher['data']['keahlian'] ?? '' }}"
+                                            value="{{ $teacher['data']['teacher']['keahlian'] }}"
                                             class="w-full border-gray-300 p-3 rounded-lg shadow-sm"> 
                                     </div>
                                     <div class="mb-4">

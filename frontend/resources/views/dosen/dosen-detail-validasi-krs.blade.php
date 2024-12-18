@@ -1,3 +1,4 @@
+{{ dd($teacher) }}
 <x-dosen-layout :teacher="$teacher">
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
@@ -32,7 +33,7 @@
 </div>
 
     <!-- Tabel KRS -->
-    <form id="krs-form" method="POST" action="{{ route('krs.submit') }}">
+    <form id="krs-form" method="POST" action="">
         @csrf
         @php
             $selectedSemester = request('semester', '1');
