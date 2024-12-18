@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-[url('/public/image/waves.svg')]">
+<body class="bg-[url('/public/images/waves.svg')]">
 
     {{ $slot }}
 
