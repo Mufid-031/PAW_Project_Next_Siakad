@@ -3,7 +3,6 @@
 ])
 
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" class="scroll-smooth">
 
 <head>
