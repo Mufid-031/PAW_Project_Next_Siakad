@@ -1,8 +1,3 @@
-@php
-    use Carbon\Carbon;
-    $tanggalLahir = Carbon::parse($teacher['data']['tanggalLahir'])->format('d-m-Y');
-@endphp
-
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
         <main class="ml-20 mr-20 mt-5">
@@ -15,19 +10,45 @@
                 </div>
 
                 <!-- Profile Details -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-5 justify-center">
                     <!-- Personal Information -->
-                    <div class="bg-gray-50 p-4 rounded-lg shadow">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Informasi Pribadi</h3>
-                        <p class="text-gray-600"><strong>Nama:</strong> {{ $teacher['data']['name'] }}</p>
-                        <p class="text-gray-600"><strong>Email:</strong> {{ $teacher['data']['email'] ?? '-' }}</p>
-                        <p class="text-gray-600"><strong>NIP:</strong> {{ $teacher['data']['teacher']['nip'] }}</p>
-                        <p class="text-gray-600"><strong>Tanggal Lahir:</strong> {{ $tanggalLahir }}</p>
-                        <p class="text-gray-600"><strong>Jenis Kelamin:</strong> {{ $teacher['data']['gender'] == 'MAN' ? 'Laki-laki' : 'Perempuan' }}</p>
-                        <p class="text-gray-600"><strong>Gelar:</strong> {{ $teacher['data']['teacher']['gelar'] }}</p>
-                        <p class="text-gray-600"><strong>Keahlian:</strong> {{ $teacher['data']['teacher']['keahlian'] }}</p>
-                        <p class="text-gray-600"><strong>Fakultas:</strong> {{ $teacher['data']['teacher']['fakultas'] ?? '-' }}</p>
-                        <p class="text-gray-600"><strong>Program Studi:</strong> {{ $teacher['data']['teacher']['programStudi'] ?? '-' }}</p>
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            <h3 class="text-xl font-semibold text-gray-800">Informasi Akademik</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex border-b border-gray-200 pb-3">
+                                <span class="w-1/3 text-gray-600">Nama</span>
+                                <span class="w-2/3 font-medium">{{ $teacher['data']['name'] }}</span>
+                            </div>
+                            <div class="flex border-b border-gray-200 pb-3">
+                                <span class="w-1/3 text-gray-600">Email</span>
+                                <span class="w-2/3 font-medium">{{ $teacher['data']['email'] }}</span>
+                            </div>
+                            <div class="flex border-b border-gray-200 pb-3">
+                                <span class="w-1/3 text-gray-600">NIP</span>
+                                <span class="w-2/3 font-medium">{{ $teacher['data']['teacher']['nip'] }}</span>
+                            </div>
+                            <div class="flex border-b border-gray-200 pb-3">
+                                <span class="w-1/3 text-gray-600">Tanggal Lahir</span>
+                                <span
+                                    class="w-2/3 font-medium">{{ \Carbon\Carbon::parse($teacher['data']['tanggalLahir'])->setTimezone('Asia/Jakarta')->format('d F Y') }}</span>
+                            </div>
+                            <div class="flex border-b border-gray-200 pb-3">
+                                <span class="w-1/3 text-gray-600">Jenis Kelamin</span>
+                                <span
+                                    class="w-2/3 font-medium">{{ $teacher['data']['gender'] == 'MAN' ? 'Laki-laki' : 'Perempuan' }}</span>
+                            </div>
+                            <div class="flex border-b border-gray-200 pb-3">
+                                <span class="w-1/3 text-gray-600">Keahlian</span>
+                                <span
+                                    class="w-2/3 font-medium">{{ $teacher['data']['teacher']['keahlian'] ?? 'Belum ditentukan'}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -69,17 +90,16 @@
                                             class="w-full border-gray-300 p-3 rounded-lg shadow-sm">
                                     </div>
                                     <div class="mb-4">
-                                        <label for="gelar" class="block text-gray-700 font-medium">Gelar:
-                                        </label>
-                                        <input type="text" id="gelar" name="gelar"
-                                            value="{{ $teacher['data']['teacher']['gelar'] }}"
-                                            class="w-full border-gray-300 p-3 rounded-lg shadow-sm">
-                                    </div>
-                                    <div class="mb-4">
                                         <label for="keahlian" class="block text-gray-700 font-medium">Keahlian:
                                         </label>
                                         <input type="text" id="keahlian" name="keahlian"
-                                            value="{{ $teacher['data']['teacher']['keahlian'] }}"
+                                            value="{{ $teacher['data']['keahlian'] ?? '' }}"
+                                            class="w-full border-gray-300 p-3 rounded-lg shadow-sm"> 
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="password" class="block text-gray-700 font-medium">Password:
+                                            (opstional)</label>
+                                        <input type="password" id="password" name="password"
                                             class="w-full border-gray-300 p-3 rounded-lg shadow-sm">
                                     </div>
                                     <div class="flex justify-end mt-5">
@@ -87,7 +107,7 @@
                                             class="bg-red-600 hover:bg-red-500 text-white font-medium py-2 px-4 rounded-lg mr-2">
                                             Batal
                                         </button>
-                                        <button type="submit"
+                                        <button type="submit" 
                                             class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
                                             Simpan
                                         </button>
@@ -106,15 +126,15 @@
                 e.preventDefault();
                 const name = e.target.name.value;
                 const email = e.target.email.value;
-                const gelar = e.target.gelar.value;
                 const keahlian = e.target.keahlian.value;
+                const password = e.target.password.value;
                 try {
                     const token = await axios.post('/token/get-token').then(res => res.data);
                     const response = await axios.patch('http://localhost:3000/api/teacher', {
                         name,
                         email,
-                        keahlian,
-                        gelar
+                        password,
+                        keahlian
                     }, {
                         headers: {
                             'X-API-TOKEN': `${token}`

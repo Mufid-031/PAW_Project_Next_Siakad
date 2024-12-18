@@ -1,3 +1,4 @@
+{{-- {{ dd ($teacher) }} --}}
 <x-dosen-layout :teacher="$teacher">
     <x-layout>
         <main class="mr-20 ml-20 mt-5">
@@ -15,33 +16,28 @@
                                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border border-gray-300">Semester</th>
                                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border border-gray-300">Total SKS</th>
                                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border border-gray-300">Status</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border border-gray-300">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($students as $student)
+                                @forelse ($teacher['data']['teacher']['students'] as $student)
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['nim'] }}</td>
-                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['name'] }}</td>
-                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['program_study'] }}</td>
-                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['semester'] }}</td>
-                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['total_sks'] }}</td>
+                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['user']['name'] }}</td>
+                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['programStudi'] }}</td>
+                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['sks'] }}</td>
+                                        <td class="px-6 py-3 text-sm border border-gray-300">{{ $student['sksOFSemester'] }}</td>
                                         <td class="px-6 py-3 text-sm border border-gray-300">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-blue-800">
-                                                {{ $student['status'] }}
+                                                {{ $student['statusStudent'] }}
                                             </span>
-                                        </td>
-                                        <td class="px-6 py-3 text-sm border border-gray-300">
-                                            <a href="{{ route('student.detail', $student['id']) }}" class="text-gray-600 hover:text-gray-900">Detail</a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="px-6 py-3 text-center text-sm text-gray-500">
-                                            Tidak ada mahasiswa bimbingan yang tersedia.
-                                        </td>
+                                        <td colspan="7" class="px-6 py-3 text-center text-sm text-gray-500">Tidak ada data mahasiswa.</td>
                                     </tr>
                                 @endforelse
+                                
                             </tbody>
                         </table>
                     </div>

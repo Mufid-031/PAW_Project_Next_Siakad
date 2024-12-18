@@ -139,7 +139,7 @@
                 <!-- Header -->
                 <div class="flex items-center justify-between p-4 border-b">
                     <h3 class="text-xl font-semibold text-gray-900">Edit Profile</h3>
-                    <button @click="updateProfileModal = false" class="text-gray-400 hover:text-gray-500">
+                    <button @click.prevent="updateProfileModal = false" class="text-gray-400 hover:text-gray-500">
                         <x-zondicon-close class="w-6 h-6" />
                     </button>
                 </div>
@@ -239,7 +239,6 @@
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(name, email, password);
 
         try {
             const token = await axios.post('/token/get-token').then(res => res.data);
@@ -257,8 +256,9 @@
                     icon: "success",
                     title: "Success",
                     text: response.message,
+                }).then(() => {
+                    window.location.reload();
                 })
-                window.location.replace('/admin/dashboard')
             }
         } catch (error) {
             Swal.fire({
@@ -267,5 +267,5 @@
                 text: error.response.data.errors || error.message,
             })
         }
-    })
+    });
 </script>

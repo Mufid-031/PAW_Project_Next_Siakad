@@ -79,8 +79,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            const form = document.querySelector('#courseForm');
-            form.addEventListener('submit', async (e) => {
+            const formCourse = document.querySelector('#courseForm');
+            formCourse.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const name = e.target.name.value;
                 const code = e.target.code.value;

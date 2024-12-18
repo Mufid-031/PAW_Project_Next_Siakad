@@ -14,9 +14,6 @@ Route::get('/', function () {
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', [AuthController::class, 'index']);
-    Route::get('/login/admin', [AuthController::class, 'admin']);
-    Route::get('/login/teacher', [AuthController::class, 'teacher']);
-    Route::get('/login/student', [AuthController::class, 'student']);
 });
 
 Route::prefix('admin')->group(function () {
@@ -86,7 +83,7 @@ Route::prefix('student')->group(function () {
         Route::get('/riwayat-absen', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
         Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
         Route::get('/validasi', [TeacherController::class, 'validation'])->name('dosen.validasi');
-        Route::get('/detail-validasi', [TeacherController::class, 'detailValidasi'])->name('dosen.detail.krs');
+        Route::get('/detail-validasi', [TeacherController::class, 'validate'])->name('dosen.detail.krs');
         Route::get('/cuti-req', [TeacherController::class, 'cutiReq'])->name('dosen.cuti-req');
         Route::prefix('materi')->group(function () {
             Route::get('/', [TeacherController::class, 'materi']);

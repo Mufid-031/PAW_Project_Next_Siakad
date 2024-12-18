@@ -68,16 +68,19 @@
         <script>
             function logManagement() {
                 return {
-                    logs: @json($logs['data']),
+                    logs: @json($logs['data'] ?? []),
                     currentPage: 1,
                     logsPerPage: 10,
                     get paginatedLogs() {
+                        if (!this.logs || this.logs.length === 0) {
+                            return [];
+                        }
                         const startIndex = (this.currentPage - 1) * this.logsPerPage;
                         const endIndex = startIndex + this.logsPerPage;
                         return this.logs.slice(startIndex, endIndex);
                     },
                     get totalPages() {
-                        return Math.ceil(this.logs.length / this.logsPerPage);
+                        return this.logs ? Math.ceil(this.logs.length / this.logsPerPage) : 0;
                     },
                     formatDate(dateString) {
                         return new Date(dateString).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });

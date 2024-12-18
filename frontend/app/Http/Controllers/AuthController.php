@@ -17,33 +17,11 @@ class AuthController extends Controller
     }
 
     // views
-    public function index() {
+    public function index()
+    {
+        // if ($this->token != "") {
+        //     return back()->withInput();
+        // }
         return view('auth.user-login');
-    }
-
-    public function admin()
-    {
-        if ($this->token != '') {
-            redirect('/admin/dashboard');
-        }
-
-        echo "<script>console.log('$this->token')</script>";
-        return view('auth.admin-login');
-    }
-
-    public function student()
-    {
-        if ($this->token !== '') {
-            redirect('/student/dashboard');
-        }
-        return view('auth.student-login');
-    }
-
-    public function teacher()
-    {
-        if ($this->token) {
-            redirect('/teacher/dashboard');
-        }
-        return view('auth.teacher-login');
     }
 }
