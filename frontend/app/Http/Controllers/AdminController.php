@@ -151,101 +151,161 @@ class AdminController extends Controller
     // views
     public function dashboard()
     {
-        return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers, 'logs' => $this->logs, 'courses' => $this->courses, 'schedules' => $this->schedules]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.dashboard', ['admin' => $this->admin, 'students' => $this->students, 'teachers' => $this->teachers, 'logs' => $this->logs, 'courses' => $this->courses, 'schedules' => $this->schedules]);
+        }
+        return back()->withInput();
     }
 
     public function users()
     {
-        return view('admin.users.index', ['users' => $this->users, 'admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.users.index', ['users' => $this->users, 'admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function createAdmin()
     {
-        return view('admin.users.create.admin', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.users.create.admin', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function createTeacher()
     {
-        return view('admin.users.create.teacher', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.users.create.teacher', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function createStudent()
     {
-        return view('admin.users.create.student', ['admin' => $this->admin, 'teachers' => $this->teachers]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.users.create.student', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function course()
     {
-        return view('admin.course.index', ['courses' => $this->courses, 'admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.course.index', ['courses' => $this->courses, 'admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function createCourse()
     {
-        return view('admin.course.create.course', ['admin' => $this->admin, 'teachers' => $this->teachers]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.course.create.course', ['admin' => $this->admin, 'teachers' => $this->teachers]);
+        }
+        return back()->withInput();
     }
 
     public function schedule()
     {
-        return view('admin.schedule.index', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers, 'schedules' => $this->schedules]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.schedule.index', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers, 'schedules' => $this->schedules]);
+        }
+        return back()->withInput();
     }
 
     public function createSchedule()
     {
-        return view('admin.schedule.create.schedule', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.schedule.create.schedule', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers]);
+        }
+        return back()->withInput();
     }
 
     public function teacher()
     {
-        return view('admin.teacher', ['teachers' => $this->teachers, 'admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.teacher', ['teachers' => $this->teachers, 'admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function service()
     {
-        return view('admin.service', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.service', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function report()
     {
-        return view('admin.report', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.report', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function ukt()
     {
-        return view('admin.pembayaran.ukt', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.pembayaran.ukt', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function uktUpdate()
     {
-        return view('admin.pembayaran.ukt-edit', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.pembayaran.ukt-edit', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function laporan()
     {
-        return view('admin.laporan', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.laporan', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function beasiswa()
     {
-        return view('admin.beasiswa.index', ['admin' => $this->admin, 'scholarships' => $this->scholarships['status'] == 200 ? $this->scholarships : null]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.beasiswa.index', ['admin' => $this->admin, 'scholarships' => $this->scholarships['status'] == 200 ? $this->scholarships : null]);
+        }
+        return back()->withInput();
     }
 
     public function beasiswaAdd()
     {
-        return view('admin.beasiswa.add', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.beasiswa.add', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function beasiswaEdit()
     {
-        return view('admin.beasiswa.edit', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.beasiswa.edit', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 
     public function pengumuman()
     {
-        return view('admin.pengumuman.index', ['admin' => $this->admin, 'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.pengumuman.index', ['admin' => $this->admin, 'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null]);
+        }
+        return back()->withInput();
     }
 
     public function pengumumanAdd()
     {
-        return view('admin.pengumuman.add', ['admin' => $this->admin]);
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.pengumuman.add', ['admin' => $this->admin]);
+        }
+        return back()->withInput();
     }
 }

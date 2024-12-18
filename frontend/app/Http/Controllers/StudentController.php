@@ -95,47 +95,74 @@ class StudentController extends Controller
     // views
     public function dashboard()
     {
-        return view('student.student-dashboard', ['student' => $this->student]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-dashboard', ['student' => $this->student]);
+        }
+        return back()->withInput();
     }
 
     public function pengumuman()
     {
-        return view('student.student-pengumuman', ['student' => $this->student, 'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-pengumuman', ['student' => $this->student, 'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null]);
+        }
+        return back()->withInput();
     }
 
     public function krs()
     {
-        return view('student.student-krs', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-krs', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
+        }
+        return back()->withInput();
     }
 
     public function krsAdd()
     {
-        return view('student.student-tambah-krs', ['student' => $this->student, 'courses' => $this->courses]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-tambah-krs', ['student' => $this->student, 'courses' => $this->courses]);
+        }
+        return back()->withInput();
     }
 
     public function schedule()
     {
-        return view('student.student-jadwal', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-jadwal', ['student' => $this->student, 'enrollments' => $this->enrollments, 'schedules' => $this->schedules]);
+        }
+        return back()->withInput();
     }
 
     public function grade()
     {
-        return view('student.student-transkip-nilai', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-transkip-nilai', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        }
+        return back()->withInput();
     }
 
     public function profile()
     {
-        return view('student.profile.student-profile', ['student' => $this->student]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.profile.student-profile', ['student' => $this->student]);
+        }
+        return back()->withInput();
     }
 
     public function sivitas()
     {
-        return view('student.student-sivitas', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-sivitas', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        }
+        return back()->withInput();
     }
 
     public function beasiswa()
     {
-        return view('student.student-beasiswa', ['student' => $this->student, 'scholarships' => $this->scholarships]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-beasiswa', ['student' => $this->student, 'scholarships' => $this->scholarships]);
+        }
+        return back()->withInput();
     }
 
     public function evalDosen($scheduleId)
@@ -147,11 +174,15 @@ class StudentController extends Controller
             $evaluation = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/evaluation/' . $enrollment['data']['id'])->json();
-            return view('student.student-eval-dosen', [
-                'student' => $this->student,
-                'enrollment' => $enrollment,
-                'evaluation' => $evaluation['status'] === 200 ? $evaluation : null
-            ]);
+            if ($this->student['data']['role'] === "STUDENT") {
+
+                return view('student.student-eval-dosen', [
+                    'student' => $this->student,
+                    'enrollment' => $enrollment,
+                    'evaluation' => $evaluation['status'] === 200 ? $evaluation : null
+                ]);
+            }
+            return back()->withInput();
         }
     }
 
@@ -166,11 +197,15 @@ class StudentController extends Controller
             $absences = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/absensi/student/' . $scheduleId)->json();
-            return view('student.student-absen', [
-                'student' => $this->student,
-                'schedule' => $schedule,
-                'absences' => $absences['status'] === 200 ? $absences : null
-            ]);
+            if ($this->student['data']['role'] === "STUDENT") {
+
+                return view('student.student-absen', [
+                    'student' => $this->student,
+                    'schedule' => $schedule,
+                    'absences' => $absences['status'] === 200 ? $absences : null
+                ]);
+            }
+            return back()->withInput();
         }
     }
 
@@ -184,20 +219,30 @@ class StudentController extends Controller
             return redirect()->back()->with('error', 'Gagal memuat informasi pembayaran');
         }
 
-        return view('student.keuangan.student-pay', [
-            'student' => $this->student,
-            'payments' => $payments['data']
-        ]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.keuangan.student-pay', [
+                'student' => $this->student,
+                'payments' => $payments['data']
+            ]);
+        }
+        return back()->withInput();
+
     }
 
     public function statusPembayaran()
     {
-        return view('student.keuangan.student-status-pay', ['student' => $this->student, 'payments' => $this->payments['status'] === 200 ? $this->payments['data'] : null]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.keuangan.student-status-pay', ['student' => $this->student, 'payments' => $this->payments['status'] === 200 ? $this->payments['data'] : null]);
+        }
+        return back()->withInput();
     }
 
     public function khs()
     {
-        return view('student.student-khs', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.student-khs', ['student' => $this->student, 'enrollments' => $this->enrollments]);
+        }
+        return back()->withInput();
     }
 
     public function process(Request $request)
@@ -226,6 +271,9 @@ class StudentController extends Controller
 
         // Kirim token dan student ke view
         $student = $this->student;
-        return view('student.keuangan.result', compact('snapToken', 'student', 'semester'));
+        if ($this->student['data']['role'] === "STUDENT") {
+            return view('student.keuangan.result', compact('snapToken', 'student', 'semester'));
+        }
+        return back()->withInput();
     }
 }

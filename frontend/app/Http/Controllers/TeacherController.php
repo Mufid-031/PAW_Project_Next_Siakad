@@ -63,52 +63,73 @@ class TeacherController extends Controller
     // views
     public function dashboard()
     {
-        return view('dosen.dosen-dashboard', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-dashboard', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function pengumuman()
     {
-        return view('dosen.dosen-pengumuman', [
-            'teacher' => $this->teacher,
-            'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-pengumuman', [
+                'teacher' => $this->teacher,
+                'announcements' => $this->announcements['status'] == 200 ? $this->announcements : null
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function profile()
     {
-        return view('dosen.dosen-profile', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-profile', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function profileUpdate()
     {
-        return view('dosen.dosen-edit-profile', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-edit-profile', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function grade()
     {
-        return view('dosen.dosen-input-nilai', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-input-nilai', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function schedule()
     {
-        return view('dosen.dosen-jadwal', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-jadwal', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function sivitas()
     {
-        return view('dosen.dosen-sivitas', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-sivitas', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function absen($scheduleId)
@@ -121,12 +142,16 @@ class TeacherController extends Controller
             $absences = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/absensi/' . $scheduleId)->json();
-            return view('dosen.dosen-absen', [
-                'teacher' => $this->teacher,
-                'schedule' => $schedule,
-                'absences' => $absences['status'] === 200 ? $absences : null
-            ]);
+            if ($this->teacher['data']['role'] === "TEACHER") {
+                return view('dosen.dosen-absen', [
+                    'teacher' => $this->teacher,
+                    'schedule' => $schedule,
+                    'absences' => $absences['status'] === 200 ? $absences : null
+                ]);
+            }
+            return back()->withInput();
         }
+        return back()->withInput();
     }
 
     public function evalDosen($scheduleId)
@@ -139,67 +164,101 @@ class TeacherController extends Controller
             $evaluations = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/evaluation/teacher/' . $scheduleId)->json();
-            return view('dosen.dosen-eval', [
-                'teacher' => $this->teacher,
-                'schedule' => $schedule,
-                'evaluations' => $evaluations['status'] === 200 ? $evaluations : null
-            ]);
+            if ($this->teacher['data']['role'] === "TEACHER") {
+                return view('dosen.dosen-eval', [
+                    'teacher' => $this->teacher,
+                    'schedule' => $schedule,
+                    'evaluations' => $evaluations['status'] === 200 ? $evaluations : null
+                ]);
+            }
+            return back()->withInput();
         }
+        return back()->withInput();
     }
 
     public function historyAbsen()
     {
-        return view('dosen.dosen-riwayat-absen', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-riwayat-absen', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function perwalian()
     {
-        return view('dosen.dosen-perwalian', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-perwalian', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function validation()
     {
-        return view('dosen.dosen-validasi-krs', [
-            'teacher' => $this->teacher
-        ]);
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-validasi-krs', [
+                'teacher' => $this->teacher
+            ]);
+        }
+        return back()->withInput();
     }
 
     public function validationDetail()
     {
-        return view('dosen.dosen-validasi-krs-detail');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-validasi-krs-detail');
+        }
+        return back()->withInput();
     }
 
     public function cutiReq()
     {
-        return view('dosen.dosen-cuti-req');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-cuti-req');
+        }
+        return back()->withInput();
     }
 
     public function materi()
     {
-        return view('dosen.dosen-materi');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-materi');
+        }
+        return back()->withInput();
     }
 
     public function materiAdd()
     {
-        return view('dosen.dosen-tambah-materi');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-tambah-materi');
+        }
+        return back()->withInput();
     }
 
     public function materiUpdate()
     {
-        return view('dosen.dosen-edit-materi');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-edit-materi');
+        }
+        return back()->withInput();
     }
 
     public function materiDelete()
     {
-        return view('dosen.dosen-hapus-materi');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-hapus-materi');
+        }
+        return back()->withInput();
     }
 
     public function materiDetail()
     {
-        return view('dosen.dosen-materi-detail');
+        if ($this->teacher['data']['role'] === "TEACHER") {
+            return view('dosen.dosen-materi-detail');
+        }
+        return back()->withInput();
     }
 }
