@@ -92,6 +92,8 @@ class StudentController extends Controller
         }
     }
 
+   
+
     // views
     public function dashboard()
     {

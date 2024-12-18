@@ -37,7 +37,7 @@
                             </button>
                             <div id="dropdown-akademik" class="hidden absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                                 <a href="{{ route('dosen.jadwal') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Jadwal Mengajar</a>
-                                <a href="{{ route('dosen.input-nilai') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Input Nilai</a>
+                                {{-- <a href="{{ route('dosen.daftar-matkul') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar MK</a> --}}
                                 {{-- <a href="{{ route('dosen.materi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Materi</a> --}}
                                 <a href="{{ route('dosen.perwalian') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar Perwalian</a>
                                 <a href="{{ route('dosen.validasi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Validasi KRS</a>
@@ -59,7 +59,7 @@
                                 <a href="{{ route('dosen.sivitas') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Absen</a>
                                 <a href="{{ route('dosen.riwayat-absen') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Absen</a>
                             </div>
-                    </div>
+                        </div>
                 </div>
             </div>
             <div class="flex items-center lg:order-2">
@@ -74,7 +74,6 @@
                     </button>
                     <div id="dropdown-profile" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                         <a href="{{ route('dosen.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Data Pribadi</a>
-                        <a href="{{ route('dosen.cuti-req') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Permintaan Cuti</a>
                         <p id="sign-out" class="block w-full cursor-pointer text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</p>
                     </div>
                 </div>

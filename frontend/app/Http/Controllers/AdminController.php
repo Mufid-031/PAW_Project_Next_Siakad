@@ -184,7 +184,7 @@ class AdminController extends Controller
     public function createStudent()
     {
         if ($this->admin['data']['role'] === "ADMIN") {
-            return view('admin.users.create.student', ['admin' => $this->admin]);
+            return view('admin.users.create.student', ['admin' => $this->admin,'teachers' => $this->teachers]);
         }
         return back()->withInput();
     }

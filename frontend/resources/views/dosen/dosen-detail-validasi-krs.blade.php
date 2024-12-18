@@ -1,83 +1,95 @@
-<x-dosen-layout>
+<x-dosen-layout :teacher="$teacher">
     <x-layout>
-            <main class="mr-20 ml-20">
-                <div class="container mx-auto p-6">
-                    <h2 class="text-2xl font-bold text-center mb-6 text-blue-600">Validasi Kartu Rencana Studi (KRS)</h2>
-                    
-                    <div class="bg-white shadow-lg rounded-lg p-6">
-                        <form>
-                            <!-- Informasi Mahasiswa -->
-                            <div class="mb-6">
-                                <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Mahasiswa</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">NIM</label>
-                                        <input type="text" value="12345678" disabled 
-                                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Nama</label>
-                                        <input type="text" value="John Doe" disabled 
-                                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Program Studi</label>
-                                        <input type="text" value="Teknik Informatika" disabled 
-                                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Semester</label>
-                                        <input type="text" value="6" disabled 
-                                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    </div>
-                                </div>
-                            </div>
-                
-                            <!-- Daftar Mata Kuliah -->
-                            <div class="mb-6">
-                                <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Mata Kuliah</h3>
-                                <div class="overflow-x-auto">
-                                    <table class="min-w-full border-collapse border border-gray-200">
-                                        <thead class="bg-gray-100">
-                                            <tr>
-                                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Kode MK</th>
-                                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Nama Mata Kuliah</th>
-                                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">SKS</th>
-                                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="hover:bg-gray-50">
-                                                <td class="px-6 py-4 border-b">IF123</td>
-                                                <td class="px-6 py-4 border-b">Algoritma dan Struktur Data</td>
-                                                <td class="px-6 py-4 border-b">3</td>
-                                                <td class="px-6 py-4 border-b">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Menunggu Validasi</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="hover:bg-gray-50">
-                                                <td class="px-6 py-4 border-b">IF234</td>
-                                                <td class="px-6 py-4 border-b">Pemrograman Web</td>
-                                                <td class="px-6 py-4 border-b">3</td>
-                                                <td class="px-6 py-4 border-b">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Menunggu Validasi</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                
-                            <!-- Tombol Validasi -->
-                            <div class="flex justify-end">
-                                <button type="submit" class="px-6 py-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700">
-                                    Validasi KRS
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                
-            </main>
-        </x-layout>
-    </x-dosen-layout>
+        <main class="ml-20 mr-20 mt-5">
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-6">Kartu Rencana Studi (KRS)</h2>
+
+    <!-- Form Filter Semester -->
+    <div class="flex justify-between items-center text-sm font-medium text-gray-600">
+        <span>Tahun Ajaran: 2024/2025</span>
+        <form id="filter-form" class="w-1/5">
+            <select name="semester" id="semester-filter" class="mt-1 w-full p-3 rounded-lg bg-gray-50">
+                <option value="semester_1"
+                    {{ request('semester', 'semester_1') == 'semester_1' ? 'selected' : '' }}>Semester 1
+                </option>
+                <option value="semester_2" {{ request('semester') == 'semester_2' ? 'selected' : '' }}>
+                    Semester 2</option>
+                <option value="semester_3" {{ request('semester') == 'semester_3' ? 'selected' : '' }}>
+                    Semester 3</option>
+                <option value="semester_4" {{ request('semester') == 'semester_4' ? 'selected' : '' }}>
+                    Semester 4</option>
+                <option value="semester_5" {{ request('semester') == 'semester_5' ? 'selected' : '' }}>
+                    Semester 5</option>
+                <option value="semester_6" {{ request('semester') == 'semester_6' ? 'selected' : '' }}>
+                    Semester 6</option>
+                <option value="semester_7" {{ request('semester') == 'semester_7' ? 'selected' : '' }}>
+                    Semester 7</option>
+                <option value="semester_8" {{ request('semester') == 'semester_8' ? 'selected' : '' }}>
+                    Semester 8</option>
+            </select>
+        </form>
+    </div>
+</div>
+
+    <!-- Tabel KRS -->
+    <form id="krs-form" method="POST" action="{{ route('krs.submit') }}">
+        @csrf
+        @php
+            $selectedSemester = request('semester', '1');
+        @endphp
+
+        <table class="semester-table w-full border-collapse border border-gray-300">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2">Kode</th>
+                    <th class="border border-gray-300 px-4 py-2">Mata Kuliah</th>
+                    <th class="border border-gray-300 px-4 py-2">SKS</th>
+                    <th class="border border-gray-300 px-4 py-2">Dosen</th>
+                    <th class="border border-gray-300 px-4 py-2">Jadwal</th>
+                    <th class="border border-gray-300 px-4 py-2">Pilih</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($schedules as $schedule)
+                    @if ($schedule['course']['semester'] == $selectedSemester)
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['course']['code'] }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['course']['name'] }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['course']['sks'] }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['lecturer'] }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['time'] }}</td>
+                            <td class="border border-gray-300 px-4 py-2 text-center">
+                                <input type="checkbox" name="scheduleIds[]" value="{{ $schedule['id'] }}" class="form-checkbox h-5 w-5 text-blue-600" onchange="updateTotalSks()">
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            <p id="total-sks-display" class="font-bold">Total SKS: 0</p>
+            <button type="submit" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Simpan KRS</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function updateTotalSks() {
+        const checkboxes = document.querySelectorAll('input[name="scheduleIds[]"]:checked');
+        let totalSks = 0;
+
+        checkboxes.forEach((checkbox) => {
+            const row = checkbox.closest('tr');
+            const sks = parseInt(row.querySelector('td:nth-child(3)').textContent) || 0;
+            totalSks += sks;
+        });
+
+        document.getElementById('total-sks-display').textContent = `Total SKS: ${totalSks}`;
+    }
+</script>
+@endsection
+
+        </main>
+    </x-layout>
+</x-dosen-layout>

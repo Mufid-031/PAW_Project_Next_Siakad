@@ -2,12 +2,12 @@
 
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
-        <main class="ml-20 mr-20">
+        <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <!-- Bagian Header -->
                 <div class="border-b border-gray-200 mb-6">
                     <h1 class="text-2xl font-bold text-center text-gray-800">
-                        Selamat Datang {{ strToUpper($teacher['data']['name']) }}
+                        Selamat Datang {{ strToUpper( $teacher['data']['name'] )}}
                     </h1>
                 </div>
 
