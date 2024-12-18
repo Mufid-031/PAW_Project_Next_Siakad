@@ -3,7 +3,7 @@
     'teacher' => null
 ])
 
-<div class="antialiased bg-gray-50 dark:bg-gray-900">
+<div class="antialiased bg-gray-50">
     <x-dosen-navbar token="{{ $token }}" :teacher="$teacher" />
 
     {{ $slot }}
