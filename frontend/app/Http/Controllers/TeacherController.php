@@ -9,6 +9,7 @@ class TeacherController extends Controller
 {
 
     public $token;
+    public $student;
     public $teacher;
     public $announcements;
 
@@ -206,10 +207,12 @@ class TeacherController extends Controller
         return back()->withInput();
     }
 
-    public function validationDetail()
+    public function validate()
     {
         if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-validasi-krs-detail');
+            return view('dosen.dosen-detail-validasi-krs', [
+                'teacher' => $this->teacher
+            ]);
         }
         return back()->withInput();
     }

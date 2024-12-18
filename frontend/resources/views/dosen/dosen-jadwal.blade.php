@@ -2,7 +2,7 @@
 
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
-        <main class="ml-20 mr-20">
+        <main class="ml-20 mr-20 mt-5">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <!-- Header Section -->
                 <div class="border-b border-gray-200 mb-6">
@@ -15,8 +15,8 @@
                 </div>
 
                 <!-- Schedule Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
+                <div class="overflow-x-auto w-full">
+                    <table class="min-w-full table-auto">                
                         <thead>
                             <tr class="bg-gray-50">
                                 <th
@@ -58,7 +58,6 @@
                                 </tr>
                             @endforelse
                         </tbody>
-
                     </table>
                 </div>
             </div>
