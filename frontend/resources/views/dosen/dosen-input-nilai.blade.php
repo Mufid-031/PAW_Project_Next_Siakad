@@ -1,6 +1,9 @@
+{{-- {{ dd($absences) }} --}}
+
 <x-layout>
     <x-dosen-layout :teacher="$teacher">
         <main class="ml-20 mr-20 mt-5" x-data>
+
             <div class="max-w-6xl mx-auto p-6">
                 <a href="/dosen/sivitas" class="flex items-center text-gray-400 hover:text-gray-300 mb-6">
                     <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -9,6 +12,7 @@
                     </svg>
                     Kembali
                 </a>
+
 
                 <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                     <div class="border-b pb-4 mb-4">
@@ -89,4 +93,5 @@
             </div>
         </main>
     </x-dosen-layout>
+    <x-dosen-absen-modal />
 </x-layout>
