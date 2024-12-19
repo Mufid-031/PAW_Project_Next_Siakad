@@ -21,4 +21,19 @@ class ScheduleController extends Controller
             redirect('/auth/login/admin');
         }
     }
+
+    public static function getSchedule($id)
+    {
+        $token = TokenController::get();
+        if ($token) {
+            $response = Http::withHeaders([
+                'X-API-TOKEN' => $token
+            ])->get('http://localhost:3000/api/schedule/' . $id);
+
+            return $response->json();
+        } else {
+            redirect('/auth/login/admin');
+        }
+    }
+    
 }

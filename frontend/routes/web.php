@@ -70,13 +70,13 @@ Route::prefix('student')->group(function () {
     Route::get('/profile/update', [StudentController::class, 'editProfile']);
 });
 
-    
+
     Route::prefix('dosen')->group(function () {
         Route::get('/dashboard', [TeacherController::class, 'dashboard'])->name('dosen.dashboard');
         Route::get('/profile', [TeacherController::class, 'profile'])->name('dosen.profile');
         Route::get('/edit-profile', [TeacherController::class, 'profileUpdate'])->name('dosen.edit-profile');
         Route::get('/pengumuman', [TeacherController::class, 'pengumuman'])->name('dosen.pengumuman');
-        Route::get('/input-nilai', [TeacherController::class, 'grade'])->name('dosen.input-nilai');
+        Route::get('/input-nilai/{scheduleId}', [TeacherController::class, 'grade'])->name('dosen.input-nilai');
         Route::get('/jadwal', [TeacherController::class, 'schedule'])->name('dosen.jadwal');
         Route::get('/sivitas', [TeacherController::class, 'sivitas'])->name('dosen.sivitas');
         Route::get('/absen/{scheduleId}', [TeacherController::class, 'absen'])->name('dosen.absen');
@@ -94,7 +94,7 @@ Route::prefix('student')->group(function () {
             Route::get('/detail', [TeacherController::class, 'materiDetail'])->name('dosen.materi.detail');
         });
     });
-    
+
 
 
 Route::prefix('token')->group(function () {

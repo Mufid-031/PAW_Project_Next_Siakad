@@ -103,11 +103,19 @@ class TeacherController extends Controller
         return back()->withInput();
     }
 
-    public function grade()
+    public function grade($scheduleId)
     {
         if ($this->teacher['data']['role'] === "TEACHER") {
+            $schedule = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/schedule/' . $scheduleId)->json();
+            $absences = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/absensi/' . $scheduleId)->json();
             return view('dosen.dosen-input-nilai', [
-                'teacher' => $this->teacher
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'absences' => $absences
             ]);
         }
         return back()->withInput();
