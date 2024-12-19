@@ -103,15 +103,28 @@ class TeacherController extends Controller
         return back()->withInput();
     }
 
-    public function grade()
-    {
+    public function grade($scheduleId)
+{
+    if ($this->token) {
+        $response = Http::withHeaders([
+            'X-API-TOKEN' => $this->token
+        ])->get('http://localhost:3000/api/schedule/' . $scheduleId);
+        $schedule = $response->json();
+        $students = Http::withHeaders([
+            'X-API-TOKEN' => $this->token
+        ])->get('http://localhost:3000/api/students/' . $scheduleId)->json();
+
         if ($this->teacher['data']['role'] === "TEACHER") {
             return view('dosen.dosen-input-nilai', [
-                'teacher' => $this->teacher
+                'teacher' => $this->teacher,
+                'schedule' => $schedule,
+                'students' => $students['status'] === 200 ? $students : null
             ]);
         }
         return back()->withInput();
     }
+    return back()->withInput();
+}
 
     public function schedule()
     {
@@ -221,46 +234,6 @@ class TeacherController extends Controller
     {
         if ($this->teacher['data']['role'] === "TEACHER") {
             return view('dosen.dosen-cuti-req');
-        }
-        return back()->withInput();
-    }
-
-    public function materi()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiAdd()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-tambah-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiUpdate()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-edit-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiDelete()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-hapus-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiDetail()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-materi-detail');
         }
         return back()->withInput();
     }

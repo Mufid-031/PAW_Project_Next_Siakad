@@ -10,17 +10,15 @@
                                 <tr class="bg-gray-200 text-left">
                                     <th class="px-4 py-2">Semester</th>
                                     <th class="px-4 py-2">Jumlah Dibayar</th>
-                                    <th class="px-4 py-2">Metode Pembayaran</th>
                                     <th class="px-4 py-2">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($payments as $payment)
+                                @foreach ($payments as $key => $payment)
                                 <tr class="border-t border-gray-200">
-                                    <td class="px-4 py-2">{{ $payment->semester }}</td>
-                                    <td class="px-4 py-2">Rp {{ number_format($payment->amount, 0, ',', '.') }}</td>
-                                    <td class="px-4 py-2">{{ $payment->method }}</td>
-                                    <td class="px-4 py-2 text-{{ $payment->status == 'SUCCESS' ? 'green' : ($payment->status == 'PENDING' ? 'yellow' : 'red') }}-600 font-bold">{{ $payment->status }}</td>
+                                    <td class="px-4 py-2">semester {{ $key + 1 }}</td>
+                                    <td class="px-4 py-2">Rp {{ $payment['total'] }}</td>
+                                    <td class="px-4 py-2 {{ $payment['statusPembayaran'] === 'SUCCESS' ? 'text-green-500' : 'text-red-500' }}">{{ $payment['statusPembayaran'] }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

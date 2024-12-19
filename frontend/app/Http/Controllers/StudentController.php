@@ -217,24 +217,26 @@ class StudentController extends Controller
             'X-API-TOKEN' => $this->token
         ])->get('http://localhost:3000/api/pembayaran')->json();
 
-        if (!$payments || $payments['status'] !== 200) {
-            return redirect()->back()->with('error', 'Gagal memuat informasi pembayaran');
-        }
-
         if ($this->student['data']['role'] === "STUDENT") {
             return view('student.keuangan.student-pay', [
                 'student' => $this->student,
-                'payments' => $payments['data']
+                'payments' => $payments['status'] === 200 ? $payments['data'] : null
             ]);
         }
         return back()->withInput();
-
     }
 
     public function statusPembayaran()
     {
+        $payments = Http::withHeaders([
+            'X-API-TOKEN' => $this->token
+        ])->get('http://localhost:3000/api/pembayaran')->json();
+
         if ($this->student['data']['role'] === "STUDENT") {
-            return view('student.keuangan.student-status-pay', ['student' => $this->student, 'payments' => $this->payments['status'] === 200 ? $this->payments['data'] : null]);
+            return view('student.keuangan.student-status-pay', [
+                'student' => $this->student,
+                'payments' => $payments['status'] === 200 ? $payments['data'] : null
+            ]);
         }
         return back()->withInput();
     }

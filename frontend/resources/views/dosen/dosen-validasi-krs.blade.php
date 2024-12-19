@@ -18,7 +18,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($teacher['data']['teacher']['students'] as $student)
+                                @forelse($teacher['data']['teacher']['students'] as $student)
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2 border-b">{{ $student['nim'] }}</td>
                                         <td class="px-4 py-2 border-b">{{ $student['user']['name'] }}</td>
@@ -39,7 +39,11 @@
                                             <a href="{{ route('dosen.detail.krs') }}" class="px-4 py-2 rounded-md bg-green-600 text-white text-sm font-semibold hover:bg-green-700">Detail</a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="px-6 py-3 text-center text-sm text-gray-500">Tidak ada data mahasiswa.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

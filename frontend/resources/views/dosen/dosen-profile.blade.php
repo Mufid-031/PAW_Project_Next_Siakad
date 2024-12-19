@@ -141,11 +141,19 @@
                         }
                     }).then(data => data.data);
                     if (response.status === 201) {
-                        alert('Success Update User');
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success Edit Profile",
+                            text: response.message,
+                        })
                         window.location.replace('http://127.0.0.1:8000/dosen/profile')
                     }
                 } catch (error) {
-                    console.log(error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: error.response.data.errors || error.message,
+                    })
                 }
             })
         </script>

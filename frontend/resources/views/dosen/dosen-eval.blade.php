@@ -4,7 +4,7 @@
     <x-dosen-layout :teacher="$teacher">
         <main class="ml-20 mr-20 mt-5">
             <div class="max-w-6xl mx-auto p-6">
-                <a href="/student/sivitas" class="flex items-center text-gray-400 hover:text-gray-300 mb-6">
+                <a href="/dosen/sivitas" class="flex items-center text-gray-400 hover:text-gray-300 mb-6">
                     <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -31,7 +31,7 @@
                         <h1 class="text-2xl font-bold text-gray-800">Riwayat Evaluasi</h1>
                     </div>
 
-                    @if ($evaluations['data'] === [] || $evaluations === null)
+                    @if ($evaluations === null)
                         <p class="text-gray-800">Belum ada riwayat evaluasi</p>
                     @else
                         <table class="min-w-full divide-y divide-gray-200">

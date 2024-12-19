@@ -106,10 +106,10 @@
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                             </svg>
                             <div class="text-white">
-                                <a href="/dosen-input-nilai">
-                                    <h3 class="text-xl font-semibold">Akademik</h3>
+                                <a href="{{ route('dosen.validasi') }}">
+                                    <h3 class="text-xl font-semibold">Validasi</h3>
                                 </a>
-                                <p class="text-emerald-100">Input Nilai</p>
+                                <p class="text-emerald-100">Lihat Validasi KRS</p>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                                     d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
                             </svg>
                             <div class="text-white">
-                                <a href="/dosen-sivitas">
+                                <a href="{{ route('dosen.sivitas') }}">
                                     <h3 class="text-xl font-semibold">Sivitas</h3>
                                 </a>
                                 <p class="text-purple-100">Access dosen Sivitas</p>
@@ -166,7 +166,8 @@
                                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                             </svg>
                             <div class="text-white">
-                                <h3 class="text-xl font-semibold">Perpustakaan</h3>
+                                <a href="{{ route('dosen.perpustakaan') }}">
+                                <h3 class="text-xl font-semibold">Perpustakaan</h3></a>
                                 <p class="text-pink-100">Access digital library</p>
                             </div>
                         </div>
@@ -185,8 +186,10 @@
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
                             <div class="text-white">
-                                <h3 class="text-xl font-semibold">Alumni</h3>
-                                <p class="text-blue-100">Connect with alumni</p>
+                                <a href="{{ route('dosen.perwalian') }}">
+                                    <h3 class="text-xl font-semibold">Perwalian</h3>
+                                </a>
+                                <p class="text-blue-100">Lihat Mahasiswa</p>
                             </div>
                         </div>
                     </div>
