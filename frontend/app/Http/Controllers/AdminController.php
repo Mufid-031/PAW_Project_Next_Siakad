@@ -184,7 +184,7 @@ class AdminController extends Controller
     public function createStudent()
     {
         if ($this->admin['data']['role'] === "ADMIN") {
-            return view('admin.users.create.student', ['admin' => $this->admin,'teachers' => $this->teachers]);
+            return view('admin.users.create.student', ['admin' => $this->admin, 'teachers' => $this->teachers]);
         }
         return back()->withInput();
     }
@@ -217,6 +217,14 @@ class AdminController extends Controller
     {
         if ($this->admin['data']['role'] === "ADMIN") {
             return view('admin.schedule.create.schedule', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers]);
+        }
+        return back()->withInput();
+    }
+
+    public function openClass()
+    {
+        if ($this->admin['data']['role'] === "ADMIN") {
+            return view('admin.schedule.open-class', ['admin' => $this->admin, 'courses' => $this->courses, 'teachers' => $this->teachers]);
         }
         return back()->withInput();
     }
