@@ -46,7 +46,7 @@
                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
                                         {{ $schedule['course']['name'] }}</td>
                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                        {{ $schedule['day'] }} {{ $schedule['time'] }}</td>
+                                        {{ \Carbon\Carbon::parse($schedule['day'])->locale('id')->dayName }}, {{ $schedule['time'] }}</td>
                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
                                         {{ $schedule['room'] }}</td>
                                 </tr>
