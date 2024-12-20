@@ -3,7 +3,7 @@
     <x-layout>
         <main class="ml-20 mr-20 mt-5">
             {{-- Transkip NIlai --}}
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div id="transkip-table" class="bg-white rounded-lg shadow-lg p-6 mb-6">
                 <div class="border-b border-gray-200 mb-6">
                     <h1 class="text-2xl font-bold text-center text-gray-800 mb-4">
                         Transkip Nilai
@@ -18,7 +18,7 @@
                         Cetak PDF
                     </button>
                 </div>
-                <div class="overflow-x-auto mb-4" id="transkip-table">
+                <div class="overflow-x-auto mb-4" >
                     <table class="w-full border-collapse">
                         <thead>
                             <tr class="bg-gray-50">
@@ -85,6 +85,9 @@
                     left: 0;
                     top: 0;
                     width: 100%;
+                }
+                #print-button {
+                    display: none;
                 }
                 table {
                     border-collapse: collapse;
