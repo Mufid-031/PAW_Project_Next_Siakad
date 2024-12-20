@@ -59,7 +59,7 @@
                                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
                                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
                                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['teacher']['user']['name'] }}</td>
-                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] }}, {{ $enrollment['schedule']['time'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ \Carbon\Carbon::parse($enrollment['schedule']['day'])->locale('id')->dayName }}, {{ $enrollment['schedule']['time'] }}</td>
                                                     <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['room'] }}</td>
                                                 </tr>
                                             @endif
