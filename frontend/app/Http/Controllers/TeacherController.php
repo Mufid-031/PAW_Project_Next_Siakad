@@ -115,7 +115,7 @@ class TeacherController extends Controller
             ]);
         }
         return back()->withInput();
-    }
+}
 
     public function schedule()
     {
@@ -246,46 +246,6 @@ class TeacherController extends Controller
     {
         if ($this->teacher['data']['role'] === "TEACHER") {
             return view('dosen.dosen-cuti-req');
-        }
-        return back()->withInput();
-    }
-
-    public function materi()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiAdd()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-tambah-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiUpdate()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-edit-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiDelete()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-hapus-materi');
-        }
-        return back()->withInput();
-    }
-
-    public function materiDetail()
-    {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-materi-detail');
         }
         return back()->withInput();
     }
