@@ -45,7 +45,7 @@
                 <!-- Tables for each semester -->
                 @for ($i = 1; $i <= 8; $i++)
                     <div id="semester-{{ $i }}" class="semester-table hidden">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Semester {{ $i }}</h2>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Hasil Studi Semester {{ $i }}</h2>
                         <div class="overflow-x-auto mb-4">
                             <table class="w-full border-collapse">
                                 <thead>

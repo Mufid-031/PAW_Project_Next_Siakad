@@ -109,13 +109,9 @@ class TeacherController extends Controller
             $schedule = Http::withHeaders([
                 'X-API-TOKEN' => $this->token
             ])->get('http://localhost:3000/api/schedule/' . $scheduleId)->json();
-            $absences = Http::withHeaders([
-                'X-API-TOKEN' => $this->token
-            ])->get('http://localhost:3000/api/absensi/' . $scheduleId)->json();
             return view('dosen.dosen-input-nilai', [
                 'teacher' => $this->teacher,
                 'schedule' => $schedule,
-                'absences' => $absences
             ]);
         }
         return back()->withInput();
@@ -155,6 +151,7 @@ class TeacherController extends Controller
                 return view('dosen.dosen-absen', [
                     'teacher' => $this->teacher,
                     'schedule' => $schedule,
+                    'scheduleId' => $scheduleId,
                     'absences' => $absences['status'] === 200 ? $absences : null
                 ]);
             }
@@ -185,12 +182,23 @@ class TeacherController extends Controller
         return back()->withInput();
     }
 
-    public function historyAbsen()
+    public function historyAbsen(Request $request)
     {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-riwayat-absen', [
-                'teacher' => $this->teacher
-            ]);
+        if ($this->token) {
+            if ($this->teacher['data']['role'] === "TEACHER") {
+                $absences = Http::withHeaders([
+                    'X-API-TOKEN' => $this->token
+                ])->post('http://localhost:3000/api/absensi/pertemuan/detail', [
+                    'scheduleId' => $request->scheduleId,
+                    'pertemuan' => $request->pertemuan,
+                ])->json();
+
+                return view('dosen.dosen-riwayat-absen', [
+                    'teacher' => $this->teacher,
+                    'absences' => $absences
+                ]);
+            }
+            return back()->withInput();
         }
         return back()->withInput();
     }
@@ -215,12 +223,21 @@ class TeacherController extends Controller
         return back()->withInput();
     }
 
-    public function validate()
+    public function validate($studentId)
     {
-        if ($this->teacher['data']['role'] === "TEACHER") {
-            return view('dosen.dosen-detail-validasi-krs', [
-                'teacher' => $this->teacher
-            ]);
+        if ($this->token) {
+            $enrollments = Http::withHeaders([
+                'X-API-TOKEN' => $this->token
+            ])->get('http://localhost:3000/api/enrollment/student/' . $studentId)->json();
+
+            if ($this->teacher['data']['role'] === "TEACHER") {
+                return view('dosen.dosen-detail-validasi-krs', [
+                    'teacher' => $this->teacher,
+                    'enrollments' => $enrollments
+                ]);
+            }
+
+            return back()->withInput();
         }
         return back()->withInput();
     }
