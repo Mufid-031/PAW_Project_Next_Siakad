@@ -24,26 +24,37 @@
                 @for ($i = 1; $i <= 8; $i++)
                     <div id="semester-{{ $i }}" class="semester-container hidden">
                         <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-4 m-3 mx-auto">
+                            @php
+                                $isValidated = false;
+                            @endphp
                             @foreach ($enrollments['data'] as $key => $enrollment)
                                 @if ($enrollment['schedule']['course']['semester'] == 'semester_' . $i)
-                                    <div class="bg-slate-100 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 space-y-4">
-                                        <div class="text-center space-y-1">
-                                            <h2 class="text-lg font-semibold text-gray-800">{{$enrollment['schedule']['course']['name']}}</h2>
-                                            <p class="text-gray-600">{{$enrollment['schedule']['course']['code']}}</p>
-                                        </div>
-                                        
-                                        <div class="space-y-2">
-                                            <a href="/student/absen/{{ $enrollment['scheduleId'] }}" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
-                                                ABSENSI →
-                                            </a>
+                                    @if ($enrollment['isValidated'] == true)
+                                        @php
+                                            $isValidated = true;
+                                        @endphp
+                                        <div class="bg-slate-100 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-200 space-y-4">
+                                            <div class="text-center space-y-1">
+                                                <h2 class="text-lg font-semibold text-gray-800">{{$enrollment['schedule']['course']['name']}}</h2>
+                                                <p class="text-gray-600">{{$enrollment['schedule']['course']['code']}}</p>
+                                            </div>
+                                            
+                                            <div class="space-y-2">
+                                                <a href="/student/absen/{{ $enrollment['scheduleId'] }}" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
+                                                    ABSENSI →
+                                                </a>
 
-                                            <a href="/student/eval-dosen/{{ $enrollment['scheduleId'] }}" class="block w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
-                                                Form Evaluasi
-                                            </a>
+                                                <a href="/student/eval-dosen/{{ $enrollment['scheduleId'] }}" class="block w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
+                                                    Form Evaluasi
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endif
                             @endforeach
+                            @if (!$isValidated)
+                                <h2 colspan="6" class="text-center border border-gray-200 px-4 py-3 text-sm text-gray-600">Anda Belum Melakukan Validasi KRS, Silahkan Lakukan validasi dengan dosen Anda</h2>
+                            @endif
                         </div>
                     </div>
                 @endfor

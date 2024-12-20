@@ -22,7 +22,7 @@
                     @forelse ($course['schedule'] as $schedule)
                         <x-course-detail label="Jadwal Kelas" :value="$schedule['time']" />
                         <x-course-detail label="Ruangan" :value="$schedule['room']" />
-                        <x-course-detail label="Hari" :value="$schedule['day']" />
+                        <x-course-detail label="Hari" :value="\Carbon\Carbon::parse($schedule['day'])->locale('id')->dayName" />
                     @empty
                         <x-course-detail label="Jadwal Kelas" :value="'Belum ditentukan'" />
                         <x-course-detail label="Ruangan" :value="'Belum ditentukan'" />
