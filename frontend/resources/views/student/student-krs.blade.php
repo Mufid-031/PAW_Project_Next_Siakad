@@ -100,7 +100,7 @@
                                                 <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
                                                     {{ $schedule['course']['name'] }}</td>
                                                 <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                                    {{ $schedule['day'] . ', ' . $schedule['time'] }}</td>
+                                                    {{ \Carbon\Carbon::parse($schedule['day'])->locale('id')->dayName }}, {{ $schedule['time'] }}</td>
                                                 <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
                                                     {{ $schedule['course']['semester'] }}</td>
                                                 <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
@@ -176,7 +176,7 @@
                                                         <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
                                                         <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
                                                         <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
-                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] . ', ' . $enrollment['schedule']['time'] }}</td>
+                                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ \Carbon\Carbon::parse($enrollment['schedule']['day'])->locale('id')->dayName }}, {{ $enrollment['schedule']['time'] }}</td>
                                                         <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['semester'] }}</td>
                                                         <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['sks'] }}</td>
                                                         <td class="border border-gray-200 px-4 py-3 text-center">
