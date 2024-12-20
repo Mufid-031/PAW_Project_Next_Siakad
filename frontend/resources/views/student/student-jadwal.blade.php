@@ -45,18 +45,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $isValidated = false;
+                                    @endphp
                                     @foreach ($enrollments['data'] as $key => $enrollment)
                                         @if ($enrollment['schedule']['course']['semester'] == 'semester_' . $i)
-                                            <tr class="hover:bg-gray-50">
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['teacher']['user']['name'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] }}, {{ $enrollment['schedule']['time'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['room'] }}</td>
-                                            </tr>
+                                            @if ($enrollment['isValidated'] == true)
+                                                @php
+                                                    $isValidated = true;
+                                                @endphp
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['teacher']['user']['name'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['day'] }}, {{ $enrollment['schedule']['time'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['room'] }}</td>
+                                                </tr>
+                                            @endif
                                         @endif
                                     @endforeach
+                                    @if (!$isValidated)
+                                        <tr class="hover:bg-gray-50">
+                                            <td colspan="6" class="text-center border border-gray-200 px-4 py-3 text-sm text-gray-600">Anda Belum Melakukan Validasi KRS, Silahkan Lakukan validasi dengan dosen Anda</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
