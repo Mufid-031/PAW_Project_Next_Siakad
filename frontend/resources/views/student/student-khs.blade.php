@@ -61,25 +61,28 @@
                                     @php
                                         $totalSks = 0;
                                         $totalPoints = 0;
+                                        $isValidated = false;
                                     @endphp
                                     @foreach ($enrollments['data'] as $key => $enrollment)
                                         @if ($enrollment['schedule']['course']['semester'] == 'semester_' . $i)
-                                            @php
-                                                $sks = $enrollment['schedule']['course']['sks'];
-                                                $gradePoint = getGradePoint($enrollment['grade']);
-                                                $totalSks += $sks;
-                                                $totalPoints += ($sks * $gradePoint);
-                                            @endphp
-                                            <tr class="hover:bg-gray-50">
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['sks'] }}</td>
-                                                <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['grade'] }}</td>
-                                            </tr>
+                                            @if ($enrollment['isValidated'] == true)
+                                                @php
+                                                    $isValidated = true;
+                                                    $sks = $enrollment['schedule']['course']['sks'];
+                                                    $gradePoint = getGradePoint($enrollment['grade']);
+                                                    $totalSks += $sks;
+                                                    $totalPoints += ($sks * $gradePoint);
+                                                @endphp
+                                                <tr class="hover:bg-gray-50">
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $loop->iteration }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['code'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['name'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['schedule']['course']['sks'] }}</td>
+                                                    <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">{{ $enrollment['grade'] }}</td>
+                                                </tr>
+                                            @endif
                                         @endif
                                     @endforeach
-
                                     {{-- Melihat IP --}}
                                     <tr class="bg-gray-100">
                                         <td colspan="3" class="border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-600 text-right">

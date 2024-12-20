@@ -40,20 +40,28 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $isValidated = false;
+                            @endphp
                             @if ($enrollments['status'] == 200)
                                 @foreach ($enrollments['data'] as $key => $enrollment)
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                            {{ $loop->iteration }}</td>
-                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                            {{ $enrollment['schedule']['course']['code'] }}</td>
-                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                            {{ $enrollment['schedule']['course']['name'] }}</td>
-                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
-                                            {{ $enrollment['schedule']['course']['sks'] }}</td>
-                                        <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600 grade">
-                                            {{ $enrollment['grade'] ?? '-' }}</td>
-                                    </tr>
+                                    @if ($enrollment['isValidated'] == true)
+                                        @php
+                                            $isValidated = true;
+                                        @endphp
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                                {{ $loop->iteration }}</td>
+                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                                {{ $enrollment['schedule']['course']['code'] }}</td>
+                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                                {{ $enrollment['schedule']['course']['name'] }}</td>
+                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600">
+                                                {{ $enrollment['schedule']['course']['sks'] }}</td>
+                                            <td class="border border-gray-200 px-4 py-3 text-sm text-gray-600 grade">
+                                                {{ $enrollment['grade'] ?? '-' }}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             @endif
 

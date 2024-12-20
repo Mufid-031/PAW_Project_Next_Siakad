@@ -1,4 +1,3 @@
-{{-- {{ dd($scholarships) }} --}}
 <x-admin-layout>
     <x-admin-sidebar :admin="$admin">
         <div class="container mx-auto px-6 py-8">
@@ -21,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 justify-center gap-6 mb-8">
+            <div class="grid grid-cols-3 justify-center gap-6 mb-8">
                 @if ($scholarships == null)
                     <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                         <div class="p-5">
@@ -61,12 +60,11 @@
                             <div
                                 class="flex items-center justify-between gap-2 p-4 bg-gray-100 border-t border-gray-200">
                                 <div>
-                                    <button
+                                    <button onclick="openEditModal({{ json_encode($scholarship) }})"
                                         class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-900 transition-colors">
                                         Edit
                                     </button>
-                                    <button
-                                        onclick="deleteConfirmation({{ $scholarship['id'] }})"
+                                    <button onclick="deleteConfirmation({{ $scholarship['id'] }})"
                                         class="px-2 py-1 bg-ultramarine-400 text-white rounded-md hover:bg-ultramarine-900 transition-colors">
                                         Hapus
                                     </button>
@@ -79,6 +77,56 @@
                         </div>
                     @endforeach
                 @endif
+            </div>
+        </div>
+
+        {{-- Modal --}}
+        <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3 text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Edit Beasiswa</h3>
+                    <form id="editScholarshipForm" onsubmit="updateScholarship(event)">
+                        <input type="hidden" id="scholarshipId">
+                        <div class="flex flex-col">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-800">Nama Beasiswa</label>
+                                <input type="text" id="nama"
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-200 p-3 focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-800">Deskripsi</label>
+                                <textarea id="deskripsi"
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-200 p-3 focus:border-blue-500 focus:ring-blue-500 shadow-sm"></textarea>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-800">Tanggal Mulai</label>
+                                <input type="date" id="mulai"
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-200 p-3 focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-800">Tanggal Akhir</label>
+                                <input type="date" id="akhir"
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-200 p-3 focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-800">Link Beasiswa</label>
+                                <input type="url" id="link"
+                                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-200 p-3 focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-4 pt-6 mt-6 border-t border-gray-200">
+                            <button type="button" onclick="closeEditModal()"
+                                class="px-6 py-2.5 bg-red-500 text-white rounded-md hover:bg-red-900 transition-colors">
+                                Batal
+                            </button>
+                            <button type="submit"
+                                class="px-6 py-2.5 bg-blue-400 text-white rounded-md hover:bg-blue-900 transition-colors">
+                                Simpan
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -96,29 +144,76 @@
                     if (result.isConfirmed) {
                         try {
                             const token = await axios.post('/token/get-token').then(res => res.data);
-                            const response = await axios.delete('http://localhost:3000/api/beasiswa/' + id, {
+                            const response = await axios.delete(`http://localhost:3000/api/beasiswa/${id}`, {
                                 headers: {
-                                    'X-API-TOKEN': `${token}`
+                                    'X-API-TOKEN': token
                                 }
-                            }).then(res => res.data);
-                            if (response.status === 201) {
-                                Swal.fire(
-                                    'Dihapus!',
-                                    'Beasiswa telah dihapus.',
-                                    'success'
-                                );
-                                window.location.reload();
-                            }
+                            });
+
+                            Swal.fire('Dihapus!', 'Beasiswa telah dihapus.', 'success');
+                            window.location.reload();
                         } catch (error) {
                             Swal.fire({
                                 icon: "error",
                                 title: "Error",
-                                text: error.response?.data.errors || error.message,
-                            })
+                                text: error.response?.data?.errors || error.message,
+                            });
                         }
                     }
-                })
+                });
+            }
 
+            function openEditModal(scholarship) {
+                document.getElementById('editModal').classList.remove('hidden');
+                document.getElementById('scholarshipId').value = scholarship.id;
+                document.getElementById('nama').value = scholarship.nama;
+                document.getElementById('deskripsi').value = scholarship.deskripsi;
+                document.getElementById('mulai').value = scholarship.mulai;
+                document.getElementById('akhir').value = scholarship.akhir;
+                document.getElementById('link').value = scholarship.link;
+            }
+
+            function closeEditModal() {
+                document.getElementById('editModal').classList.add('hidden');
+            }
+
+            async function updateScholarship(event) {
+                event.preventDefault();
+                const id = document.getElementById('scholarshipId').value;
+                const nama = document.getElementById('nama').value;
+                const deskripsi = document.getElementById('deskripsi').value;
+                const mulai = document.getElementById('mulai').value;
+                const akhir = document.getElementById('akhir').value;
+                const link = document.getElementById('link').value;
+
+                try {
+                    const token = await axios.post('/token/get-token').then(res => res.data);
+                    const response = await axios.patch(`http://localhost:3000/api/beasiswa`, {
+                        id,
+                        nama,
+                        deskripsi,
+                        mulai,
+                        akhir,
+                        link
+                    }, {
+                        headers: {
+                            'X-API-TOKEN': token
+                        }
+                    });
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Beasiswa berhasil diperbarui.",
+                    });
+                    window.location.reload();
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: error.response?.data?.errors || error.message,
+                    });
+                }
             }
         </script>
     </x-admin-sidebar>
