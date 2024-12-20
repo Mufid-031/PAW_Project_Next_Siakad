@@ -146,8 +146,8 @@
                     });
                 }
             });
-
         });
+        
         document.getElementById('semesterFilter').addEventListener('change', function() {
             const selectedSemester = this.value;
             const rows = document.querySelectorAll('.course-row');
