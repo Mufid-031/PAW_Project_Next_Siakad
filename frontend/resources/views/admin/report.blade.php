@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow">
+            <div class="bg-white rounded-lg shadow mb-8">
                 <div class="p-6">
                     <h2 class="text-xl font-bold mb-4">Grafik Performa Akademik</h2>
                     <div class="h-96">
@@ -65,31 +65,45 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-4">Grafik Detail Transaksi (Mitrans)</h2>
+                    <div class="h-96">
+                        <canvas id="transactionChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            const ctx = document.getElementById('academicChart').getContext('2d');
-            new Chart(ctx, {
+            // Grafik Performa Akademik
+            const academicCtx = document.getElementById('academicChart').getContext('2d');
+            new Chart(academicCtx, {
                 type: 'line',
                 data: {
                     labels: ['2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Pemrograman Web',
-                        data: [10, 85, 88],
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }, {
-                        label: 'Basis Data',
-                        data: [80, 83, 86],
-                        borderColor: 'rgb(255, 99, 132)',
-                        tension: 0.1
-                    }, {
-                        label: 'Algoritma',
-                        data: [78, 81, 84],
-                        borderColor: 'rgb(153, 102, 255)',
-                        tension: 0.1
-                    }]
+                    datasets: [
+                        {
+                            label: 'Pemrograman Web',
+                            data: [10, 85, 88],
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }, 
+                        {
+                            label: 'Basis Data',
+                            data: [80, 83, 86],
+                            borderColor: 'rgb(255, 99, 132)',
+                            tension: 0.1
+                        }, 
+                        {
+                            label: 'Algoritma',
+                            data: [78, 81, 84],
+                            borderColor: 'rgb(153, 102, 255)',
+                            tension: 0.1
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -103,7 +117,38 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Perkembangan Nilai Per Tahun (2021-2023)'
+                            text: 'Perkembangan Nilai Rata-Rata Per Tahun (2021-2023)'
+                        }
+                    }
+                }
+            });
+
+            // Grafik Detail Transaksi (Mitrans)
+            const transactionCtx = document.getElementById('transactionChart').getContext('2d');
+            new Chart(transactionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni'],
+                    datasets: [
+                        {
+                            label: 'Total Transaksi',
+                            data: [120000, 150000, 100000, 180000, 130000, 170000],
+                            backgroundColor: 'rgb(54, 162, 235)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Detail Transaksi Bulanan'
                         }
                     }
                 }

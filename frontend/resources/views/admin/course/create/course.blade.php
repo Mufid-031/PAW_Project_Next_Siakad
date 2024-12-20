@@ -77,7 +77,6 @@
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             const formCourse = document.querySelector('#courseForm');
             formCourse.addEventListener('submit', async (e) => {
