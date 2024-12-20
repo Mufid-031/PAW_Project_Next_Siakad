@@ -1,95 +1,126 @@
-<x-dosen-layout :teacher="$teacher">
-    <x-layout>
+{{-- {{ dd($enrollments) }} --}}
+
+<x-layout>
+    <x-dosen-layout :teacher="$teacher">
         <main class="ml-20 mr-20 mt-5">
-<div class="container mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-6">Kartu Rencana Studi (KRS)</h2>
+            <div class="container mx-auto p-6">
+                <h2 class="text-2xl font-bold mb-6">{{ $enrollments['data'][0]['student']['user']['name'] }}</h2>
 
-    <!-- Form Filter Semester -->
-    <div class="flex justify-between items-center text-sm font-medium text-gray-600">
-        <span>Tahun Ajaran: 2024/2025</span>
-        <form id="filter-form" class="w-1/5">
-            <select name="semester" id="semester-filter" class="mt-1 w-full p-3 rounded-lg bg-gray-50">
-                <option value="semester_1"
-                    {{ request('semester', 'semester_1') == 'semester_1' ? 'selected' : '' }}>Semester 1
-                </option>
-                <option value="semester_2" {{ request('semester') == 'semester_2' ? 'selected' : '' }}>
-                    Semester 2</option>
-                <option value="semester_3" {{ request('semester') == 'semester_3' ? 'selected' : '' }}>
-                    Semester 3</option>
-                <option value="semester_4" {{ request('semester') == 'semester_4' ? 'selected' : '' }}>
-                    Semester 4</option>
-                <option value="semester_5" {{ request('semester') == 'semester_5' ? 'selected' : '' }}>
-                    Semester 5</option>
-                <option value="semester_6" {{ request('semester') == 'semester_6' ? 'selected' : '' }}>
-                    Semester 6</option>
-                <option value="semester_7" {{ request('semester') == 'semester_7' ? 'selected' : '' }}>
-                    Semester 7</option>
-                <option value="semester_8" {{ request('semester') == 'semester_8' ? 'selected' : '' }}>
-                    Semester 8</option>
-            </select>
-        </form>
-    </div>
-</div>
+                <!-- Form Filter Semester -->
+                <div class="flex justify-between items-center text-sm font-medium text-gray-600 mb-4">
+                    <span>{{ $enrollments['data'][0]['student']['nim'] }}</span>
+                    <div class="flex items-center">
+                        <label for="semester" class="mr-2">Semester:</label>
+                        <select id="semester-filter" class="border border-gray-300 rounded px-2 py-1">
+                            <option value="">Semua Semester</option>
+                            <option value="semester_1">Semester 1</option>
+                            <option value="semester_2">Semester 2</option>
+                            <option value="semester_3">Semester 3</option>
+                            <option value="semester_4">Semester 4</option>
+                            <option value="semester_5">Semester 5</option>
+                            <option value="semester_6">Semester 6</option>
+                            <option value="semester_7">Semester 7</option>
+                            <option value="semester_8">Semester 8</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Tabel KRS -->
-    <form id="krs-form" method="POST" action="{{ route('krs.submit') }}">
-        @csrf
-        @php
-            $selectedSemester = request('semester', '1');
-        @endphp
-
-        <table class="semester-table w-full border-collapse border border-gray-300">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="border border-gray-300 px-4 py-2">Kode</th>
-                    <th class="border border-gray-300 px-4 py-2">Mata Kuliah</th>
-                    <th class="border border-gray-300 px-4 py-2">SKS</th>
-                    <th class="border border-gray-300 px-4 py-2">Dosen</th>
-                    <th class="border border-gray-300 px-4 py-2">Jadwal</th>
-                    <th class="border border-gray-300 px-4 py-2">Pilih</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($schedules as $schedule)
-                    @if ($schedule['course']['semester'] == $selectedSemester)
+            <form id="validation-form">
+                <table class="semester-table w-full border-collapse border border-gray-300">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['course']['code'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['course']['name'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['course']['sks'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['lecturer'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $schedule['time'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2 text-center">
-                                <input type="checkbox" name="scheduleIds[]" value="{{ $schedule['id'] }}" class="form-checkbox h-5 w-5 text-blue-600" onchange="updateTotalSks()">
-                            </td>
+                            <th class="border border-gray-300 px-4 py-2">Kode</th>
+                            <th class="border border-gray-300 px-4 py-2">Mata Kuliah</th>
+                            <th class="border border-gray-300 px-4 py-2">SKS</th>
+                            <th class="border border-gray-300 px-4 py-2">Dosen</th>
+                            <th class="border border-gray-300 px-4 py-2">Jadwal</th>
+                            <th class="border border-gray-300 px-4 py-2">Semester</th>
+                            <th class="border border-gray-300 px-4 py-2">Pilih</th>
                         </tr>
-                    @endif
-                @endforeach
-            </tbody>
-        </table>
-
-        <div class="mt-4">
-            <p id="total-sks-display" class="font-bold">Total SKS: 0</p>
-            <button type="submit" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Simpan KRS</button>
-        </div>
-    </form>
-</div>
+                    </thead>
+                    <tbody id="enrollments-table-body">
+                        @foreach ($enrollments['data'] as $enrollment)
+                            <tr class="enrollment-row"
+                                data-semester="{{ $enrollment['schedule']['course']['semester'] }}">
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $enrollment['schedule']['course']['code'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $enrollment['schedule']['course']['name'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $enrollment['schedule']['course']['sks'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $enrollment['schedule']['teacher']['user']['name'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $enrollment['schedule']['day'] . ', ' . $enrollment['schedule']['time'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    {{ $enrollment['schedule']['course']['semester'] }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2 text-center">
+                                    <input type="checkbox" {{ $enrollment['isValidated'] ? 'checked' : '' }}
+                                        name="enrollmentIds[]" value="{{ $enrollment['schedule']['id'] }}"
+                                        class="form-checkbox h-5 w-5 text-blue-600"
+                                        onchange="validateEnrollment(event)">
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </form>
+        </main>
+    </x-dosen-layout>
+</x-layout>
 
 <script>
-    function updateTotalSks() {
-        const checkboxes = document.querySelectorAll('input[name="scheduleIds[]"]:checked');
-        let totalSks = 0;
+    document.getElementById('semester-filter').addEventListener('change', function() {
+        const selectedSemester = this.value;
+        const rows = document.querySelectorAll('.enrollment-row');
 
-        checkboxes.forEach((checkbox) => {
-            const row = checkbox.closest('tr');
-            const sks = parseInt(row.querySelector('td:nth-child(3)').textContent) || 0;
-            totalSks += sks;
+        rows.forEach(row => {
+            const rowSemester = row.getAttribute('data-semester');
+            if (selectedSemester === '' || rowSemester === selectedSemester) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
+    });
 
-        document.getElementById('total-sks-display').textContent = `Total SKS: ${totalSks}`;
+    async function validateEnrollment(e) {
+        const scheduleId = e.target.value;
+        const studentId = {{ $enrollments['data'][0]['student']['id'] }};
+        console.log(scheduleId, studentId);
+        try {
+            const token = await axios.post('/token/get-token').then(res => res.data);
+            const res = await axios.post('http://localhost:3000/api/enrollment/validation', {
+                scheduleId,
+                studentId
+            }, {
+                headers: {
+                    'X-API-TOKEN': `${token}`
+                }
+            }).then(res => {
+                if (res.data.status === 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: res.data.message
+                    }).then(() => {
+                        window.location.reload();
+                    })
+                }
+            })
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.response.data.errors
+            })
+        }
     }
 </script>
-@endsection
-
-        </main>
-    </x-layout>
-</x-dosen-layout>

@@ -81,10 +81,10 @@ Route::prefix('student')->group(function () {
         Route::get('/sivitas', [TeacherController::class, 'sivitas'])->name('dosen.sivitas');
         Route::get('/absen/{scheduleId}', [TeacherController::class, 'absen'])->name('dosen.absen');
         Route::get('/eval-dosen/{scheduleId}', [TeacherController::class, 'evalDosen'])->name('dosen.eval-dosen');
-        Route::get('/riwayat-absen', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
+        Route::get('/riwayat-absen/{scheduleId}/{pertemuan}', [TeacherController::class, 'historyAbsen'])->name('dosen.riwayat-absen');
         Route::get('/perwalian', [TeacherController::class, 'perwalian'])->name('dosen.perwalian');
         Route::get('/validasi', [TeacherController::class, 'validation'])->name('dosen.validasi');
-        Route::get('/detail-validasi', [TeacherController::class, 'validate'])->name('dosen.detail.krs');
+        Route::get('/validasi/detail/{studentId}', [TeacherController::class, 'validate'])->name('dosen.detail.krs');
         Route::get('/cuti-req', [TeacherController::class, 'cutiReq'])->name('dosen.cuti-req');
         Route::prefix('materi')->group(function () {
             Route::get('/', [TeacherController::class, 'materi']);
