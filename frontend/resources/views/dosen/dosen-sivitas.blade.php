@@ -16,7 +16,7 @@
                                 <a href="/dosen/absen/{{ $schedule['id'] }}" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
                                     ABSENSI →
                                 </a>
-                                <a href="/dosen/input-nilai" class="block w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
+                                <a href="/dosen/input-nilai/{{ $schedule['id'] }}" class="block w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
                                     Input Nilai
                                 <a href="/dosen/eval-dosen/{{ $schedule['id'] }}" class="block w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 text-center">
                                     Hasil Evaluasi
